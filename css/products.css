@@ -1,0 +1,38 @@
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    margin: 40px 0px 0px 40px;
+}
+
+.filter {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding: 20px 100px 20px 40px;
+    min-height: 350px;
+    width: 300px;
+}
+
+.filter-header, .filter-header1 {
+    font-size: 18px;
+}
+
+.filter-header {
+    margin-top: 10px;
+}
+
+.filter-child {
+    margin-left: 40px;
+}
+
+.filter-child .form-check-input {
+    width: 18px;
+    height: 18px;
+}
+
+.filter-child label {
+    margin-left: 5px;
+}
+
+.filter a {
+    color: black;
+}
