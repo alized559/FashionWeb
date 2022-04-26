@@ -43,6 +43,6 @@
         </div>
     </div>
 
-    <?php $sticky=true; include('footer.php'); ?>
+    <?php include('footer.php') ?>
 </body>
 </html>
