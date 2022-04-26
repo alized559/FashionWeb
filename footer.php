@@ -1,4 +1,10 @@
-<footer class="text-center text-lg-start bg-white">
+<?php
+if(isset($sticky) && $sticky){
+    echo "<footer class='text-center fixed-bottom text-lg-start bg-white'>";
+}else {
+    echo "<footer class='text-center text-lg-start bg-white'>";
+} 
+?>
 <div class="container text-center text-md-start mt-5">
     <div class="row mt-3">
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
@@ -37,3 +43,20 @@
     <a class="text-reset fw-bold" style="color: white;" href="#">fashion.com</a>
 </div>
 </footer>
+
+<!--<script>
+    $(document).ready(function() {
+        setInterval(function() {
+            var docHeight = $(window).height();
+            var footerHeight = $('footer').height();
+            var footerTop = $('footer').position().top + footerHeight;
+            var marginTop = (docHeight - footerTop + 10);
+
+            if (footerTop < docHeight)
+                $('footer').css('margin-top', marginTop + 'px'); // padding of 30 on footer
+            else
+                $('footer').css('margin-top', '0px');
+            // console.log("docheight: " + docHeight + "\n" + "footerheight: " + footerHeight + "\n" + "footertop: " + footerTop + "\n" + "new docheight: " + $(window).height() + "\n" + "margintop: " + marginTop);
+        }, 250);
+    });
+</script>-->

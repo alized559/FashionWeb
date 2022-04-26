@@ -52,8 +52,7 @@
             </form>
         </div>
     </div>
-
-    <?php include('footer.php') ?>
+    <?php $sticky=true; include('footer.php'); ?>
 </body>
 
 <script>
