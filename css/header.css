@@ -1,0 +1,77 @@
+.navbar-head {
+    width: 100%;
+    display: inline-block;
+}
+
+.navbar-head .imgcontainer {
+    float: left;
+}
+
+.navbar-head .rightcontainer {
+    float: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.navbar-head .rightcontainer a {
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 19px;
+    text-decoration: none;
+    color: black;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.navbar-head .rightcontainer img {
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.vl {
+    border-left: 1px solid black;
+    height: 30px;
+}
+
+.btn-group {
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.dropdown-toggle,
+.dropdown-menu {
+    width: 150px;
+}
+
+.btn-group img {
+    margin-right: 10px
+}
+
+.dropdown-toggle {
+    padding-right: 50px
+}
+
+.dropdown-toggle .glyphicon {
+    margin-left: 20px;
+    margin-right: -40px
+}
+
+.dropdown-menu>li>a:hover {
+    background: #f1f9fd
+}
+
+
+/* $search-blue */
+
+.dropdown-header {
+    background: #ccc;
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px
+}
