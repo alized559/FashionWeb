@@ -45,7 +45,7 @@
         <a class="nav-link px-4" href="index.php">Home</a>
       </li>
       <li class="nav-item dropdown active">
-        <a class="nav-link px-4" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link px-4" href="#" id="navbarDropdown" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Women
         </a>
         <div class="dropdown-menu" style="width:600px" aria-labelledby="navbarDropdown">
@@ -85,7 +85,7 @@
 			</div>
         </li>
         <li class="nav-item dropdown active">
-        <a class="nav-link px-4" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link px-4" href="#" id="navbarDropdown" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Men
         </a>
         <div class="dropdown-menu" style="width:600px" aria-labelledby="navbarDropdown">
@@ -125,7 +125,7 @@
 			</div>
         </li>
         <li class="nav-item dropdown active">
-        <a class="nav-link px-4" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link px-4" href="#" id="navbarDropdown" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Brands
         </a>
         <div class="dropdown-menu" style="width:400px" aria-labelledby="navbarDropdown">
@@ -182,4 +182,28 @@ $(".dropdown-menu li a").click(function () {
         localStorage.currentCurrencyImage = img;
     }
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+    if (window.innerWidth > 992) {
+        document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem){
+            everyitem.addEventListener('mouseover', function(e){
+                let el_link = this.querySelector('a[data-bs-toggle]');
+                if(el_link != null){
+                    let nextEl = el_link.nextElementSibling;
+                    el_link.classList.add('show');
+                    nextEl.classList.add('show');
+                }
+            });
+            everyitem.addEventListener('mouseleave', function(e){
+                let el_link = this.querySelector('a[data-bs-toggle]');
+                if(el_link != null){
+                    let nextEl = el_link.nextElementSibling;
+                    el_link.classList.remove('show');
+                    nextEl.classList.remove('show');
+                }
+            })
+        });
+    }
+}); 
+
 </script>
