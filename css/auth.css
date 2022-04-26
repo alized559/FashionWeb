@@ -1,0 +1,40 @@
+@font-face {
+    font-family: Inter-Bold;
+    src: url("../fonts/Inter-Bold.ttf");
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.flex-item img {
+    width: 600px;
+    height: auto;
+}
+
+h5 {
+    font-family: Inter-Bold;
+}
+
+form {
+    width: 300px;
+}
+
+.btn {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    h5, form {
+        text-align: center;
+    }
+    
+    .flex-item img {
+        width: 400px;
+        height: auto;
+    }
+}
