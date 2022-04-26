@@ -17,16 +17,26 @@
             <ul class="dropdown-menu">
                 <li class="dropdown-header">Choose A Currency</li>
                 <li>
-                    <a href="#" title="Select this card"><img src="imgs/flags/us.png">US, USD</a>
+                    <a href="#" title="Select USD Currency"><img src="imgs/flags/us.png">US, USD</a>
                 </li>
                 <li>
-                    <a href="#" title="Select this card"><img src="imgs/flags/lb.png">LB, LBP</a>
+                    <a href="#" title="Select LBP Currency"><img src="imgs/flags/lb.png">LB, LBP</a>
                 </li>
             </ul>
         </div>
 
-        <a href="help.html">Help</a>
+        <a href="help.php">Help</a>
         <div class="vl"></div>
-        <img src="imgs/user_logo.png">
+        <a href="profile.php">
+            <img src="imgs/user_logo.png">
+        </a>
     </div>
 </div>
+<script>
+$(".dropdown-menu li a").click(function () {
+    var selText = $(this).text();
+    var imgSource = $(this).find('img').attr('src');
+    var img = '<img src="' + imgSource + '"/>';        
+    $(this).parents('.btn-group').find('.dropdown-toggle').html(img + ' ' + selText);
+});
+</script>

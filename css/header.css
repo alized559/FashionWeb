@@ -1,10 +1,12 @@
 .navbar-head {
     width: 100%;
     display: inline-block;
+    margin-top: 1%;
 }
 
 .navbar-head .imgcontainer {
     float: left;
+    margin-left: 1%;
 }
 
 .navbar-head .rightcontainer {
@@ -22,13 +24,8 @@
     line-height: 19px;
     text-decoration: none;
     color: black;
-    margin-right: 20%;
-    margin-left: 20%;
-}
-
-.navbar-head .rightcontainer img {
-    margin-right: 20%;
-    margin-left: 20%;
+    margin-right: 10%;
+    margin-left: 10%;
 }
 
 .vl {
@@ -72,6 +69,5 @@
     font-weight: 700;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-top: 10px;
     margin-bottom: 5px
 }
