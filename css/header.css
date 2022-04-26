@@ -1,12 +1,27 @@
+@font-face {
+    font-family: Inter;
+    src: url("../fonts/Inter-Regular.ttf");
+}
+
+@font-face {
+    font-family: Inter-Bold;
+    src: url("../fonts/Inter-Bold.ttf");
+}
+
+@font-face {
+    font-family: Inter-Medium;
+    src: url("../fonts/Inter-Medium.ttf");
+}
+
 .navbar-head {
     width: 100%;
     display: inline-block;
-    margin-top: 1%;
+    margin-top: 0.5%;
 }
 
 .navbar-head .imgcontainer {
     float: left;
-    margin-left: 1%;
+    margin-left: 2%;
 }
 
 .navbar-head .rightcontainer {
@@ -17,7 +32,7 @@
 }
 
 .navbar-head .rightcontainer a {
-    font-family: sans-serif;
+    font-family: Inter;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -33,9 +48,16 @@
     height: 30px;
 }
 
+.hl {
+    border-left: 1px solid black;
+    height: 10px;
+    width: 50px;
+}
+
 .btn-group {
     border: 2px solid black;
     border-radius: 15px;
+    font-family: Inter-Medium;
 }
 
 .dropdown-toggle,
@@ -70,4 +92,56 @@
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 5px
+}
+
+.navbar {
+    font-family: Inter-Medium;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+@media only screen and (max-width: 600px) {
+    /* Navbar Changes */
+    /* Hide NavBar Image When Screen Size Is Small */
+    .headeritem {
+        font-family: Inter-Bold;
+        font-weight: 700;
+        font-size: 18px;
+        pointer-events: none;
+        margin-left: -20px;
+    }
+}
+
+.headeritem {
+    font-family: Inter-Bold;
+    font-weight: 700;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.navbar>li {
+    margin-left: 60px;
+    margin-right: 30px;
+}
+
+nav .navbar-nav li a.saleitem {
+    color: #FFD814 !important;
+}
+
+.rightitems {
+    margin-right: 3%;
+}
+
+.footer-head {
+    font-family: Inter-Bold;
+    font-size: 24px;
+}
+
+footer {
+    font-family: Inter-Medium;
+}
+
+.copyrighttext {
+    font-family: Inter-Medium;
+    color: white;
 }
