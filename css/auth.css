@@ -3,6 +3,15 @@
     src: url("../fonts/Inter-Bold.ttf");
 }
 
+@font-face {
+    font-family: Inter-Medium;
+    src: url("../fonts/Inter-Medium.ttf");
+}
+
+body {
+    font-family: Inter-Medium;
+}
+
 .flexbox {
     display: flex;
     flex-direction: row;
@@ -29,10 +38,10 @@ form {
 }
 
 @media only screen and (max-width: 600px) {
-    h5, form {
+    h5,
+    form {
         text-align: center;
     }
-    
     .flex-item img {
         width: 400px;
         height: auto;
