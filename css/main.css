@@ -61,8 +61,6 @@ body {
     color: rgb(184, 184, 184);
 }
 
-@media only screen and (max-width: 850px) {}
-
 .landingPopularTitle {
     font-family: BerkshireSwash;
     letter-spacing: -1px;
@@ -183,6 +181,13 @@ body {
 
 .animated {
     position: relative;
+}
+
+@media only screen and (max-width: 850px) {
+    .animated {
+        position: relative;
+        text-align: center;
+    }
 }
 
 .animated-info {
