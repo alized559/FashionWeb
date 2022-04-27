@@ -102,7 +102,6 @@
     right: 0;
     border-top: 1px solid;
     border-color: red;
-    
     -webkit-transform: rotate(-25deg);
     -moz-transform: rotate(-25deg);
     -ms-transform: rotate(-25deg);
@@ -138,22 +137,22 @@
         margin: 0;
         margin-top: 20px;
     }
-
     .container-fluid {
         margin-left: 0 !important;
     }
-
     .col {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-
     #desktop {
         display: none;
     }
-
     #mobile {
         display: block;
     }
+}
+
+.admin-tools {
+    display: inline-block;
 }

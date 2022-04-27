@@ -1,0 +1,33 @@
+@font-face {
+    font-family: Inter;
+    src: url("../fonts/Inter-Regular.ttf");
+}
+
+@font-face {
+    font-family: Inter-Bold;
+    src: url("../fonts/Inter-Bold.ttf");
+}
+
+@font-face {
+    font-family: Inter-Medium;
+    src: url("../fonts/Inter-Medium.ttf");
+}
+
+body {
+    font-family: Inter-Medium;
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Inter-Medium;
+}
+
+.btn {
+    width: 100%;
+}
