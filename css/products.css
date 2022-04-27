@@ -6,7 +6,7 @@
 .flexbox {
     display: flex;
     flex-direction: row;
-    margin: 40px 0px 0px 40px;
+    margin: 40px 0 0 40px;
     font-family: Inter-Medium;
 }
 
@@ -14,13 +14,9 @@
     border-left: 1px solid;
     border-right: 1px solid;
     padding: 20px 100px 20px 40px;
+    min-width: 300px;
+    height: 100%;
     min-height: 350px;
-    width: 300px;
-}
-
-.filter-header,
-.filter-header1 {
-    font-size: 18px;
 }
 
 .filter-header {
@@ -34,12 +30,130 @@
 .filter-child .form-check-input {
     width: 18px;
     height: 18px;
+    cursor: pointer;
 }
 
 .filter-child label {
     margin-left: 5px;
 }
 
-.filter a {
+.filter a,
+.filter-on-mobile a,
+.filter a:hover,
+.filter-on-mobile a:hover {
     color: black;
+}
+
+.filter-on-mobile {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    padding: 20px 100px 20px 40px;
+    margin: auto;
+    width: 70%;
+    height: 100%;
+    min-height: 350px;
+}
+
+.container-fluid {
+    margin-left: 40px !important;
+}
+
+.container-fluid p {
+    padding: 10px 0 0 10px;
+}
+
+.container-fluid .color {
+    color: gray;
+}
+
+.product {
+    width: 300px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product .sale {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product .btn {
+    background-color: #ffd814;
+    border-radius: 20px;
+    font-weight: bold;
+    width: 140px;
+}
+
+.product .old-price {
+    position: relative;
+}
+
+.product .old-price:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 45%;
+    right: 0;
+    border-top: 1px solid;
+    border-color: red;
+    
+    -webkit-transform: rotate(-25deg);
+    -moz-transform: rotate(-25deg);
+    -ms-transform: rotate(-25deg);
+    -o-transform: rotate(-25deg);
+    transform: rotate(-25);
+}
+
+#mobile {
+    display: none;
+}
+
+.filter-mobile {
+    margin: 5px 0 40px 0;
+}
+
+.filter-mobile .btn {
+    background-color: black;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.filter-mobile .btn:hover {
+    background-color: rgb(103, 103, 103);
+    color: white;
+}
+
+@media only screen and (max-width: 700px) {
+    .flexbox {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        margin-top: 20px;
+    }
+
+    .container-fluid {
+        margin-left: 0 !important;
+    }
+
+    .col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #desktop {
+        display: none;
+    }
+
+    #mobile {
+        display: block;
+    }
 }
