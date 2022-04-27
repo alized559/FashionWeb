@@ -101,6 +101,12 @@ body {
     width: 100%;
 }
 
+.carousel,
+.carousel-inner,
+.carousel-item {
+    border-radius: 10px;
+}
+
 .carousel-item img {
     border-radius: 10px;
 }
