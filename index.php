@@ -11,7 +11,23 @@
     <div class="landingContainer">
         <div class="landingImageContainer">
             <img class="landingImage" src="imgs/landing/background_image_1.jpg" alt="Background Image">
-            
+            <div class="centered">
+                <h1 class="animated animated-text">
+                    <span class="mr-2">Browse Through New</span>
+                    <div class="animated-info">
+                        <span class="animated-item">Outfits</span>
+                        <span class="animated-item">Accessories</span>
+                        <span class="animated-item">And More!</span>
+                    </div>
+                    <br>
+                    <div class="centeredAlone">
+                        <span class="mr-2">All In One Place</span>
+                        <div class="custom-btn-group mt-4">
+                            <a href="products.php" class="btn mr-lg-2 custom-btn"><i class='uil uil-file-alt'></i>Shop Now</a>
+                        </div>
+                    </div>
+                </h1>
+            </div>
         </div>
         <h3 class="landingPopularTitle">Popular Right Now</h3>
         <hr class="titlehr">

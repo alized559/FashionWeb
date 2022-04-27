@@ -172,7 +172,7 @@
                                 <span class="color">2 Colors</span>
                                 <br>
                                 <span class="sale">
-                                    <span><span class="old-price">70$</span> 50$</span>
+                                    <span><del>70$</del> 50$</span>
                                     <button class="btn">On Sale</button>
                                 </span>
                             </p>
