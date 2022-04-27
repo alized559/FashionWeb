@@ -75,7 +75,7 @@
         <div id="newDropsCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <a href="#" class="text-reset">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
                         <img class="d-block w-100" src="imgs/landing/drops_image_1.jpg" alt="First slide">
                         <div class="newDropItemTitle">
                             <hr>
