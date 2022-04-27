@@ -1,0 +1,114 @@
+@font-face {
+    font-family: Inter-Bold;
+    src: url("../fonts/Inter-Bold.ttf");
+}
+
+@font-face {
+    font-family: Inter-Medium;
+    src: url("../fonts/Inter-Medium.ttf");
+}
+
+@font-face {
+    font-family: BerkshireSwash;
+    src: url("../fonts/BerkshireSwash-Regular.ttf");
+}
+
+body {
+    font-family: Inter-Medium;
+}
+
+.landingContainer {
+    position: relative;
+    padding: 1%;
+}
+
+.landingImageContainer {
+    width: 100%;
+    height: auto;
+}
+
+.landingImage {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.landingPageDownContainer {
+    width: 100%;
+    text-align: center;
+    margin-top: -10%;
+    margin-bottom: 4%;
+}
+
+.landingPageDownImage {
+    font-size: 10vh;
+    color: rgb(184, 184, 184);
+}
+
+@media only screen and (max-width: 850px) {
+    .landingPageDownContainer {
+        visibility: hidden;
+    }
+}
+
+.landingPopularTitle {
+    font-family: BerkshireSwash;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.landingPopularContainer {
+    width: fit-content;
+    height: fit-content;
+}
+
+.landingPopularItemImage {
+    min-height: 200px;
+    min-width: 200px;
+}
+
+.landingPopularItemImage img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+
+.landingPopularItemTitle {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+}
+
+.landingPopularItemTitle .title {
+    float: left;
+}
+
+.landingPopularItemTitle .price {
+    float: right;
+}
+
+.showMoreDiv {
+    text-align: end;
+}
+
+.landingPopularSubTitle {
+    font-family: BerkshireSwash;
+    text-align: start;
+    margin-top: 2%;
+}
+
+#newDropsCarousel {
+    width: 100%;
+}
+
+.carousel-item img {
+    border-radius: 10px;
+}
+
+.newDropItemTitle {
+    text-align: center;
+}
+
+.newDropItemTitle h1 {
+    font-size: 28px;
+}
