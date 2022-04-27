@@ -17,7 +17,6 @@
             </button>
 
             <ul class="dropdown-menu">
-                <li class="dropdown-header">Choose A Currency</li>
                 <li>
                     <a href="#" title="Select USD Currency"><img src="imgs/flags/us.png">US, USD</a>
                 </li>
@@ -53,33 +52,33 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<a class="dropdown-item headeritem" href="#">Shoes</a>
-						<a class="dropdown-item" href="#">Basketball</a>
-						<a class="dropdown-item" href="#">Training</a>
-                        <a class="dropdown-item" href="#">Football</a>
-						<a class="dropdown-item" href="#">Walking</a>
-                        <a class="dropdown-item" href="#">Slides</a>
-                        <a class="dropdown-item" href="#">All Shoes</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=shoes&type=basketball">Basketball</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=shoes&type=training">Training</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=shoes&type=football">Football</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=shoes&type=walking">Walking</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=shoes&type=slides">Slides</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=shoes&type=all">All Shoes</a>
 					</div>
 					<div class="col-sm-4">
 						<a class="dropdown-item headeritem" href="#">Clothing</a>
-						<a class="dropdown-item" href="#">Pants</a>
-						<a class="dropdown-item" href="#">Hoodies</a>
-                        <a class="dropdown-item" href="#">Jackets</a>
-                        <a class="dropdown-item" href="#">Socks</a>
-                        <a class="dropdown-item" href="#">Polos</a>
-                        <a class="dropdown-item" href="#">Shorts</a>
-                        <a class="dropdown-item" href="#">Suits</a>
-                        <a class="dropdown-item" href="#">T-Shirts</a>
-                        <a class="dropdown-item" href="#">All Clothing</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=clothing&type=pants">Pants</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=clothing&type=hoodies">Hoodies</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=jackets">Jackets</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=socks">Socks</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=polos">Polos</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=shorts">Shorts</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=suits">Suits</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=tshirts">T-Shirts</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=clothing&type=all">All Clothing</a>
 					</div>
 					<div class="col-sm-4">
 						<a class="dropdown-item headeritem" href="#">Accessories</a>
-						<a class="dropdown-item" href="#">Bags</a>
-						<a class="dropdown-item" href="#">Hats</a>
-                        <a class="dropdown-item" href="#">Gloves</a>
-                        <a class="dropdown-item" href="#">Sunglasses</a>
-                        <a class="dropdown-item" href="#">Necklaces</a>
-                        <a class="dropdown-item" href="#">All Accessories</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=accessories&type=bags">Bags</a>
+						<a class="dropdown-item" href="products.php?gender=w&category=accessories&type=hats">Hats</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=accessories&type=gloves">Gloves</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=accessories&type=sunglasses">Sunglasses</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=accessories&type=necklaces">Necklaces</a>
+                        <a class="dropdown-item" href="products.php?gender=w&category=accessories&type=all">All Accessories</a>
 					</div>					
 				</div>
 			</div>
@@ -93,33 +92,33 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<a class="dropdown-item headeritem" href="#">Shoes</a>
-						<a class="dropdown-item" href="#">Basketball</a>
-						<a class="dropdown-item" href="#">Training</a>
-                        <a class="dropdown-item" href="#">Football</a>
-						<a class="dropdown-item" href="#">Walking</a>
-                        <a class="dropdown-item" href="#">Slides</a>
-                        <a class="dropdown-item" href="#">All Shoes</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=shoes&type=basketball">Basketball</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=shoes&type=training">Training</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=shoes&type=football">Football</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=shoes&type=walking">Walking</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=shoes&type=slides">Slides</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=shoes&type=all">All Shoes</a>
 					</div>
 					<div class="col-sm-4">
 						<a class="dropdown-item headeritem" href="#">Clothing</a>
-						<a class="dropdown-item" href="#">Pants</a>
-						<a class="dropdown-item" href="#">Hoodies</a>
-                        <a class="dropdown-item" href="#">Jackets</a>
-                        <a class="dropdown-item" href="#">Socks</a>
-                        <a class="dropdown-item" href="#">Polos</a>
-                        <a class="dropdown-item" href="#">Shorts</a>
-                        <a class="dropdown-item" href="#">Suits</a>
-                        <a class="dropdown-item" href="#">T-Shirts</a>
-                        <a class="dropdown-item" href="#">All Clothing</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=clothing&type=pants">Pants</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=clothing&type=hoodies">Hoodies</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=jackets">Jackets</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=socks">Socks</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=polos">Polos</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=shorts">Shorts</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=suits">Suits</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=tshirts">T-Shirts</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=clothing&type=all">All Clothing</a>
 					</div>
 					<div class="col-sm-4">
 						<a class="dropdown-item headeritem" href="#">Accessories</a>
-						<a class="dropdown-item" href="#">Bags</a>
-						<a class="dropdown-item" href="#">Hats</a>
-                        <a class="dropdown-item" href="#">Gloves</a>
-                        <a class="dropdown-item" href="#">Sunglasses</a>
-                        <a class="dropdown-item" href="#">Necklaces</a>
-                        <a class="dropdown-item" href="#">All Accessories</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=accessories&type=bags">Bags</a>
+						<a class="dropdown-item" href="products.php?gender=m&category=accessories&type=hats">Hats</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=accessories&type=gloves">Gloves</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=accessories&type=sunglasses">Sunglasses</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=accessories&type=necklaces">Necklaces</a>
+                        <a class="dropdown-item" href="products.php?gender=m&category=accessories&type=all">All Accessories</a>
 					</div>					
 				</div>
 			</div>
@@ -150,10 +149,10 @@
         </li>
     </ul>
     <div class="my-2 my-lg-0 rightitems">
-        <a class="px-3 text-reset" href="showMyLikes.php">
+        <a class="px-3 text-reset" href="showMyLikes.php" style="text-decoration: none;">
             <i class="far fa-heart"></i>
         </a>
-        <a href="cart.php" class="text-reset">
+        <a href="cart.php" class="text-reset" style="text-decoration: none;">
             <i class="fa-solid fa-cart-shopping"></i>
         </a>
     </div>

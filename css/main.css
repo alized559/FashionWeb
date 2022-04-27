@@ -57,6 +57,10 @@ body {
     margin-top: 2%;
 }
 
+.titlehr {
+    width: 50%;
+}
+
 .landingPopularContainer {
     width: fit-content;
     height: fit-content;
@@ -74,17 +78,26 @@ body {
 }
 
 .landingPopularItemTitle {
-    display: inline-block;
     width: 100%;
-    padding: 10px;
 }
 
 .landingPopularItemTitle .title {
-    float: left;
+    font-size: 20px;
+    color: gray;
+    margin: 0;
+}
+
+.landingPopularItemTitle .sale {
+    color: #ffd814;
+}
+
+.landingPopularItemTitle .sale del {
+    color: black;
 }
 
 .landingPopularItemTitle .price {
-    float: right;
+    font-weight: bold;
+    margin: 0;
 }
 
 .showMoreDiv {
@@ -93,7 +106,7 @@ body {
 
 .landingPopularSubTitle {
     font-family: BerkshireSwash;
-    text-align: start;
+    text-align: center;
     margin-top: 2%;
 }
 
@@ -117,4 +130,9 @@ body {
 
 .newDropItemTitle h1 {
     font-size: 28px;
+}
+
+.newDropItemTitle hr {
+    width: 7%;
+    background-color: black;
 }

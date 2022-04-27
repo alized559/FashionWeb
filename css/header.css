@@ -82,16 +82,13 @@
     background: #f1f9fd
 }
 
-
-/* $search-blue */
-
 .dropdown-header {
     background: #ccc;
     font-size: 14px;
     font-weight: 700;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin-bottom: 5px
+    margin-bottom: 5px;
 }
 
 .navbar {
