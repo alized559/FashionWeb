@@ -83,6 +83,8 @@ body {
     flex-wrap: wrap;
     margin-left: 10px;
     margin-bottom: 5px;
+    gap: 10px;
+    padding: 10px;
 }
 
 .colors-flex img {
@@ -92,14 +94,12 @@ body {
     cursor: pointer;
     object-fit: cover;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.colors-flex > img:nth-child(n + 3) {
-    margin-top: 10px;
-}
-
-.colors-flex > img:nth-child(odd) {
-    margin-right: 10px;
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .colors-flex .hasBorder {
@@ -169,6 +169,11 @@ body {
 .detail-col-2 {
     margin-top: 5px;
     line-height: 30px;
+}
+
+.detail-col-2 h4 {
+    font-size: 16px;
+    line-height: 22px;
 }
 
 .prod-desc p {
@@ -261,4 +266,20 @@ span.carousel-control-next-icon {
 
 span.carousel-control-prev-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%3ff0000' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/%3e%3c/svg%3e");
+}
+
+.carousel .carousel-indicators li {
+    background-color: black;
+}
+
+.carousel .carousel-indicators li.active {
+    background-color: #8567FF;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    align-items: flex-end;
+    margin-bottom: -30px;
+    justify-content: center;
+    /* Aligns it at the bottom */
 }

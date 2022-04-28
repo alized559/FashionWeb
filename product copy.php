@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion | Products</title>
-    <link href="css/product.css" rel="stylesheet" media="screen">
 
     <?php include('header.php') ?>
+    <link href="css/product.css" rel="stylesheet" media="screen">
 </head>
 <body>
     <div class="image-container">
@@ -30,6 +30,11 @@
 
             <div class="product-colors">
                 <div id="gallery" class="carousel slide" data-ride="carousel">
+                    <!--<ol class="carousel-indicators">
+                        <li data-target="#gallery" data-slide-to="0" class="active"></li>
+                        <li data-target="#gallery" data-slide-to="1"></li>
+                        <li data-target="#gallery" data-slide-to="2"></li>
+                    </ol>-->
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="colors-flex">
@@ -48,12 +53,10 @@
                         </div>
                         
                     </div>
-
                     <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-
                     <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
@@ -210,7 +213,7 @@
 
     <?php include('footer.php') ?>
 </body>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script>
     $('.color-img').click(function() {
         var $this = $(this);
@@ -279,6 +282,17 @@
     $('.carousel').carousel({
         interval: false,
     });
+    $(".carousel").swipe({
+
+        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+
+        if (direction == 'left') $(this).carousel('next');
+        if (direction == 'right') $(this).carousel('prev');
+
+        },
+        allowPageScroll:"vertical"
+
+        });
 </script>
 
 </html>

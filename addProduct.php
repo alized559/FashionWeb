@@ -156,12 +156,12 @@
             <input type="text" class="form-control" name="brand" aria-describedby="brand" placeholder="Enter the product's brand" required>
         </div>
         <h5>Last But Not Least The Images :)</h5>
-        <div class="form-group">
-            <label>Choose the product's image</label>
+        <div class="form-group" id="imageDragContainer">
+            <label>Choose the product's image, or just drag it here :)</label>
             <input type="file" accept=".jpg,.png,.gif" class="form-control-file" name="image" required>
         </div>
-        <div class="form-group">
-            <label>Choose the product's banner</label>
+        <div class="form-group" id="bannerDragContainer">
+            <label>Choose the product's banner, or just drag it here :)</label>
             <input type="file" accept=".jpg,.png,.gif" class="form-control-file" name="banner" required>
         </div>
         <button type="submit" class="btn btn-warning mb-1" name="create">Add Product</button>
