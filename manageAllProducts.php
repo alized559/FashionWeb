@@ -1,5 +1,8 @@
 <?php
     include "includes/validateAdminAuth.php";
+
+    include "includes/config.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -153,48 +156,63 @@
             <div>
             <br>
             <div class="row">
-                <div class="col">
-                    <a href="editProduct.php" class="btn btn-primary">Edit Product</a>
-                    <a href="deleteProduct.php" class="btn btn-danger">Delete Product</a>
-                    <br>
-                    <br>
-                    <a href="#" style="text-decoration: none; color: black">
-                        <div class="product">
-                            <div class="image-container">
-                                <img src="imgs/clothes-test.png">
-                            </div>
-                            <p>Women’s High-Rise Woven Pants
-                            <br>
-                            <span class="color">2 Colors</span>
-                            <br>
-                            70$
-                        </div>
-                    </a>
-                </div>
+                <?php
+                    $sql = "SELECT prod_id,name,price,discount,brand FROM products";
+                    $result = mysqli_query($db, $sql);
 
-                <div class="col">
-                    <a href="editProduct.php" class="btn btn-primary">Edit Product</a>
-                    <a href="deleteProduct.php" class="btn btn-danger">Delete Product</a>
-                    <br>
-                    <br>
-                    <a href="#" style="text-decoration: none; color: black">
-                        <div class="product">
-                            <div class="image-container">
-                                <img src="imgs/clothes-test.png">
-                            </div>
-                            <p>
-                                Women’s High-Rise Woven Pants
-                                <br>
-                                <span class="color">2 Colors</span>
-                                <br>
-                                <span class="sale">
-                                    <span><del>70$</del> 50$</span>
-                                    <button class="btn">On Sale</button>
-                                </span>
-                            </p>
-                        </div>
-                    </a>
-                </div>
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                          while($row = mysqli_fetch_assoc($result)){
+                            $id = $row["prod_id"];
+                            $name = $row["name"];
+                            $price = $row["price"];
+                            $discount = $row["discount"];
+                            $brand = $row["brand"];
+                
+                            $file = "images/products/" . $id . "/logo.jpg";
+                
+                            if(!file_exists($file)){//Deletes the image if it exists
+                                $file = "images/products/" . $id . "/logo.png";
+                                if(!file_exists($file)){//Deletes the image if it exists
+                                    $file = "images/products/" . $id . "/logo.gif";
+                                    if(!file_exists($file)){//Deletes the image if it exists
+                                        $file = "images/products/default.png";
+                                    }
+                                }
+                            }
+                            
+                            echo "<div class='col'>";
+                            echo "<a href='viewProduct.php?id=$id' class='btn btn-primary mb-1'>View Product</a>";
+                            echo "<a href='viewProductItems.php?id=$id' class='btn btn-primary ml-2 mb-1'>View Items</a>";
+                            echo "<a href='editProduct.php?id=$id' style='text-decoration: none; color: black'>";
+                            echo "<div class='product'>";
+                            echo "<div class='image-container'>";
+                            echo "<img src='$file'>";
+                            echo "</div>";
+                            echo "<p>$name";
+                                echo "<br>";
+                                echo "<span class='color'>$brand</span>";
+                                echo "<br>";
+                                if($discount > 0){
+                                    $newprice = $price - $discount;
+                                    echo "<span class='sale'>";
+                                    echo "<span><del>$price$</del> $newprice$</span>";
+                                    echo "<button class='btn'>On Sale</button>";
+                                    echo "</span>";
+                                }else {
+                                    echo "$price$";
+                                }
+                            echo "</p>";
+                            echo "</div>";
+                            echo "</a>";
+                            echo "</div>";
+                          }
+                        }else {
+                          //No Products
+                        }
+                      }
+
+                ?>
             </div>
         </div>
     </div>
@@ -225,10 +243,6 @@
             }
         }
     });
-
-    function EditProduct(){
-        alert("test");
-    }
 
 </script>
 

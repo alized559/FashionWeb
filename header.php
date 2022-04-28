@@ -184,6 +184,7 @@ $(".dropdown-menu li a").click(function () {
 
 document.addEventListener("DOMContentLoaded", function(){
     if (window.innerWidth > 992) {
+        let timer = null;
         document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem){
             everyitem.addEventListener('mouseover', function(e){
                 let el_link = this.querySelector('a[data-bs-toggle]');

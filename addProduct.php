@@ -1,8 +1,6 @@
 <?php
     include "includes/validateAdminAuth.php";
 
-    include "includes/config.php";
-
     if(isset($_POST["create"])){
         include "includes/config.php";
 
@@ -15,6 +13,7 @@
         $department = $_POST["department"];
         $category = $_POST["category"];
         $type = $_POST["type"];
+        $brand = $_POST["brand"];
 
         $file_ext = ".null";
         $file_tmp = "null";
@@ -32,7 +31,7 @@
             $bannerfile_ext = strtolower(end($str));
         }
 
-        $sql = "INSERT INTO products(name,description,details,price,delivery_time,discount,department,category,type) VALUE ('$name','$description','$details','$price','$delivery_time','$discount','$department','$category','$type')";
+        $sql = "INSERT INTO products(name,description,details,price,delivery_time,discount,department,category,type,brand) VALUE ('$name','$description','$details','$price','$delivery_time','$discount','$department','$category','$type','$brand')";
         $result = mysqli_query($db, $sql);
         if($result){
             $prodID = mysqli_insert_id($db);
@@ -42,6 +41,14 @@
             }
             if(isset($_FILES['image']) && $_FILES['image']['name']){
                 $file = $fileDirectory . "/logo." . $file_ext;
+                $testFile = $fileDirectory . "/logo." . "png";
+                if(file_exists($testFile)){//Deletes the image if it exists
+                    unlink($testFile);
+                }
+                $testFile = $fileDirectory . "/logo." . "jpg";
+                if(file_exists($testFile)){//Deletes the image if it exists
+                    unlink($testFile);
+                }
                 if(file_exists($file)){//Deletes the image if it exists
                     unlink($file);
                 }
@@ -50,6 +57,16 @@
 
                 if(isset($_FILES['banner']) && $_FILES['banner']['name']){
                     $bannerfile = $fileDirectory . "/banner." . $bannerfile_ext;
+
+                    $testFile = $fileDirectory . "/banner." . "png";
+                    if(file_exists($testFile)){//Deletes the image if it exists
+                        unlink($testFile);
+                    }
+                    $testFile = $fileDirectory . "/banner." . "jpg";
+                    if(file_exists($testFile)){//Deletes the image if it exists
+                        unlink($testFile);
+                    }
+
                     if(file_exists($bannerfile)){//Deletes the image if it exists
                         unlink($bannerfile);
                     }
@@ -106,7 +123,7 @@
         </div>
         <h5>Do I Get A Discount?</h5>
         <div class="form-group">
-            <input type="number" class="form-control" name="discount" aria-describedby="discount" placeholder="Enter the product's discount in $" required>
+            <input type="number" class="form-control" name="discount" aria-describedby="discount" placeholder="Enter the product's discount in $" required step=".01" value="0">
         </div>
         <h5>Whats The Department?</h5>
         <div class="form-group">
@@ -134,16 +151,21 @@
                 <option value="slides">Slides</option>
             </select>
         </div>
+        <h5>Whats The Brand?</h5>
+        <div class="form-group">
+            <input type="text" class="form-control" name="brand" aria-describedby="brand" placeholder="Enter the product's brand" required>
+        </div>
         <h5>Last But Not Least The Images :)</h5>
         <div class="form-group">
             <label>Choose the product's image</label>
-            <input type="file" accept=".jpg" class="form-control-file" name="image" required>
+            <input type="file" accept=".jpg,.png,.gif" class="form-control-file" name="image" required>
         </div>
         <div class="form-group">
             <label>Choose the product's banner</label>
-            <input type="file" accept=".jpg" class="form-control-file" name="banner" required>
+            <input type="file" accept=".jpg,.png,.gif" class="form-control-file" name="banner" required>
         </div>
-        <button type="submit" class="btn btn-warning" name="create">Add Product</button>
+        <button type="submit" class="btn btn-warning mb-1" name="create">Add Product</button>
+        <a class="btn btn-danger" href="manageAllProducts.php">Cancel</a>
     </form>
 
     <?php include('footer.php') ?>
