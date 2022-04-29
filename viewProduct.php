@@ -181,7 +181,48 @@
                 <div class="product-details">
                     <h3>Product Details</h3>
                     
-                    <div class="details-flex">
+                    <!-- <table class="table borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">Package Dimensions</th>
+                                <th scope="col">13.78 x 9.13 x 4.65 inches; 2.5 Pounds</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="col">Model</th>  
+                                <th scope="col">DA0694-001</th>                              
+                            </tr>
+                            <tr>
+                                <th scope="col">Department</th>
+                                <th scope="col">Men</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">2</th>                                
+                            </tr>
+                            <tr>
+                                <th scope="col">Delivery Time</th>   
+                                <th scope="col">3 Days</th>                             
+                            </tr>
+                            <tr>
+                                <th scope="col">Likes</th>
+                                <th scope="col">0</th>                                
+                            </tr>
+                            <tr>
+                                <th scope="col">Rating</th>
+                                <th scope="col">
+                                    <span class='rating-flex' id='rating'>
+                                        <i class='fa fa-star'></i>
+                                        <i class='fa fa-star'></i>
+                                        <i class='fa fa-star'></i>
+                                        <i class='fa fa-star'></i>
+                                        <i class='fa fa-star'></i>
+                                    </span>
+                                </th>                           
+                            </tr>
+                        </tbody>
+                    </table> -->
                         <?php
                             $lines = explode("\n", $details);
                             $keys = array();
@@ -232,8 +273,7 @@
                             echo "<i class='fa fa-star'></i>";
                             echo "</span>";
                             echo "</div>";
-                        ?>  
-                    </div>
+                        ?>
                 </div>
             </div>
 
