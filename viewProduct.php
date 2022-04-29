@@ -93,92 +93,61 @@
     <div class="container-fluid">
         <h3 class="product-title"><?= $name?></h3>
 
-        <p class="choose-text">Choose An Item Below</p>
-
         <div class="product-flex">
-            <div class="product-default">
-                <?php echo "<img id='default-img' src='$imagefile' alt='Product Image'>"; ?>
-            </div>
 
-            <div class="product-colors">
-                <div id="gallery" class="carousel slide" data-ride="carousel">
-                    <!--<ol class="carousel-indicators">
-                        <li data-target="#gallery" data-slide-to="0" class="active"></li>
-                        <li data-target="#gallery" data-slide-to="1"></li>
-                        <li data-target="#gallery" data-slide-to="2"></li>
-                    </ol>-->
-                    <div class="carousel-inner">
-                        <?php
-                            $sql = "SELECT * FROM product_items WHERE product_id='$id'";
-                            $result = mysqli_query($db, $sql);
-                            $currentIndex = 0;
-                            $currentDivIndex = 0;
+        
+        <div class="product-default">
+            <?php echo "<img id='default-img' src='$imagefile' alt='Product Image'>"; ?>
+        </div>
 
-                            $firstItemName = "";
-                            $firstItemQuantity = 0;
+        <div class="product-colors">
+            <?php
+                $sql = "SELECT * FROM product_items WHERE product_id='$id'";
+                $result = mysqli_query($db, $sql);
+                $currentIndex = 0;
+                $currentDivIndex = 0;
 
-                            if($result){
-                                $addClose = false;
-                                if(mysqli_num_rows($result) > 0){
-                                    while($row = mysqli_fetch_assoc($result)){
-                                        $itemID = $row["item_id"];
-                                        $itemName = $row["name"];
-                                        $itemQuantity = $row["quantity"];
-                                        if($currentDivIndex == 0 && $currentIndex == 0){
-                                            echo "<div class='carousel-item active'>";
-                                            echo "<div class='colors-flex'>";
-                                        }else if($currentIndex == 0){
-                                            echo "<div class='carousel-item'>";
-                                            echo "<div class='colors-flex'>";
-                                        }
-                                        $addClose = true;
-                                        if($currentIndex < 4){
-                                            $file = "images/products/" . $id . "/items/$itemID.jpg";
+                $firstItemName = "";
+                $firstItemQuantity = 0;
 
-                                            if(!file_exists($file)){//Deletes the image if it exists
-                                                $file = "images/products/" . $id . "/items/$itemID.png";
-                                                if(!file_exists($file)){//Deletes the image if it exists
-                                                    $file = "images/products/" . $id . "/items/$itemID.gif";
-                                                    if(!file_exists($file)){//Deletes the image if it exists
-                                                        $file = "images/products/default.png";
-                                                    }
-                                                }
-                                            }
-                                            if($currentDivIndex == 0 && $currentIndex == 0){
-                                                $firstItemName = $itemName;
-                                                $firstItemQuantity = $itemQuantity;
-                                                echo "<img class='color-img hasBorder' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
-                                            }else {
-                                                echo "<img class='color-img' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
-                                            }
-                                            $currentIndex = $currentIndex + 1;
-                                            if($currentIndex == 4){
-                                                $currentIndex = 0;
-                                                $currentDivIndex = $currentDivIndex + 1;
-                                                $addClose = false;
-                                                echo "</div></div>";
-                                            }
+                if($result){
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_assoc($result)){
+                            $itemID = $row["item_id"];
+                            $itemName = $row["name"];
+                            $itemQuantity = $row["quantity"];
+                            if($currentIndex < 4){
+                                $file = "images/products/" . $id . "/items/$itemID.jpg";
+
+                                if(!file_exists($file)){//Deletes the image if it exists
+                                    $file = "images/products/" . $id . "/items/$itemID.png";
+                                    if(!file_exists($file)){//Deletes the image if it exists
+                                        $file = "images/products/" . $id . "/items/$itemID.gif";
+                                        if(!file_exists($file)){//Deletes the image if it exists
+                                            $file = "images/products/default.png";
                                         }
                                     }
                                 }
-                                if($addClose){
-                                    echo "</div></div>";
+                                if($currentDivIndex == 0 && $currentIndex == 0){
+                                    $firstItemName = $itemName;
+                                    $firstItemQuantity = $itemQuantity;
+                                    echo "<img class='color hasBorder' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                }else {
+                                    echo "<img class='color' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                }
+                                $currentIndex = $currentIndex + 1;
+                                if($currentIndex == 4){
+                                    $currentIndex = 0;
+                                    $currentDivIndex = $currentDivIndex + 1;
                                 }
                             }
+                        }
+                    }
+                }
 
-                        ?>
-                    </div>
-                    <a class="carousel-control-prev" href="#gallery" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#gallery" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
+            ?>
             </div>
-        </div>
+            </div>
 
         <form>
 
@@ -357,7 +326,7 @@
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script>
-    $('.color-img').click(function() {
+    $('.color').click(function() {
         var $this = $(this);
         if ($this.hasClass('hasBorder')) {
             $this.removeClass('hasBorder');
