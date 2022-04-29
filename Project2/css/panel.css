@@ -1,0 +1,83 @@
+.panel-container {
+    margin-top: 3%;
+    display: block;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 1%;
+    background-color: rgb(242, 242, 242, 0.5);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.panel-container div {
+    width: fit-content;
+    margin: auto;
+}
+
+.panel-container div h3{
+    font-weight: 550;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+
+.panel-container span{
+    margin-top: 2px;
+    font-size: 14px;
+    float: right;
+}
+
+.panel-container .error {
+    font-size: 14px;
+    color: white;
+    background-color: #ff5757;
+    padding: 10px;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.panel-container input, textarea{
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.panel-container .submit {
+    width: 100%;
+    background-color: #e9967a;
+    color: white;
+    font-weight: 550;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.panel-container .delete {
+    width: 100%;
+    background-color: rgb(255, 64, 64);
+    color: white;
+    font-weight: 550;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.panel-container .submit:hover {
+    background-color: #eea890;
+}
+
+.panel-container .delete:hover {
+    background-color: rgb(251, 103, 103);
+}

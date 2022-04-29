@@ -180,6 +180,10 @@ tbody>tr>:nth-child(2) {
     cursor: pointer;
 }
 
+.favorite-products p {
+    font-family: Inter-Medium;
+}
+
 .logoutButton {
     margin-left: 10px;
 }

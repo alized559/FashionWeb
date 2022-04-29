@@ -88,7 +88,7 @@ $email = $fetch_check->email;
                             echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
                         }
                     } else {
-                        //no favorites
+                        echo "<p>No Favorite Items Yet, Browse Through Our Store To Add More!</p>";
                     }
                 }
             ?>

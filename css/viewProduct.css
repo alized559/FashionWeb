@@ -63,6 +63,15 @@ body {
     cursor: pointer;
 }
 
+.favorite .heart {
+    position: absolute;
+    right: 0;
+    font-size: 32px;
+    text-align: right;
+    margin: 10px 30px 0 0;
+    cursor: pointer;
+}
+
 .favorite .active {
     color: red;
 }

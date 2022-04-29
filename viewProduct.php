@@ -80,6 +80,7 @@
 
     <?php include('header.php') ?>
     <link href="css/viewProduct.css" rel="stylesheet" media="screen">
+    <link href="css/heartAnimation.css" rel="stylesheet" media="screen">
 </head>
 <body>
     <div class="image-container">
@@ -91,21 +92,61 @@
 
     <div class="favorite">
         <?php
+            /*if(isset($_SESSION['userID'])){
+                $userID = $_SESSION['userID'];
+                $sql = "SELECT * FROM favorites WHERE `user_id`='$userID' AND `product_id`='$id'";
+                $result = mysqli_query($db, $sql);
+                if($result){
+                    if(mysqli_num_rows($result) == 1) {
+                        echo "<a href='updateFavorite.php?id=$id&type=remove'><div class='heart is-active'></div></i></a>";
+                    } else {
+                        echo "<a href='updateFavorite.php?id=$id&type=add'><div class='heart'></div></i></a>";
+                    }
+                }
+            }else {
+                echo "<a href='login.php'><div class='heart'></div></i></a>";
+            }*/
             if(isset($_SESSION['userID'])){
                 $userID = $_SESSION['userID'];
                 $sql = "SELECT * FROM favorites WHERE `user_id`='$userID' AND `product_id`='$id'";
                 $result = mysqli_query($db, $sql);
                 if($result){
                     if(mysqli_num_rows($result) == 1) {
-                        echo "<a href='updateFavorite.php?id=$id&type=remove'><i class='fa fa-heart active'></i></a>";
+                        echo "<div class='heart is-active'></div>";
                     } else {
-                        echo "<a href='updateFavorite.php?id=$id&type=add'><i class='fa fa-heart notActive'></i></a>";
+                        echo "<div class='heart'></div>";
                     }
                 }
             }else {
-                echo "<a href='login.php'><i class='fa fa-heart notActive'></i></a>";
+                echo "<a href='login.php'><div class='heart'></div></i></a>";
             }
         ?>
+        <script>
+            var id = "<?php echo $id; ?>";
+            $(function() {
+                $(".heart").on("click", function() {
+                    if($(this).hasClass("is-active"))//Remove
+                    {
+                        var xmlhttp = new XMLHttpRequest();
+                        xmlhttp.open("GET", "updateFavorite.php?id=" + id + "&type=remove", true);
+                        xmlhttp.addEventListener('error', handleEvent);
+                        xmlhttp.send();
+                        $("#totalLikes").html(parseInt($("#totalLikes").html()) - 1);
+                    }else {//Add Like
+                        var xmlhttp = new XMLHttpRequest();
+                        xmlhttp.open("GET", "updateFavorite.php?id=" + id + "&type=add", true);
+                        xmlhttp.addEventListener('error', handleEvent);
+                        xmlhttp.send();
+                        $("#totalLikes").html(parseInt($("#totalLikes").html()) + 1);
+                    }
+                    $(this).toggleClass("is-active");
+                    
+                });
+            });
+            function handleEvent(e) {
+                alert("Failed To Update Like, Please Contact The System Administrator.");
+            }
+        </script>
     </div>
 
     <div class="container-fluid">
@@ -226,17 +267,7 @@
                             echo "<tbody>";
                             for($i = 0; $i < count($keys); $i++){
                                 $itemKey = $keys[$i];
-                                if($i != count($values)){
-                                    $itemValue = $values[$i];
-                                    echo"<tr>";
-                                    echo "<th scope='col'>$itemKey</th>";
-                                    if($i == count($values) - 3){
-                                        echo "<th scope='col' id='itemQuantityText'>$itemValue</th>";
-                                    }else {
-                                        echo "<th scope='col'>$itemValue</th>";
-                                    }
-                                    echo"</tr>";
-                                }else {//Rating
+                                if($i == count($values)){ //Ratings
                                     echo "<th scope='col'>$itemKey</th>";
                                     echo "<th scope='col'>";
                                     echo "<span class='rating-flex' id='rating'>";
@@ -247,6 +278,24 @@
                                         echo "<i class='fa fa-star'></i>";
                                     echo "</span>";
                                     echo "</th>";  
+                                    
+                                }else if($i == count($values) - 1){ //Likes
+                                    $itemValue = $values[$i];
+                                    echo"<tr>";
+                                    echo "<th scope='col'>$itemKey</th>";
+                                    echo "<th scope='col' id='totalLikes'>$itemValue</th>";
+                                    echo"</tr>";
+                                    
+                                }else {//Everything Else
+                                    $itemValue = $values[$i];
+                                    echo"<tr>";
+                                    echo "<th scope='col'>$itemKey</th>";
+                                    if($i == count($values) - 3){
+                                        echo "<th scope='col' id='itemQuantityText'>$itemValue</th>";
+                                    }else {
+                                        echo "<th scope='col'>$itemValue</th>";
+                                    }
+                                    echo"</tr>";
                                 }
                                 
                             }
@@ -390,7 +439,7 @@
         },
         allowPageScroll:"vertical"
 
-        });
+    });
 </script>
 
 </html>

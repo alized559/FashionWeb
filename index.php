@@ -35,60 +35,125 @@
             <a href="#">Show More</a>
         </div>
         <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 item-entry mb-4">
-                <a href="#" class="text-reset" style="text-decoration: none;">
-                    <div class="landingPopularContainer">
-                        <div class="landingPopularItemImage">
-                            <img src="imgs/landing/popular_image_1.jpg" alt="Popular Image">
+            <div class="row">
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/9.png" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <h1 class="title">Diamond Jewerley</h1>
+                                <p class="price">500$</p>
+                            </div>
                         </div>
-                        <div class="landingPopularItemTitle">
-                            <h1 class="title">Diamond Jewerley</h1>
-                            <p class="price">500$</p>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/default.png" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price">20$</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/download.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price">20$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/test.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price sale"><del>20$</del> 18.99$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price sale"><del>20$</del> 18.99$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price sale"><del>20$</del> 18.99$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price sale"><del>20$</del> 18.99$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price sale"><del>20$</del> 18.99$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
+                    <a href="#" class="text-reset" style="text-decoration: none;">
+                        <div class="landingPopularContainer">
+                            <div class="landingPopularItemImage">
+                                <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
+                            </div>
+                            <div class="landingPopularItemTitle">
+                                <p class="title">Black Hat</p>
+                                <p class="price sale"><del>20$</del> 18.99$</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-6 item-entry mb-4">
-                <a href="#" class="text-reset" style="text-decoration: none;">
-                    <div class="landingPopularContainer">
-                        <div class="landingPopularItemImage">
-                            <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
-                        </div>
-                        <div class="landingPopularItemTitle">
-                            <p class="title">Black Hat</p>
-                            <p class="price">20$</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 item-entry mb-4">
-                <a href="#" class="text-reset" style="text-decoration: none;">
-                    <div class="landingPopularContainer">
-                        <div class="landingPopularItemImage">
-                            <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
-                        </div>
-                        <div class="landingPopularItemTitle">
-                            <p class="title">Black Hat</p>
-                            <p class="price">20$</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-md-6 item-entry mb-4">
-                <a href="#" class="text-reset" style="text-decoration: none;">
-                    <div class="landingPopularContainer">
-                        <div class="landingPopularItemImage">
-                            <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
-                        </div>
-                        <div class="landingPopularItemTitle">
-                            <p class="title">Black Hat</p>
-                            <p class="price sale"><del>20$</del> 18.99$</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
         </div>
         <div class="container">
             <h3 class="landingPopularSubTitle">New Drops</h3>
