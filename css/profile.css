@@ -24,7 +24,6 @@ body {
     height: 100%;
     border-radius: 20px;
     object-fit: cover;
-    object-position: 50% 50%;
 }
 
 .image-container .productImg {
@@ -35,17 +34,13 @@ body {
     left: 10%;
     transform: translateX(-50%);
     border-radius: 50%;
-    object-fit: cover;
-    object-position: 50% 50%;
 }
 
 .container-fluid {
     padding: 120px 0 0 60px !important;
 }
 
-.product-title,
-.user-title,
-.favorites-title {
+.product-title, .user-title, .favorites-title {
     font-family: Inter-Bold;
     margin-top: 20px;
 }
@@ -84,7 +79,6 @@ body {
     border-radius: 18px;
     cursor: pointer;
     object-fit: cover;
-    object-position: 50% 50%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -103,8 +97,6 @@ body {
     cursor: pointer;
     margin-top: 20px;
     margin-right: 20px;
-    object-fit: cover;
-    object-position: 50% 50%;
 }
 
 @media only screen and (max-width: 837px) {
@@ -112,6 +104,7 @@ body {
         display: flex;
         flex-direction: column;
     }
+
     .image-container .productImg {
         left: 20%;
     }
@@ -121,35 +114,41 @@ body {
     .product-colors {
         margin-left: 20px;
     }
+
     .product-colors img {
         width: 100px;
         height: 100px;
     }
+
     .product-default img {
         width: 430px;
     }
-    .name-price-container {
-        max-width: 430px;
-    }
+
     .container-fluid {
         padding: 120px 0 0 30px !important;
     }
+
     .name-price-size {
         margin: 20px 0 0 20px;
     }
+
     .image-container .productImg {
         left: 50%;
     }
+
     .product-details {
         margin: 15px 0 0 14px;
     }
+
     .prod-desc {
         margin-top: 15px;
     }
+
     .table-container {
         margin: 0 !important;
         max-width: 400px;
     }
+
     .favorite-products img {
         margin-top: 20px;
     }
@@ -166,12 +165,12 @@ body {
     flex-wrap: wrap;
 }
 
-.name-price-container {
+.name-price-flex {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 500px;
+    width: 720px;
 }
 
 .details-flex h3,
@@ -180,7 +179,7 @@ body {
     font-family: Inter-Bold;
 }
 
-.name-price-container .price {
+.name-price-flex .price {
     font-size: 20px;
     background-color: rgb(189, 189, 189);
     border-radius: 100px;
@@ -191,7 +190,6 @@ body {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
-    margin-left: 10px;
     align-items: center;
 }
 
@@ -243,12 +241,11 @@ body {
     font-size: 20px;
 }
 
-.table thead tr th,
-.table tbody tr td {
+.table thead tr th, .table tbody tr td {
     border: none;
 }
 
-.reviewsContainer {
+.reviews {
     margin-top: 50px;
 }
 
@@ -256,8 +253,8 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    max-width: 480px;
-    min-width: 480px;
+    max-width: 380px;
+    min-width: 380px;
     background-color: #F4F4F4;
     padding: 0 15px 0 15px;
     border-radius: 8px;
@@ -268,16 +265,13 @@ body {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    margin-right: auto;
-    margin-left: auto;
+    margin-right: 15px;
 }
 
 .vertical-line {
     border-left: 0.5px solid;
     height: 120px;
     margin-right: 15px;
-    margin-left: 15px;
-    border-color: #8D8D8D;
 }
 
 .review-box .column {
@@ -294,14 +288,27 @@ body {
     margin-top: 10px;
 }
 
-.reviewsFlex {
+#reviews {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: row;
+    margin: 20px 0 0 40px;
     flex-wrap: wrap;
-    overflow-y: hidden;
-    gap: 20px;
-    margin-bottom: 50px;
+}
+
+.review-box:nth-child(odd) {
+    margin-right: 100px;
+}
+
+@media only screen and (max-width: 974px) {
+    .review-box:nth-child(odd) {
+        margin-right: 20px;
+    }
+}
+
+@media only screen and (max-width: 896px) {
+    .review-box:nth-child(even) {
+        margin-top: 20px;
+    }
 }
 
 .carousel {
@@ -331,7 +338,6 @@ span.carousel-control-prev-icon {
     justify-content: center;
     /* Aligns it at the bottom */
 }
-
 
 /* .info {
     margin: 20px 0 0 35px;
@@ -366,4 +372,5 @@ span.carousel-control-prev-icon {
     border-radius: 10px;
     margin-right: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
 }
