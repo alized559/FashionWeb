@@ -1,6 +1,6 @@
 <?php
     include "includes/config.php";
-
+    
 ?>
 
 <!DOCTYPE html>
@@ -152,7 +152,13 @@
         <div class="container-fluid">
             <div class="row">
                 <?php
-                    $sql = "SELECT prod_id,name,price,discount,brand FROM products";
+                    $gender = $_GET['gender'];
+                    if ($gender === 'w') {
+                        $gender = 'f';
+                    }
+                    $category = $_GET['category'];
+                    $type = $_GET['type'];
+                    $sql = "SELECT prod_id,name,price,discount,brand FROM products WHERE department='$gender' AND category='$category' AND type='$type'";
                     $result = mysqli_query($db, $sql);
 
                     if($result){

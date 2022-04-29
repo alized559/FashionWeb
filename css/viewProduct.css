@@ -42,6 +42,7 @@ body {
 
 .product-title {
     font-family: Inter-Bold;
+    margin-top: 20px;
 }
 
 .favorite i {
@@ -99,6 +100,10 @@ body {
         display: flex;
         flex-direction: column;
     }
+
+    .image-container .productImg {
+        left: 20%;
+    }
 }
 
 @media only screen and (max-width: 580px) {
@@ -117,6 +122,22 @@ body {
 
     .container-fluid {
         padding: 120px 0 0 30px !important;
+    }
+
+    .name-price-size {
+        margin: 20px 0 0 20px;
+    }
+
+    .image-container .productImg {
+        left: 50%;
+    }
+
+    .product-details {
+        margin: 15px 0 0 14px;
+    }
+
+    .prod-desc {
+        margin-top: 15px;
     }
 }
 
@@ -172,8 +193,7 @@ body {
 }
 
 .product-details {
-    margin-left: 14px;
-    margin-top: 5px;
+    margin: 5px 0 0 14px;
 }
 
 .detail-col-1 {

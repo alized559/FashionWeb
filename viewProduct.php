@@ -76,7 +76,7 @@
     <title>Fashion | <?= $name?></title>
 
     <?php include('header.php') ?>
-    <link href="css/product.css" rel="stylesheet" media="screen">
+    <link href="css/viewProduct.css" rel="stylesheet" media="screen">
 </head>
 <body>
     <div class="image-container">
