@@ -19,9 +19,9 @@ $email = $fetch_check->email;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fashion | User Panel</title>
 
-    <link href="css/viewProduct.css" rel="stylesheet" media="screen">
+    <link href="css/profile.css" rel="stylesheet" media="screen">
 
     <?php include('header.php') ?>
 </head>
@@ -55,46 +55,65 @@ $email = $fetch_check->email;
         </div>
 
         <button class="btn" style="margin-top: 10px; background-color: #EBEBEB; border-radius: 10px; width: 200px;">Manage Profile</button>
-        <a href="logout.php">
+        <a class="logoutButton" href="logout.php">
             <button class="btn" style="margin-top: 10px; background-color: #dc143c; color: white; border-radius: 10px; width: 100px;">Logout</button>
         </a>
-        <h3 class="favorites-title">Favorites</h3>
+        <br>
+        <br>
+        <br>
+        <div class="showMoreDiv">
+            <h3 class="favorites-title">Favorites</h3>
+            <a href="showAllFavorites.php">Show More</a>
+        </div>
         <div class="favorite-products">
             <?php
-                $favorites = $db -> query("SELECT prod_id FROM favorites WHERE `user_id`='$id'");
-                if(mysqli_num_rows($favorites) > 0) {
-                    while($row = mysqli_fetch_assoc($favorites)){
-                        
-                        $id = $row["prod_id"];
-                        $file = "images/products/" . $id . "/logo.jpg";
+                $sql = "SELECT product_id FROM favorites WHERE `user_id`='$id' LIMIT 7";
+                $result = mysqli_query($db, $sql);
+                if($result){
+                    if(mysqli_num_rows($result) > 0) {
+                        while($row = mysqli_fetch_assoc($result)){
+                            
+                            $id = $row["product_id"];
+                            $file = "images/products/" . $id . "/logo.jpg";
 
-                        if(!file_exists($file)){//Deletes the image if it exists
-                            $file = "images/products/" . $id . "/logo.png";
                             if(!file_exists($file)){//Deletes the image if it exists
-                                $file = "images/products/" . $id . "/logo.gif";
+                                $file = "images/products/" . $id . "/logo.png";
                                 if(!file_exists($file)){//Deletes the image if it exists
-                                    $file = "images/products/default.png";
+                                    $file = "images/products/" . $id . "/logo.gif";
+                                    if(!file_exists($file)){//Deletes the image if it exists
+                                        $file = "images/products/default.png";
+                                    }
                                 }
                             }
+                            echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
                         }
-                        echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
+                    } else {
+                        //no favorites
                     }
-                } else {
-                    //no favorites
                 }
             ?>
         </div>
-
-        <h3 class="favorites-title">Previous Orders</h3>
+        <br>
+        <br>
+        <div class="showMoreDiv">
+            <h3 class="favorites-title">Previous Orders</h3>
+            <a href="showAllOrders.php">Show More</a>
+        </div>
         <div class="favorite-products">
             <img src='imgs/9.png' alt='Product Image'>
             <img src='imgs/9.png' alt='Product Image'>
             <img src='imgs/9.png' alt='Product Image'>
         </div>
 
-        <h3 class="favorites-title">Posted Reviews</h3>
-        <div class="reviews">
-            <div id="reviews">
+        <br>
+        <br>
+        <br>
+        <div class="showMoreDiv">
+            <h3 class="favorites-title">Posted Reviews</h3>
+            <a href="showAllReviews.php">Show More</a>
+        </div>
+        <div class="reviewsContainer">
+            <div class="reviewsFlex">
                 <div class="review-box">
                     <img src="imgs/user_photo.png" alt="User Image">
                     <div class="vertical-line"></div>
@@ -129,45 +148,10 @@ $email = $fetch_check->email;
                     </div>
                 </div>
             </div>
-
-            <div id="reviews">
-                <div class="review-box">
-                    <img src="imgs/user_photo.png" alt="User Image">
-                    <div class="vertical-line"></div>
-                    <div class="column">
-                        <h5>John</h5>
-                        <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                        <span class="rating-flex" id="rating3">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="review-box">
-                    <img src="imgs/user_photo.png" alt="User Image">
-                    <div class="vertical-line"></div>
-                    <div class="column">
-                        <h5>John</h5>
-                        <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                        <span class="rating-flex" id="rating4">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-
+    <br>
+    <br>
     <?php include('footer.php') ?>
 </body>
 </html>

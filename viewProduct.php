@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+
     $id = $_GET["id"] ?? 0;
     include "includes/config.php";
     if($id == 0){
@@ -87,7 +90,22 @@
     </div>
 
     <div class="favorite">
-        <i class="fa fa-heart"></i>
+        <?php
+            if(isset($_SESSION['userID'])){
+                $userID = $_SESSION['userID'];
+                $sql = "SELECT * FROM favorites WHERE `user_id`='$userID' AND `product_id`='$id'";
+                $result = mysqli_query($db, $sql);
+                if($result){
+                    if(mysqli_num_rows($result) == 1) {
+                        echo "<a href='updateFavorite.php?id=$id&type=remove'><i class='fa fa-heart active'></i></a>";
+                    } else {
+                        echo "<a href='updateFavorite.php?id=$id&type=add'><i class='fa fa-heart notActive'></i></a>";
+                    }
+                }
+            }else {
+                echo "<a href='login.php'><i class='fa fa-heart notActive'></i></a>";
+            }
+        ?>
     </div>
 
     <div class="container-fluid">

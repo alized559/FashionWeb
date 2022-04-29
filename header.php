@@ -149,7 +149,7 @@
         </li>
     </ul>
     <div class="my-2 my-lg-0 rightitems">
-        <a class="px-3 text-reset" href="showMyLikes.php" style="text-decoration: none;">
+        <a class="px-3 text-reset" href="showAllFavorites.php" style="text-decoration: none;">
             <i class="far fa-heart"></i>
         </a>
         <a href="cart.php" class="text-reset" style="text-decoration: none;">
