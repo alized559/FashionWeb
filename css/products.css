@@ -75,6 +75,7 @@
     height: 370px;
     border-radius: 10px;
     object-fit: cover;
+    object-position: 50% 50%;
 }
 
 .product .sale {

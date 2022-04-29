@@ -94,66 +94,64 @@
         <h3 class="product-title"><?= $name?></h3>
 
         <div class="product-flex">
+            <div class="product-default">
+                <?php echo "<img id='default-img' src='$imagefile' alt='Product Image'>"; ?>
+            </div>
 
-        
-        <div class="product-default">
-            <?php echo "<img id='default-img' src='$imagefile' alt='Product Image'>"; ?>
-        </div>
+            <div class="product-colors">
+                <?php
+                    $sql = "SELECT * FROM product_items WHERE product_id='$id'";
+                    $result = mysqli_query($db, $sql);
+                    $currentIndex = 0;
+                    $currentDivIndex = 0;
 
-        <div class="product-colors">
-            <?php
-                $sql = "SELECT * FROM product_items WHERE product_id='$id'";
-                $result = mysqli_query($db, $sql);
-                $currentIndex = 0;
-                $currentDivIndex = 0;
+                    $firstItemName = "";
+                    $firstItemQuantity = 0;
 
-                $firstItemName = "";
-                $firstItemQuantity = 0;
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                            while($row = mysqli_fetch_assoc($result)){
+                                $itemID = $row["item_id"];
+                                $itemName = $row["name"];
+                                $itemQuantity = $row["quantity"];
+                                if($currentIndex < 4){
+                                    $file = "images/products/" . $id . "/items/$itemID.jpg";
 
-                if($result){
-                    if(mysqli_num_rows($result) > 0){
-                        while($row = mysqli_fetch_assoc($result)){
-                            $itemID = $row["item_id"];
-                            $itemName = $row["name"];
-                            $itemQuantity = $row["quantity"];
-                            if($currentIndex < 4){
-                                $file = "images/products/" . $id . "/items/$itemID.jpg";
-
-                                if(!file_exists($file)){//Deletes the image if it exists
-                                    $file = "images/products/" . $id . "/items/$itemID.png";
                                     if(!file_exists($file)){//Deletes the image if it exists
-                                        $file = "images/products/" . $id . "/items/$itemID.gif";
+                                        $file = "images/products/" . $id . "/items/$itemID.png";
                                         if(!file_exists($file)){//Deletes the image if it exists
-                                            $file = "images/products/default.png";
+                                            $file = "images/products/" . $id . "/items/$itemID.gif";
+                                            if(!file_exists($file)){//Deletes the image if it exists
+                                                $file = "images/products/default.png";
+                                            }
                                         }
                                     }
-                                }
-                                if($currentDivIndex == 0 && $currentIndex == 0){
-                                    $firstItemName = $itemName;
-                                    $firstItemQuantity = $itemQuantity;
-                                    echo "<img class='color hasBorder' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
-                                }else {
-                                    echo "<img class='color' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
-                                }
-                                $currentIndex = $currentIndex + 1;
-                                if($currentIndex == 4){
-                                    $currentIndex = 0;
-                                    $currentDivIndex = $currentDivIndex + 1;
+                                    if($currentDivIndex == 0 && $currentIndex == 0){
+                                        $firstItemName = $itemName;
+                                        $firstItemQuantity = $itemQuantity;
+                                        echo "<img class='color hasBorder' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                    }else {
+                                        echo "<img class='color' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                    }
+                                    $currentIndex = $currentIndex + 1;
+                                    if($currentIndex == 4){
+                                        $currentIndex = 0;
+                                        $currentDivIndex = $currentDivIndex + 1;
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-            ?>
-            </div>
+                ?>
+                </div>
             </div>
 
         <form>
 
             <div class="details-flex">
                 <div class="name-price-size">
-                    <div class="name-price-flex">
+                    <div class="name-price-container">
                         <h3 id="itemNameText"><?= $firstItemName?></h3>
                         <?php
                             if($discount > 0){
@@ -180,49 +178,6 @@
 
                 <div class="product-details">
                     <h3>Product Details</h3>
-                    
-                    <!-- <table class="table borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Package Dimensions</th>
-                                <th scope="col">13.78 x 9.13 x 4.65 inches; 2.5 Pounds</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="col">Model</th>  
-                                <th scope="col">DA0694-001</th>                              
-                            </tr>
-                            <tr>
-                                <th scope="col">Department</th>
-                                <th scope="col">Men</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">2</th>                                
-                            </tr>
-                            <tr>
-                                <th scope="col">Delivery Time</th>   
-                                <th scope="col">3 Days</th>                             
-                            </tr>
-                            <tr>
-                                <th scope="col">Likes</th>
-                                <th scope="col">0</th>                                
-                            </tr>
-                            <tr>
-                                <th scope="col">Rating</th>
-                                <th scope="col">
-                                    <span class='rating-flex' id='rating'>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                        <i class='fa fa-star'></i>
-                                    </span>
-                                </th>                           
-                            </tr>
-                        </tbody>
-                    </table> -->
                         <?php
                             $lines = explode("\n", $details);
                             $keys = array();
@@ -249,30 +204,36 @@
                             array_push($keys, "Likes");
                             array_push($values, $likes);
                             array_push($keys, "Ratings");
-                            echo "<div class='detail-col-1'>";
+                            echo "<table class='table borderless'>";
+                            echo "<tbody>";
                             for($i = 0; $i < count($keys); $i++){
-                                $item = $keys[$i];
-                                echo"<h5>$item</h5>";
-                            }
-                            echo "</div>";
-                            echo "<div class='detail-col-2'>";
-                            for($i = 0; $i < count($values); $i++){
-                                $item = $values[$i];
-                                if($i == count($values) - 3){
-                                    echo"<h4 id='itemQuantityText'>$item</h4>";
-                                }else {
-                                    echo"<h4>$item</h4>";
+                                $itemKey = $keys[$i];
+                                if($i != count($values)){
+                                    $itemValue = $values[$i];
+                                    echo"<tr>";
+                                    echo "<th scope='col'>$itemKey</th>";
+                                    if($i == count($values) - 3){
+                                        echo "<th scope='col' id='itemQuantityText'>$itemValue</th>";
+                                    }else {
+                                        echo "<th scope='col'>$itemValue</th>";
+                                    }
+                                    echo"</tr>";
+                                }else {//Rating
+                                    echo "<th scope='col'>$itemKey</th>";
+                                    echo "<th scope='col'>";
+                                    echo "<span class='rating-flex' id='rating'>";
+                                        echo "<i class='fa fa-star'></i>";
+                                        echo "<i class='fa fa-star'></i>";
+                                        echo "<i class='fa fa-star'></i>";
+                                        echo "<i class='fa fa-star'></i>";
+                                        echo "<i class='fa fa-star'></i>";
+                                    echo "</span>";
+                                    echo "</th>";  
                                 }
                                 
                             }
-                            echo "<span class='rating-flex' id='rating'>";
-                            echo "<i class='fa fa-star'></i>";
-                            echo "<i class='fa fa-star'></i>";
-                            echo "<i class='fa fa-star'></i>";
-                            echo "<i class='fa fa-star'></i>";
-                            echo "<i class='fa fa-star'></i>";
-                            echo "</span>";
-                            echo "</div>";
+                            echo "</tbody>";
+                            echo "</table>";
                         ?>
                 </div>
             </div>
@@ -284,9 +245,9 @@
 
             <button id="add" class="btn" style="height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;">Add To Cart</button>
 
-            <div class="reviews">
+            <div class="reviewsContainer">
                 <h3>Customer Reviews</h3>
-                <div id="reviews">
+                <div class="reviewsFlex">
                     <div class="review-box">
                         <img src="imgs/user_photo.png" alt="User Image">
                         <div class="vertical-line"></div>
@@ -311,42 +272,6 @@
                             <h5>John</h5>
                             <p>Great Product, Feels So Comfy The Colors Are Amazing!!
                             <span class="rating-flex" id="rating2">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="reviews">
-                    <div class="review-box">
-                        <img src="imgs/user_photo.png" alt="User Image">
-                        <div class="vertical-line"></div>
-                        <div class="column">
-                            <h5>John</h5>
-                            <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                            <span class="rating-flex" id="rating3">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="review-box">
-                        <img src="imgs/user_photo.png" alt="User Image">
-                        <div class="vertical-line"></div>
-                        <div class="column">
-                            <h5>John</h5>
-                            <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                            <span class="rating-flex" id="rating4">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
