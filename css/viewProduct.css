@@ -40,9 +40,13 @@ body {
     padding: 120px 0 0 60px !important;
 }
 
-.product-title {
+.product-title, .user-title, .favorites-title {
     font-family: Inter-Bold;
     margin-top: 20px;
+}
+
+.favorites-title {
+    margin-top: 50px;
 }
 
 .favorite i {
@@ -138,6 +142,15 @@ body {
 
     .prod-desc {
         margin-top: 15px;
+    }
+
+    .table-container {
+        margin: 0 !important;
+        max-width: 400px;
+    }
+
+    .favorite-products img {
+        margin-top: 20px;
     }
 }
 
@@ -324,4 +337,39 @@ span.carousel-control-prev-icon {
     margin-bottom: -30px;
     justify-content: center;
     /* Aligns it at the bottom */
+}
+
+/* .info {
+    margin: 20px 0 0 35px;
+}
+
+.user-info {
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+} */
+
+.table-container {
+    margin: 20px 0 0 25px;
+    width: 600px;
+}
+
+.table .title {
+    font-size: 20px;
+}
+
+.favorite-products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.favorite-products img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
