@@ -24,6 +24,11 @@
     margin-left: 2%;
 }
 
+/* .navbar-head .imgcontainer img {
+    width: 220px;
+    height: 50px;
+} */
+
 .navbar-head .rightcontainer {
     float: right;
     display: flex;
@@ -107,6 +112,10 @@
         pointer-events: none;
         margin-left: -20px;
     }
+
+    /* .navbar-head .imgcontainer img {
+        width: 170px;
+    } */
 }
 
 .headeritem {

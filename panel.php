@@ -6,10 +6,19 @@ $id = $_SESSION['userID'];
 
 $user = $db -> query("SELECT * FROM users WHERE `user_id`='$id'");
 
-$fetch_check = $user->fetch_object();
-$fullname = $fetch_check->fullname;
-$username = $fetch_check->username;
-$email = $fetch_check->email;
+$username = "";
+$fullname = "";
+$email = "";
+
+if ($user) {
+    if (mysqli_num_rows($user) > 0) {
+        while ($row = mysqli_fetch_assoc($user)) {
+            $username = $row['username'];
+            $fullname = $row['fullname'];
+            $email = $row['email'];
+        }
+    }
+}
 
 ?>
 
