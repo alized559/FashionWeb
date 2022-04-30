@@ -1,67 +1,87 @@
 <?php 
-include "includes/validateAuth.php";
-include 'includes/config.php';
+    include "includes/validateAuth.php";
+    include 'includes/config.php';
 
-$id = $_SESSION['userID'];
+    $id = $_SESSION['userID'];
 
-$user = $db -> query("SELECT * FROM users WHERE `user_id`='$id'");
+    $username = "";
+    $fullname = "";
+    $email = "";
+    $photo = "";
+    $currentPassword = "";
+    $error = "none";
 
-$username = "";
-$fullname = "";
-$email = "";
-$photo = "";
+    $sql = "SELECT * FROM users WHERE `user_id`='$id'";
+    $result = mysqli_query($db, $sql);
 
-$target_dir = "images/profile_photos/";
-$target_file = $target_dir . 'profile'. $id .'.png';
-if (file_exists($target_file)) {
-    $photo = $target_file;
-} else {
-    $photo = "imgs/user-default-img.png";
-}
-
-if ($user) {
-    if (mysqli_num_rows($user) > 0) {
-        while ($row = mysqli_fetch_assoc($user)) {
-            $username = $row['username'];
-            $fullname = $row['fullname'];
-            $email = $row['email'];
+    if ($result) {
+        if (mysqli_num_rows($result) == 1) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $username = $row['username'];
+                $fullname = $row['fullname'];
+                $email = $row['email'];
+                $currentPassword = $row['password'];
+            }
         }
     }
-}
 
-if (isset($_POST['edit'])) {
-    $fullname = $_POST['fullname'];
-    $password = $_POST['password'];
-
-    if ($fullname !== '' && $password !== '') {
-        $password = md5($_POST['password']);
-        $query = $db -> query("UPDATE users SET fullname='$fullname', password='$password' WHERE `user_id`='$id'");
-    } else if ($fullname !== '' && $password === '') {
-        $query = $db -> query("UPDATE users SET fullname='$fullname' WHERE `user_id`='$id'");
-    } else if ($fullname === '' && $password !== ''){
-        $password = md5($_POST['password']);
-        $query = $db -> query("UPDATE users SET password='$password' WHERE `user_id`='$id'");
+    $fileDirectory = "images/users/$id";
+    if (!file_exists($fileDirectory)) {
+        mkdir($fileDirectory, 0777, true);
     }
 
-    if (isset($_FILES['photo']) && $_FILES['photo']['name']) {
-        $target_dir = "images/profile_photos/";
-        $target_file = $target_dir . 'profile'. $id .'.png';
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-    
-        if ($_FILES["photo"]["size"] > 500000) {
-            $uploadOk = 0;
-        }
-    
-        if ($uploadOk == 1) {
-            move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
-        }
+    $file = "images/users/$id/logo.jpg";
 
-        header('Location: panel.php');
-        exit;
+    if(!file_exists($file)){//Deletes the image if it exists
+        $file = "images/users/$id/logo.png";
+        if(!file_exists($file)){//Deletes the image if it exists
+            $file = "images/users/$id/logo.gif";
+            if(!file_exists($file)){//Deletes the image if it exists
+                $file = "images/users/default.png";
+            }
+        }
     }
-}
+    $photo = $file;
 
+    if(isset($_POST["fullname"])){
+        $newFullname = $_POST["fullname"];
+        $sql = "UPDATE users SET fullname='$newFullname' WHERE `user_id`='$id'";
+        $result = mysqli_query($db, $sql);
+        if ($result) {
+            $fullname = $newFullname;
+        }
+    }else if(isset($_POST["editPassword"])){
+        $oldPassword = $_POST["oldPassword"];
+        $newPassword = md5($_POST["newPassword"]);
+        if(md5($oldPassword) != $currentPassword){
+            $error = "Your Password Was Invalid!";
+        }else {
+            $sql = "UPDATE users SET password='$newPassword' WHERE `user_id`='$id'";
+            $result = mysqli_query($db, $sql);
+        }
+    }else if(isset($_POST["editPhoto"])){
+        $fileDirectory = "images/users/$id";
+        if(isset($_FILES['image']) && $_FILES['image']['name']){
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $str = explode('.',$_FILES['image']['name']);                        
+            $file_ext = strtolower(end($str));
+
+            $file = $fileDirectory . "/logo." . $file_ext;
+            $testFile = $fileDirectory . "/logo." . "png";
+            if(file_exists($testFile)){//Deletes the image if it exists
+                unlink($testFile);
+            }
+            $testFile = $fileDirectory . "/logo." . "jpg";
+            if(file_exists($testFile)){//Deletes the image if it exists
+                unlink($testFile);
+            }
+            if(file_exists($file)){//Deletes the image if it exists
+                unlink($file);
+            }
+            move_uploaded_file($file_tmp, $file);
+            $photo = $file;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -109,37 +129,44 @@ if (isset($_POST['edit'])) {
         <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Your Profile</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST" id="edit_form" action="panel.php" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Enter New Fullname</label>
-                        <input type="text" name="fullname" value='<?php echo $fullname ?>' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter fullname">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Your Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <div class="modal-body">
+                        <form method="POST" action="panel.php" enctype="multipart/form-data">
+                            <label>Change Your Fullname</label>
+                            <input type="text" name="fullname" value='<?php echo $fullname ?>' class="form-control" aria-describedby="fullname" placeholder="Enter your fullname" required>
+                            <button type="submit" class="btn btn-primary mt-2" name="editFullname">Update Fullname</button>
+                        </form>
+                        <br>
+                        <hr>
+                        <form method="POST" action="panel.php" enctype="multipart/form-data">
+                            <label>Change Your Password</label>
+                            <input type="password" name="oldPassword" class="form-control mt-1" aria-describedby="password" placeholder="Enter your current password">
+                            <input type="password" name="newPassword" id="password" class="form-control mt-1" aria-describedby="newpassword" placeholder="Enter your new password">
+                            <input type="password" name="repeatPassword" id="confirm_password" class="form-control mt-1" aria-describedby="newpassword" placeholder="Repeat your new password">
+                            <p id="message">&nbsp;</p>
+                            <button type="submit" id="submitbtn" class="btn btn-primary mt-1" name="editPassword">Change Password</button>
+                        </form>
+                        <br>
+                        
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Enter New Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter password">
+                        <form method="POST" id="edit_form" action="panel.php" enctype="multipart/form-data">
+                            <label for="exampleInputEmail1">Profile Picture</label><br>
+                            <img class="profile-photo" src="<?php echo $photo; ?>">
+                            <div class="upload-button">Upload Photo</div>
+                            <input class="file-upload" type="file" name="image"/>
+                            <button type="submit" id="submitbtn" class="btn btn-primary mt-1" name="editPhoto">Change Picture</button>
+                        </form>
+                        
                     </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Enter New Photo</label><br>
-                        <img class="profile-photo" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg">
-                        <div class="upload-button">Upload Photo</div>
-                        <input class="file-upload" type="file" name="photo"/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     </div>
                     
-                </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="edit" id="edit">Edit</button>
-                    </div>
-                </form>
                 </div>
             </div>
         </div>
@@ -241,6 +268,12 @@ if (isset($_POST['edit'])) {
     <?php include('footer.php') ?>
 </body>
 <script>
+
+    var currentDataError = "<?php echo $error ?>";
+    if(currentDataError != "none"){
+        alert(currentDataError);
+    }
+
     $(document).ready(function() {    
         var readURL = function(input) {
             if (input.files && input.files[0]) {
@@ -259,6 +292,19 @@ if (isset($_POST['edit'])) {
         $(".upload-button").on('click', function() {
             $(".file-upload").click();
         });
+        $('#message').html('').css('color', 'red');
     });
+
+    $('#password, #confirm_password').on('keyup', function () {
+    if ($('#password').val() == $('#confirm_password').val()) {
+        $('#message').html('').css('color', 'red');
+        document.getElementById("submitbtn").disabled = false;
+    } else {
+        $('#message').show();
+        $('#message').html('Passwords Must Be Matching').css('color', 'red');
+        document.getElementById("submitbtn").disabled = true;
+    }
+    });
+
 </script>
 </html>
