@@ -45,7 +45,7 @@ if (isset($_POST['edit'])) {
 
     if (isset($_FILES['photo']) && $_FILES['photo']['name']) {
         $target_dir = "images/profile_photos/";
-        $target_file = $target_dir . 'profile'. $id;
+        $target_file = $target_dir . 'profile'. $id . '.png';
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     
@@ -54,7 +54,7 @@ if (isset($_POST['edit'])) {
         }
     
         if ($uploadOk == 1) {
-            move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file . $imageFileType);
+            move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
         }
 
         header('Location: panel.php');
