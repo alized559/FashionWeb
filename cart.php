@@ -27,11 +27,11 @@
                     <h3 class="subtitle">Aqua</h3>
                     <h3 class="subtitle">Size: 33.5</h3>
                 </div>
-
+                
                 <div class="counter">
-                    <div class="btn">-</div>
-                    <div class="count">2</div>
-                    <div class="btn">+</div>
+                    <div class="btn-minus">-</div>
+                    <div class="count">1</div>
+                    <div class="btn-plus">+</div>
                 </div>
 
                 <div class="prices">
@@ -52,9 +52,9 @@
                 </div>
 
                 <div class="counter">
-                    <div class="btn">-</div>
+                    <div class="btn-minus">-</div>
                     <div class="count">1</div>
-                    <div class="btn">+</div>
+                    <div class="btn-plus">+</div>
                 </div>
 
                 <div class="prices">
