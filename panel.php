@@ -56,6 +56,9 @@ if (isset($_POST['edit'])) {
         if ($uploadOk == 1) {
             move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
         }
+
+        header('Location: panel.php');
+        exit;
     }
 }
 
@@ -75,10 +78,6 @@ if (isset($_POST['edit'])) {
 </head>
 <body>
     <div class="image-container">
-        <?php 
-        // echo "<img class='backImg' src='' alt='Background Image'>";
-        // echo "<img class='productImg' src='' alt='Product Image'>";
-        ?>
         <img class='backImg' src='imgs/profile-back.png' alt='Background Image'>
         <img class='productImg' src='<?php echo $photo ?>' alt='Product Image'>
     </div>
