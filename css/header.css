@@ -24,10 +24,10 @@
     margin-left: 2%;
 }
 
-/* .navbar-head .imgcontainer img {
+.navbar-head .imgcontainer img {
     width: 220px;
-    height: 50px;
-} */
+    height: 40px;
+}
 
 .navbar-head .rightcontainer {
     float: right;
@@ -113,9 +113,9 @@
         margin-left: -20px;
     }
 
-    /* .navbar-head .imgcontainer img {
-        width: 170px;
-    } */
+    .navbar-head .imgcontainer img {
+        width: 160px;
+    }
 }
 
 .headeritem {

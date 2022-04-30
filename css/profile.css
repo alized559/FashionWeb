@@ -24,6 +24,7 @@ body {
     height: 100%;
     border-radius: 20px;
     object-fit: cover;
+    object-position: 50% 50%;
 }
 
 .image-container .productImg {
@@ -34,6 +35,8 @@ body {
     left: 10%;
     transform: translateX(-50%);
     border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 50%;
 }
 
 .container-fluid {
@@ -202,4 +205,25 @@ tbody>tr>:nth-child(2) {
     font-family: Inter-Medium;
     margin-top: 6px;
     margin-right: 10px;
+}
+
+.upload-button {
+    padding: 4px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    margin-top: 10px;
+    width: 130px;
+    cursor: pointer;
+}
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    display: block;
+    object-fit: cover;
+}
+
+.file-upload {
+    display: none;
 }

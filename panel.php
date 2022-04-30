@@ -9,6 +9,15 @@ $user = $db -> query("SELECT * FROM users WHERE `user_id`='$id'");
 $username = "";
 $fullname = "";
 $email = "";
+$photo = "";
+
+$target_dir = "images/profile_photos/";
+$target_file = $target_dir . 'profile'. $id .'.png';
+if (file_exists($target_file)) {
+    $photo = $target_file;
+} else {
+    $photo = "imgs/user-default-img.png";
+}
 
 if ($user) {
     if (mysqli_num_rows($user) > 0) {
@@ -16,6 +25,36 @@ if ($user) {
             $username = $row['username'];
             $fullname = $row['fullname'];
             $email = $row['email'];
+        }
+    }
+}
+
+if (isset($_POST['edit'])) {
+    $fullname = $_POST['fullname'];
+    $password = $_POST['password'];
+
+    if ($fullname !== '' && $password !== '') {
+        $password = md5($_POST['password']);
+        $query = $db -> query("UPDATE users SET fullname='$fullname', password='$password' WHERE `user_id`='$id'");
+    } else if ($fullname !== '' && $password === '') {
+        $query = $db -> query("UPDATE users SET fullname='$fullname' WHERE `user_id`='$id'");
+    } else if ($fullname === '' && $password !== ''){
+        $password = md5($_POST['password']);
+        $query = $db -> query("UPDATE users SET password='$password' WHERE `user_id`='$id'");
+    }
+
+    if (isset($_FILES['photo']) && $_FILES['photo']['name']) {
+        $target_dir = "images/profile_photos/";
+        $target_file = $target_dir . 'profile'. $id .'.png';
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    
+        if ($_FILES["photo"]["size"] > 500000) {
+            $uploadOk = 0;
+        }
+    
+        if ($uploadOk == 1) {
+            move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
         }
     }
 }
@@ -41,7 +80,7 @@ if ($user) {
         // echo "<img class='productImg' src='' alt='Product Image'>";
         ?>
         <img class='backImg' src='imgs/profile-back.png' alt='Background Image'>
-        <img class='productImg' src='imgs/user-default-img.png' alt='Product Image'>
+        <img class='productImg' src='<?php echo $photo ?>' alt='Product Image'>
     </div>
 
     <div class="container-fluid">
@@ -63,23 +102,60 @@ if ($user) {
             </table>
         </div>
 
-        <button class="btn" style="margin-top: 10px; background-color: #EBEBEB; border-radius: 10px; width: 200px;">Manage Profile</button>
+        <button class="btn" data-toggle="modal" data-target="#editProfile" style="margin-top: 10px; background-color: #EBEBEB; border-radius: 10px; width: 200px;">Manage Profile</button>
         <a class="logoutButton" href="logout.php">
             <button class="btn" style="margin-top: 10px; background-color: #dc143c; color: white; border-radius: 10px; width: 100px;">Logout</button>
         </a>
+
+        <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Your Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" id="edit_form" action="panel.php" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Enter New Fullname</label>
+                        <input type="text" name="fullname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter fullname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Enter New Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Enter New Photo</label><br>
+                        <img class="profile-photo" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg">
+                        <div class="upload-button">Upload Photo</div>
+                        <input class="file-upload" type="file" name="photo"/>
+                    </div>
+                    
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="edit" id="edit">Edit</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
         <br>
         <br>
         <br>
         <div class="showMoreDiv">
             <h3 class="favorites-title">Favorites</h3>
-            <a href="showAllFavorites.php">Show More</a>
-        </div>
-        <div class="favorite-products">
             <?php
                 $sql = "SELECT product_id FROM favorites WHERE `user_id`='$id' LIMIT 7";
                 $result = mysqli_query($db, $sql);
                 if($result){
                     if(mysqli_num_rows($result) > 0) {
+                        echo "<a href='showAllFavorites.php'>Show More</a>";
+                        echo "<div class='favorite-products'>";
                         while($row = mysqli_fetch_assoc($result)){
                             
                             $id = $row["product_id"];
@@ -96,8 +172,10 @@ if ($user) {
                             }
                             echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
                         }
+                        echo "</div>";
                     } else {
                         echo "<p>No Favorite Items Yet, Browse Through Our Store To Add More!</p>";
+
                     }
                 }
             ?>
@@ -163,4 +241,25 @@ if ($user) {
     <br>
     <?php include('footer.php') ?>
 </body>
+<script>
+    $(document).ready(function() {    
+        var readURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.profile-photo').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".file-upload").on('change', function(){
+            readURL(this);
+        });
+
+        $(".upload-button").on('click', function() {
+            $(".file-upload").click();
+        });
+    });
+</script>
 </html>
