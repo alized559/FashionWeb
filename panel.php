@@ -185,7 +185,7 @@ if (isset($_POST['edit'])) {
             <h3 class="favorites-title">Previous Orders</h3>
             <a href="showAllOrders.php">Show More</a>
         </div>
-        <div class="favorite-products">
+        <div class="previous-orders">
             <img src='imgs/9.png' alt='Product Image'>
             <img src='imgs/9.png' alt='Product Image'>
             <img src='imgs/9.png' alt='Product Image'>
