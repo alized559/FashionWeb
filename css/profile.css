@@ -139,12 +139,9 @@ tbody>tr>:nth-child(2) {
     margin-top: 5px;
 }
 
-.review-box .column p:not(span) {
+.review-box .column p {
     line-height: 18px;
-}
-
-.review-box .column span {
-    margin-top: 10px;
+    margin-bottom: 0;
 }
 
 .reviewsFlex {

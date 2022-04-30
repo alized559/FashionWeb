@@ -119,7 +119,7 @@ if (isset($_POST['edit'])) {
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Enter New Fullname</label>
-                        <input type="text" name="fullname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter fullname">
+                        <input type="text" name="fullname" value='<?php echo $fullname ?>' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter fullname">
                     </div>
 
                     <div class="form-group">
@@ -206,14 +206,14 @@ if (isset($_POST['edit'])) {
                     <div class="column">
                         <h5>John</h5>
                         <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                        <span class="rating-flex" id="rating1">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </span>
                         </p>
+                        <div class="rating-flex" id="rating1">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
                     </div>
                 </div>
                     
@@ -223,14 +223,14 @@ if (isset($_POST['edit'])) {
                     <div class="column">
                         <h5>John</h5>
                         <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                        <span class="rating-flex" id="rating2">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </span>
                         </p>
+                        <div class="rating-flex" id="rating1">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
                     </div>
                 </div>
             </div>
