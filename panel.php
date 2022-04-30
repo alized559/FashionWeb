@@ -49,7 +49,7 @@
         $result = mysqli_query($db, $sql);
         if ($result) {
             $fullname = $newFullname;
-        }
+      }
     }else if(isset($_POST["editPassword"])){
         $oldPassword = $_POST["oldPassword"];
         $newPassword = md5($_POST["newPassword"]);
