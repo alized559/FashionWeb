@@ -24,11 +24,22 @@
                 if(mysqli_num_rows($result) > 0) {
                     $sql = "DELETE FROM reviews WHERE rev_id='$prod_id'";
                     $result = mysqli_query($db, $sql);
+                    if($result){
+                        echo json_encode(array('state' => "SUCCESS"));
+                    }else {
+                        echo json_encode(array('state' => "FAIL"));
+                    }
                 }else {
                     if(isset($_SESSION['type']) && $_SESSION['type'] == "admin"){
                         $sql = "DELETE FROM reviews WHERE rev_id='$prod_id'";
                         $result = mysqli_query($db, $sql);
+                        if($result){
+                            echo json_encode(array('state' => "SUCCESS"));
+                        }else {
+                            echo json_encode(array('state' => "FAIL"));
+                        }
                     }else {
+                        echo json_encode(array('state' => "FAIL"));
                         die("A non admin tried to delete a comment");
                     }
                 }

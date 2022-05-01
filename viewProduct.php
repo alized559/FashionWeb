@@ -26,6 +26,7 @@
 
     $currentUserImageFile = "none";
     $currentUserUsername = "none";
+    $didPostReview = false;
     if(isset($_SESSION["userID"])){
         $user_id = $_SESSION["userID"];
 
@@ -119,20 +120,6 @@
 
     <div class="favorite">
         <?php
-            /*if(isset($_SESSION['userID'])){
-                $userID = $_SESSION['userID'];
-                $sql = "SELECT * FROM favorites WHERE `user_id`='$userID' AND `product_id`='$id'";
-                $result = mysqli_query($db, $sql);
-                if($result){
-                    if(mysqli_num_rows($result) == 1) {
-                        echo "<a href='updateFavorite.php?id=$id&type=remove'><div class='heart is-active'></div></i></a>";
-                    } else {
-                        echo "<a href='updateFavorite.php?id=$id&type=add'><div class='heart'></div></i></a>";
-                    }
-                }
-            }else {
-                echo "<a href='login.php'><div class='heart'></div></i></a>";
-            }*/
             if(isset($_SESSION['userID'])){
                 $userID = $_SESSION['userID'];
                 $sql = "SELECT * FROM favorites WHERE `user_id`='$userID' AND `product_id`='$id'";
@@ -193,6 +180,7 @@
 
                     $firstItemName = "";
                     $firstItemQuantity = 0;
+                    $firstItemID = -1;
 
                     if($result){
                         if(mysqli_num_rows($result) > 0){
@@ -213,11 +201,12 @@
                                         }
                                     }
                                     if($currentDivIndex == 0 && $currentIndex == 0){
+                                        $firstItemID = $itemID;
                                         $firstItemName = $itemName;
                                         $firstItemQuantity = $itemQuantity;
                                         echo "<img class='color hasBorder' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
                                     }else {
-                                        echo "<img class='color' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                        echo "<img class='color' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
                                     }
                                     $currentIndex = $currentIndex + 1;
                                     if($currentIndex == 4){
@@ -248,8 +237,8 @@
                     </div>
 
                     <div class="size">
-                        <h4>Size</h4>
-                        <select name="select">
+                        <h4 id="extraDataName">Size</h4>
+                        <select name="select" id="extraDataSelect">
                             <option>33.5</option>
                             <option>34</option>
                             <option>35</option>
@@ -295,11 +284,53 @@
                                     echo "<th scope='col'>$itemKey</th>";
                                     echo "<th scope='col'>";
                                     echo "<span class='rating-flex' id='rating'>";
-                                        echo "<i class='fa fa-star'></i>";
-                                        echo "<i class='fa fa-star'></i>";
-                                        echo "<i class='fa fa-star'></i>";
-                                        echo "<i class='fa fa-star'></i>";
-                                        echo "<i class='fa fa-star'></i>";
+                                        //Get Rating Info
+                                        $sql2 = "SELECT * FROM reviews WHERE `product_id`='$id'";
+                                        $result2 = mysqli_query($db, $sql2);
+                                        $currentTotal = 0;
+                                        $currentIndex = 0;
+                                        if($result2){
+                                            if(mysqli_num_rows($result2) > 0) {
+                                                while($row = mysqli_fetch_assoc($result2)){
+                                                    $currentTotal = $currentTotal + $row["rate"];
+                                                    $currentIndex = $currentIndex + 1; 
+                                                }
+                                            }
+                                        }
+                                        if($currentTotal != 0){
+                                            $rate = $currentTotal / $currentIndex;
+                                            $limitReached = false;
+                                            for($i = 1; $i < 6; $i++){
+                                                if($limitReached){
+                                                    echo "<i class='fa fa-star'></i>";
+                                                }else {
+                                                    //2.5, 2
+                                                    if($rate < $i){
+                                                        $limitReached = true;
+                                                        echo "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                                    }else {
+                                                        if($rate - $i == 0){
+                                                            echo "<i class='fa fa-star rating-enabled'></i>";
+                                                            $limitReached = true;
+                                                        }
+                                                        else if($rate - $i >= 0.5){
+                                                            echo "<i class='fa fa-star rating-enabled'></i>";
+                                                        }else {
+                                                            echo "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                                            $limitReached = true;
+                                                        }
+                                                    }
+                                                }
+                                                
+                                            }
+                                        }else {
+                                            echo "<i class='fa fa-star'></i>";
+                                            echo "<i class='fa fa-star'></i>";
+                                            echo "<i class='fa fa-star'></i>";
+                                            echo "<i class='fa fa-star'></i>";
+                                            echo "<i class='fa fa-star'></i>";
+                                        }
+                                        
                                     echo "</span>";
                                     echo "</th>";  
                                     
@@ -334,7 +365,7 @@
                 <p><?=$description?></p>
             </div>
 
-            <button id="add" class="btn" style="height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;">Add To Cart</button>
+            <button id="add" class="btn" onclick="AddItemToCart()" style="height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;">Add To Cart</button>
 
             <div class="reviewsContainer">
                 <h3>Customer Reviews</h3>
@@ -385,6 +416,12 @@
                                             if(!file_exists($file)){//Deletes the image if it exists
                                                 $file = "images/users/default.png";
                                             }
+                                        }
+                                    }
+
+                                    if(isset($_SESSION['userID'])){
+                                        if($_SESSION['userID'] == $user_id){
+                                            $didPostReview = true;
                                         }
                                     }
 
@@ -454,6 +491,35 @@
 </body>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script>
+
+    var id = "<?php echo $id; ?>";
+    var currentSelectedItemID = <?= $firstItemID ?>;
+
+    function AddItemToCart(){
+        if(currentSelectedItemID != -1){
+            var dataNameText = document.getElementById("extraDataName").innerHTML;
+            var dataSelect = document.getElementById("extraDataSelect");
+            var dataSelectText = dataSelect.options[dataSelect.selectedIndex].text;
+            
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "manageCart.php?id=" + id + "&type=add&item=" + currentSelectedItemID + "&dataName=" + dataNameText + "&dataValue=" + dataSelectText, true);
+            xmlhttp.addEventListener('error', handleReviewEvent);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    var data = JSON.parse(xmlhttp.responseText);
+                    if(data.state == "SUCCESS"){
+                        alert("Added Item To Cart");
+                    }else {
+                        alert("Failed Adding To Cart, Please Contact A System Administrator");
+                    }
+                }
+            }
+        }
+    }
+
     $('.color').click(function() {
         var $this = $(this);
         if ($this.hasClass('hasBorder')) {
@@ -466,6 +532,7 @@
             let itemQuantity = document.getElementById('itemQuantityText');
             itemName.innerHTML = $(this).data("name");
             itemQuantity.innerHTML = $(this).data("quantity");
+            currentSelectedItemID = $(this).data("id");
         }
     });
 
@@ -476,7 +543,6 @@
             document.getElementById('add').style.backgroundColor = "#ffd814";
         }
     );
-    var id = "<?php echo $id; ?>";
     var imageFile = "<?php echo $currentUserImageFile; ?>";
     var username = "<?php echo $currentUserUsername; ?>";
     function PostReview(rate){
@@ -536,6 +602,16 @@
         xmlhttp.open("GET", "updateReview.php?id=" + revid + "&type=remove", true);
         xmlhttp.addEventListener('error', handleReviewEvent);
         xmlhttp.send();
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var data = JSON.parse(xmlhttp.responseText);
+                if(data.state == "SUCCESS"){
+                    $('#leaveAReview *').prop('disabled', false);
+                }
+            }
+        }
         const parent = element.closest('div.review-box');
         parent.remove();
     }
@@ -544,7 +620,12 @@
         alert("Failed To Update Review, Please Contact The System Administrator.");
     }
 
-
+    $(function() {
+        var didPostReview = "<?php echo $didPostReview; ?>";
+        if(didPostReview == 1){
+            $('#leaveAReview *').prop('disabled', true);
+        }
+    });
 </script>
 
 </html>
