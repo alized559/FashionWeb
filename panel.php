@@ -159,7 +159,7 @@
                             <img class="profile-photo" src="<?php echo $photo; ?>">
                             <div class="upload-button">Upload Photo</div>
                             <input class="file-upload" type="file" name="image"/>
-                            <button type="submit" id="submitbtn" class="btn btn-primary mt-1" name="editPhoto">Change Picture</button>
+                            <button type="submit" id="submitbtn2" class="btn btn-primary mt-1" name="editPhoto">Change Picture</button>
                         </form>
                         
                     </div>
@@ -184,19 +184,19 @@
                         echo "<div class='favorite-products'>";
                         while($row = mysqli_fetch_assoc($result)){
                             
-                            $id = $row["product_id"];
-                            $file = "images/products/" . $id . "/logo.jpg";
+                            $prod_id = $row["product_id"];
+                            $filep = "images/products/" . $prod_id . "/logo.jpg";
 
-                            if(!file_exists($file)){//Deletes the image if it exists
-                                $file = "images/products/" . $id . "/logo.png";
-                                if(!file_exists($file)){//Deletes the image if it exists
-                                    $file = "images/products/" . $id . "/logo.gif";
-                                    if(!file_exists($file)){//Deletes the image if it exists
-                                        $file = "images/products/default.png";
+                            if(!file_exists($filep)){//Deletes the image if it exists
+                                $filep = "images/products/" . $prod_id . "/logo.png";
+                                if(!file_exists($filep)){//Deletes the image if it exists
+                                    $filep = "images/products/" . $prod_id . "/logo.gif";
+                                    if(!file_exists($filep)){//Deletes the image if it exists
+                                        $filep = "images/products/default.png";
                                     }
                                 }
                             }
-                            echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
+                            echo "<a href='viewProduct.php?id=$prod_id'><img src='$filep' alt='Product Image'></a>";
                         }
                         echo "</div>";
                     } else {
@@ -211,60 +211,89 @@
         <div class="showMoreDiv">
             <h3 class="favorites-title">Previous Orders</h3>
             <a href="showAllOrders.php">Show More</a>
+            <div class="previous-orders">
+                <img src='imgs/9.png' alt='Product Image'>
+                <img src='imgs/9.png' alt='Product Image'>
+                <img src='imgs/9.png' alt='Product Image'>
+            </div>
         </div>
-        <div class="previous-orders">
-            <img src='imgs/9.png' alt='Product Image'>
-            <img src='imgs/9.png' alt='Product Image'>
-            <img src='imgs/9.png' alt='Product Image'>
-        </div>
-
+        
+                
         <br>
         <br>
         <br>
         <div class="showMoreDiv">
             <h3 class="favorites-title">Posted Reviews</h3>
-            <a href="showAllReviews.php">Show More</a>
-        </div>
-        <div class="reviewsContainer">
-            <div class="reviewsFlex">
-                <div class="review-box">
-                    <img src="imgs/user_photo.png" alt="User Image">
-                    <div class="vertical-line"></div>
-                    <div class="column">
-                        <h5>John</h5>
-                        <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                        </p>
-                        <div class="rating-flex" id="rating1">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                    
-                <div class="review-box">
-                    <img src="imgs/user_photo.png" alt="User Image">
-                    <div class="vertical-line"></div>
-                    <div class="column">
-                        <h5>John</h5>
-                        <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                        </p>
-                        <div class="rating-flex" id="rating1">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php
+                $sql3 = "SELECT * FROM reviews WHERE `user_id`='$id' LIMIT 7";
+                $result3 = mysqli_query($db, $sql3);
+                if($result3){
+                    if(mysqli_num_rows($result3) > 0) {
+                        echo "<a href='showAllReviews.php'>Show More</a>";
+                        echo "<div class='reviewsContainer'>";
+                        echo "<div class='reviewsFlex p-4'>";
+                        while($row3 = mysqli_fetch_assoc($result3)){
+                            $text = str_replace("<lb>","<br>",$row3["text"]);
+                            $rate = $row3["rate"];
+                            $prod_id = $row3["product_id"];
+                            $sql2 = "SELECT name FROM products WHERE `prod_id`='$prod_id'";
+                            $result2 = mysqli_query($db, $sql2);
+                            if($result2){
+                                if(mysqli_num_rows($result2) == 1) {
+                                    while($row2 = mysqli_fetch_assoc($result2)){
+                                        $prod_name = $row2['name'];
+                                        echo "<a href='viewProduct.php?id=$prod_id' class='text-reset' style='text-decoration:none;'>";
+                                        echo "<div class='review-box'>";
+                                        echo "<div><img src='$file' alt='User Image'></div>";
+                                        echo "<div class='vertical-line'></div>";
+                                        echo "<div class='column'>";
+                                        echo "<h5>$username ● $prod_name</h5>";
+                                        echo "<p>";
+                                        echo $text;
+                                        echo "<span class='rating-flex'>";
+                                        $limitReached = false;
+                                        for($i = 1; $i < 6; $i++){
+                                            if($limitReached){
+                                                echo "<i class='fa fa-star'></i>";
+                                            }else {
+                                                //2.5, 2
+                                                if($rate < $i){
+                                                    $limitReached = true;
+                                                    echo "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                                }else {
+                                                    if($rate - $i == 0){
+                                                        echo "<i class='fa fa-star rating-enabled'></i>";
+                                                        $limitReached = true;
+                                                    }
+                                                    else if($rate - $i >= 0.5){
+                                                        echo "<i class='fa fa-star rating-enabled'></i>";
+                                                    }else {
+                                                        echo "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                                        $limitReached = true;
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                        echo "</span>";
+                                        echo "</p>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                        echo "</a>";
+                                    }
+                                }
+                            }
+                        }
+                        echo "</div>";
+                        echo "</div>";
+                    } else {
+                        echo "<p>No Reviews Yet, Browse Through Our Store To Make Some!</p>";
+
+                    }
+                }
+            ?>
         </div>
     </div>
-    <br>
-    <br>
     <?php include('footer.php') ?>
 </body>
 <script>

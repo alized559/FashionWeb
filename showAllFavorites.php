@@ -4,12 +4,41 @@ include 'includes/config.php';
 
 $id = $_SESSION['userID'];
 
-$user = $db -> query("SELECT * FROM users WHERE `user_id`='$id'");
+$username = "";
+$fullname = "";
+$email = "";
+$photo = "";
 
-$fetch_check = $user->fetch_object();
-$fullname = $fetch_check->fullname;
-$username = $fetch_check->username;
-$email = $fetch_check->email;
+$sql = "SELECT * FROM users WHERE `user_id`='$id'";
+$result = mysqli_query($db, $sql);
+
+if ($result) {
+    if (mysqli_num_rows($result) == 1) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $username = $row['username'];
+            $fullname = $row['fullname'];
+            $email = $row['email'];
+        }
+    }
+}
+
+$fileDirectory = "images/users/$id";
+if (!file_exists($fileDirectory)) {
+    mkdir($fileDirectory, 0777, true);
+}
+
+$file = "images/users/$id/logo.jpg";
+
+if(!file_exists($file)){//Deletes the image if it exists
+    $file = "images/users/$id/logo.png";
+    if(!file_exists($file)){//Deletes the image if it exists
+        $file = "images/users/$id/logo.gif";
+        if(!file_exists($file)){//Deletes the image if it exists
+            $file = "images/users/default.png";
+        }
+    }
+}
+$photo = $file;
 
 ?>
 
@@ -27,11 +56,7 @@ $email = $fetch_check->email;
 </head>
 <body>
     <div class="image-container">
-        <?php 
-        // echo "<img class='backImg' src='' alt='Background Image'>";
-        // echo "<img class='productImg' src='' alt='Product Image'>";
-        ?>
-        <img class='backImg' src='imgs/profile-back.png' alt='Background Image'>
+        <img class='backImg' src='<?= $photo ?>' alt='Background Image'>
         <img class='productImg' src='imgs/user-default-img.png' alt='Product Image'>
     </div>
 
@@ -60,7 +85,7 @@ $email = $fetch_check->email;
                             echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
                         }
                     } else {
-                        //no favorites
+                        echo "<p>No Favorite Products Yet, Browse Through Our Store To Add More!</p>";
                     }
                 }
             ?>

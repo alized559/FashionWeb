@@ -24,6 +24,33 @@
     $imagefile = "";
     $bannerfile = "";
 
+    $currentUserImageFile = "none";
+    $currentUserUsername = "none";
+    if(isset($_SESSION["userID"])){
+        $user_id = $_SESSION["userID"];
+
+        $sql2 = "SELECT username FROM users WHERE `user_id`='$user_id'";
+        $result2 = mysqli_query($db, $sql2);
+        if($result2){
+            if(mysqli_num_rows($result2) == 1) {
+                while($row2 = mysqli_fetch_assoc($result2)){
+                    $currentUserUsername = $row2['username'];
+                }
+            }
+        }
+
+        $currentUserImageFile = "images/users/$user_id/logo.jpg";
+        if(!file_exists($currentUserImageFile)){//Deletes the image if it exists
+            $currentUserImageFile = "images/users/$user_id/logo.png";
+            if(!file_exists($currentUserImageFile)){//Deletes the image if it exists
+                $currentUserImageFile = "images/users/$user_id/logo.gif";
+                if(!file_exists($currentUserImageFile)){//Deletes the image if it exists
+                    $currentUserImageFile = "images/users/default.png";
+                }
+            }
+        }
+    }
+
     if($result){
         if(mysqli_num_rows($result) == 1){
             while($row = mysqli_fetch_assoc($result)){
@@ -205,9 +232,6 @@
                 ?>
                 </div>
             </div>
-
-        <form>
-
             <div class="details-flex">
                 <div class="name-price-size">
                     <div class="name-price-container">
@@ -314,43 +338,115 @@
 
             <div class="reviewsContainer">
                 <h3>Customer Reviews</h3>
-                <div class="reviewsFlex">
-                    <div class="review-box">
-                        <img src="imgs/user_photo.png" alt="User Image">
-                        <div class="vertical-line"></div>
-                        <div class="column">
-                            <h5>John</h5>
-                            <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                            <span class="rating-flex" id="rating1">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                            </p>
+                <?php
+                    if($currentUserImageFile != "none"){
+                        ?>
+                        <div class="leaveAReview" id="leaveAReview">
+                            <div class="comment-area"> 
+                            <textarea id="ratingReview" class="form-control" placeholder="Would you like to leave a review?" rows="2"></textarea>
+                        </div>
+                        <div>
+                            <fieldset class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" onclick="PostReview(5)" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+                                <input type="radio" id="star4half" name="rating" value="4.5" onclick="PostReview(4.5)" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" onclick="PostReview(4)" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+                                <input type="radio" id="star3half" name="rating" value="3.5" onclick="PostReview(3.5)" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" onclick="PostReview(3)" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+                                <input type="radio" id="star2half" name="rating" value="2.5" onclick="PostReview(2.5)" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" onclick="PostReview(2)" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+                                <input type="radio" id="star1half" name="rating" value="1.5" onclick="PostReview(1.5)" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" onclick="PostReview(1)" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+                                <input type="radio" id="starhalf" name="rating" value="0.5" onclick="PostReview(0.5)" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+                            </fieldset>
                         </div>
                     </div>
-                        
-                    <div class="review-box">
-                        <img src="imgs/user_photo.png" alt="User Image">
-                        <div class="vertical-line"></div>
-                        <div class="column">
-                            <h5>John</h5>
-                            <p>Great Product, Feels So Comfy The Colors Are Amazing!!
-                            <span class="rating-flex" id="rating2">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
-                    </div>
+                    <?php
+                    }
+
+                ?>
+                <div class="reviewsFlex mt-5 p-4" id="reviewBox">
+                    <?php
+                        $sql = "SELECT * FROM reviews WHERE `product_id`='$id'";
+                        $result = mysqli_query($db, $sql);
+                        if($result){
+                            if(mysqli_num_rows($result) > 0) {
+                                while($row = mysqli_fetch_assoc($result)){
+                                    
+                                    $user_id = $row["user_id"];
+                                    $rev_id =$row["rev_id"];
+                                    $file = "images/users/" . $user_id . "/logo.jpg";
+                                    $text = str_replace("<lb>","<br>",$row["text"]);
+                                    $rate = $row["rate"];
+
+                                    if(!file_exists($file)){//Deletes the image if it exists
+                                        $file = "images/users/" . $user_id . "/logo.png";
+                                        if(!file_exists($file)){//Deletes the image if it exists
+                                            $file = "images/users/" . $user_id . "/logo.gif";
+                                            if(!file_exists($file)){//Deletes the image if it exists
+                                                $file = "images/users/default.png";
+                                            }
+                                        }
+                                    }
+
+                                    $sql2 = "SELECT username FROM users WHERE `user_id`='$user_id'";
+                                    $result2 = mysqli_query($db, $sql2);
+                                    if($result2){
+                                        if(mysqli_num_rows($result2) == 1) {
+                                            while($row2 = mysqli_fetch_assoc($result2)){
+                                                $username = $row2['username'];
+                                                echo "<div class='review-box' >";
+                                                echo "<div><img src='$file' alt='User Image'></div>";
+                                                echo "<div class='vertical-line'></div>";
+                                                echo "<div class='column'>";
+                                                echo "<h5>$username</h5>";
+                                                echo "<p>";
+                                                echo $text;
+                                                echo "<span class='rating-flex'>";
+                                                $limitReached = false;
+                                                for($i = 1; $i < 6; $i++){
+                                                    if($limitReached){
+                                                        echo "<i class='fa fa-star'></i>";
+                                                    }else {
+                                                        //2.5, 2
+                                                        if($rate < $i){
+                                                            $limitReached = true;
+                                                            echo "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                                        }else {
+                                                            if($rate - $i == 0){
+                                                                echo "<i class='fa fa-star rating-enabled'></i>";
+                                                                $limitReached = true;
+                                                            }
+                                                            else if($rate - $i >= 0.5){
+                                                                echo "<i class='fa fa-star rating-enabled'></i>";
+                                                            }else {
+                                                                echo "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                                                $limitReached = true;
+                                                            }
+                                                        }
+                                                    }
+                                                   
+                                                }
+                                                echo "</span>";
+                                                echo "</p>";
+                                                if(isset($_SESSION['userID'])){
+                                                    if($username == $currentUserUsername || (isset($_SESSION['type']) && $_SESSION['type'] == "admin")){
+                                                        echo "<div class='delete-review' onclick='DeleteReview(this, $rev_id)'><i class='fa-solid fa-trash-can mb-2'></i></div>";
+                                                    }
+                                                }
+                                                echo "</div>";
+                                                echo "</div>";
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                echo "<p id='noReviewsYet'>No Reviews Yet, Like This Product? Leave A Review!</p>";
+
+                            }
+                        }
+                    ?>
                 </div>
             </div>
-        </form>
 
     </div>
 
@@ -373,51 +469,6 @@
         }
     });
 
-    var ratingLength = 4; // get from php, this is for product review
-
-    // get from php, this is for four reviews
-    var rating1Length = 4; 
-    var rating2Length = 5;
-    var rating3Length = 3; 
-    var rating4Length = 2;
-
-    const rating = document.getElementById('rating');
-    const rating1 = document.getElementById('rating1');
-    const rating2 = document.getElementById('rating2');
-    const rating3 = document.getElementById('rating3');
-    const rating4 = document.getElementById('rating4');
-    for (let i = 0; i < rating.children.length; i++) {
-        if (i >= ratingLength) {
-            rating.children[i].style.color = "rgb(183, 183, 183)";
-        } else {
-            rating.children[i].style.color = "#ffd814";
-        }
-
-        if (i >= rating1Length) {
-            rating1.children[i].style.color = "rgb(183, 183, 183)";
-        } else {
-            rating1.children[i].style.color = "#ffd814";
-        }
-
-        if (i >= rating2Length) {
-            rating2.children[i].style.color = "rgb(183, 183, 183)";
-        } else {
-            rating2.children[i].style.color = "#ffd814";
-        }
-
-        if (i >= rating3Length) {
-            rating3.children[i].style.color = "rgb(183, 183, 183)";
-        } else {
-            rating3.children[i].style.color = "#ffd814";
-        }
-
-        if (i >= rating4Length) {
-            rating4.children[i].style.color = "rgb(183, 183, 183)";
-        } else {
-            rating4.children[i].style.color = "#ffd814";
-        }
-    }
-
     $("#add").hover(
         function() {
             document.getElementById('add').style.backgroundColor = "#fbea94";
@@ -425,21 +476,75 @@
             document.getElementById('add').style.backgroundColor = "#ffd814";
         }
     );
+    var id = "<?php echo $id; ?>";
+    var imageFile = "<?php echo $currentUserImageFile; ?>";
+    var username = "<?php echo $currentUserUsername; ?>";
+    function PostReview(rate){
+        var currentReview = $('#ratingReview').val();
+        $('#leaveAReview *').prop('disabled', true);
+        var xmlhttp = new XMLHttpRequest();
+        var text = currentReview;
+        currentReview = currentReview.replaceAll("\n","<lb>");
+        xmlhttp.open("GET", "updateReview.php?id=" + id + "&type=add&text=" + currentReview + "&rate=" + rate, true);
+        xmlhttp.addEventListener('error', handleReviewEvent);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var data = JSON.parse(xmlhttp.responseText);
+                if(data.state == "SUCCESS"){
+                    $('#noReviewsYet').remove();
+                    var toAppEnd = "<div class='review-box' >" + "<div><img src='" + imageFile + "' alt='User Image'></div>" +
+                    "<div class='vertical-line'></div>" + "<div class='column'>" + "<h5>" + username + "</h5>" + "<p>" + text +
+                    "<span class='rating-flex'>";
+                    var limitReached = false;
+                    for(var i = 1; i < 6; i++){
+                        if(limitReached){
+                            toAppEnd += "<i class='fa fa-star'></i>";
+                        }else {
+                            //2.5, 2
+                            if(rate < i){
+                                limitReached = true;
+                                toAppEnd += "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                            }else {
+                                if(rate - i == 0){
+                                    toAppEnd += "<i class='fa fa-star rating-enabled'></i>";
+                                    limitReached = true;
+                                }
+                                else if(rate - i >= 0.5){
+                                    toAppEnd += "<i class='fa fa-star rating-enabled'></i>";
+                                }else {
+                                    toAppEnd += "<i class='fa fa-star-half-stroke rating-enabled'></i>";
+                                    limitReached = true;
+                                }
+                            }
+                        } 
+                    }
+                    toAppEnd += "</span>" + "</p>" + 
+                    "<div class='delete-review' onclick='DeleteReview(this, " + data.id + ")'><i class='fa-solid fa-trash-can mb-2'></i></div>" + "</div>" + "</div>";
+                    $('#reviewBox').append(toAppEnd);
+                }else {
+                    alert("Failed To Add Review, Please Contact A System Administrator");
+                }
+            }
+        }
+    }
 
-    $('.carousel').carousel({
-        interval: false,
-    });
-    $(".carousel").swipe({
+    function DeleteReview(element, revid){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "updateReview.php?id=" + revid + "&type=remove", true);
+        xmlhttp.addEventListener('error', handleReviewEvent);
+        xmlhttp.send();
+        const parent = element.closest('div.review-box');
+        parent.remove();
+    }
 
-        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+    function handleReviewEvent(e) {
+        alert("Failed To Update Review, Please Contact The System Administrator.");
+    }
 
-        if (direction == 'left') $(this).carousel('next');
-        if (direction == 'right') $(this).carousel('prev');
 
-        },
-        allowPageScroll:"vertical"
-
-    });
 </script>
 
 </html>

@@ -21,7 +21,5 @@
                 $result = mysqli_query($db, $sql);
             }
         }
-        header("location:viewProduct.php?id=$prod_id");
-        die();
     }
 ?>

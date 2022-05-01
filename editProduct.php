@@ -92,6 +92,10 @@
             }
             $sql = "DELETE FROM product_items WHERE product_id='$prodID'";
             $result = mysqli_query($db, $sql);
+            $sql = "DELETE FROM favorites WHERE product_id='$prodID'";
+            $result = mysqli_query($db, $sql);
+            $sql = "DELETE FROM reviews WHERE product_id='$prodID'";
+            $result = mysqli_query($db, $sql);
         }else {
             
         }
