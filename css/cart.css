@@ -93,7 +93,8 @@
     align-items: center;
 }
 
-.counter .btn-minus, .counter .btn-plus {
+.counter .btn-minus,
+.counter .btn-plus {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -140,7 +141,7 @@
     border-top: 2.5px solid rgb(190, 190, 190);
     margin-bottom: 10px;
 }
- 
+
 .checkout {
     float: right;
     margin-right: 5%;
@@ -189,31 +190,25 @@
     .image-box {
         width: 60%;
     }
-
     .about {
         margin-left: 10px;
     }
-
     .about .title {
         line-height: 30px;
         font-size: 22px;
     }
-
     .about .subtitle {
         margin-top: 10px;
     }
-
     .counter {
         margin-right: 30px;
     }
-
     .counter .btn-minus {
         margin-right: 10px;
         width: 20px;
         height: 20px;
         font-size: 16px;
     }
-
     .counter .btn-plus {
         margin-left: 10px;
         width: 20px;
@@ -226,40 +221,49 @@
     .cart-items {
         flex-direction: column;
     }
-
     .image-box {
         width: 100%;
     }
-
     .image-box img {
         height: 200px !important;
     }
-
     .about .title {
         margin-top: 10px;
     }
-
     .counter {
         width: 25%;
         margin-left: 10px;
     }
-
-    .counter .btn-minus, .counter .btn-plus {
+    .counter .btn-minus,
+    .counter .btn-plus {
         width: 60px;
         height: 25px;
         font-size: 18px;
     }
-
     .prices {
         text-align: start;
         margin-left: 10px;
     }
-
     .checkout {
         width: 50%;
     }
-
     .button {
         margin-top: 10px;
     }
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
 }

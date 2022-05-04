@@ -365,7 +365,14 @@
                 <p><?=$description?></p>
             </div>
 
-            <button id="add" class="btn" onclick="AddItemToCart()" style="height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;">Add To Cart</button>
+            <?php
+                if(isset($_SESSION["userID"])){
+                    echo "<button id='add' class='btn' onclick='AddItemToCart()' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</button>";
+                }else {
+                    echo "<a id='add' class='btn' href='login.php' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</a>";
+                }
+            ?>
+            
 
             <div class="reviewsContainer">
                 <h3>Customer Reviews</h3>
@@ -600,7 +607,7 @@
     function DeleteReview(element, revid){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", "updateReview.php?id=" + revid + "&type=remove", true);
-        xmlhttp.addEventListener('error', handleReviewEvent);
+        xmlhttp.addEventListener('error', handleCartEvent);
         xmlhttp.send();
         xmlhttp.onreadystatechange=function()
         {
@@ -614,6 +621,10 @@
         }
         const parent = element.closest('div.review-box');
         parent.remove();
+    }
+
+    function handleCartEvent(e) {
+        alert("Failed To Update Cart, Please Contact The System Administrator.");
     }
 
     function handleReviewEvent(e) {

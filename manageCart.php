@@ -62,8 +62,29 @@
                 }
             }
 
-        }else {
-           
+        }else if($type == "edit"){
+            $item_id = $_GET["id"];
+            $amount = $_GET["amount"];
+            $sql2 = "UPDATE cart_items SET quantity='$amount' WHERE item_id='$item_id'";
+            $result2 = mysqli_query($db, $sql2);
+            if($result2){
+                echo json_encode(array('state' => "SUCCESS"));
+                die();
+            }else {
+                echo json_encode(array('state' => "FAIL"));
+                die();
+            }
+        }else if($type == "remove"){
+            $item_id = $_GET["id"];
+            $sql2 = "DELETE FROM cart_items WHERE item_id='$item_id'";
+            $result2 = mysqli_query($db, $sql2);
+            if($result2){
+                echo json_encode(array('state' => "SUCCESS"));
+                die();
+            }else {
+                echo json_encode(array('state' => "FAIL"));
+                die();
+            }
         }
     }
 ?>
