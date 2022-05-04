@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 03:24 AM
+-- Generation Time: May 04, 2022 at 01:55 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -14,6 +14,48 @@ SET time_zone = "+00:00";
 --
 -- Database: `fashion`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `cart_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`) VALUES
+(1, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_items`
+--
+
+CREATE TABLE `cart_items` (
+  `item_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `prod_item_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `data` mediumtext NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart_items`
+--
+
+INSERT INTO `cart_items` (`item_id`, `cart_id`, `prod_id`, `prod_item_id`, `quantity`, `data`) VALUES
+(1, 1, 2, 6, 11, '33.5'),
+(2, 1, 2, 6, 2, 'Size: 35'),
+(3, 1, 2, 6, 3, 'Size: 33.5');
 
 -- --------------------------------------------------------
 
@@ -101,15 +143,6 @@ CREATE TABLE `reviews` (
   `rate` double(10,1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `reviews`
---
-
-INSERT INTO `reviews` (`rev_id`, `user_id`, `product_id`, `text`, `rate`) VALUES
-(18, 5, 2, 'I got this for my wife, she really loved it, its comfy and great quality, 100% recommend', 5.0),
-(19, 5, 2, 'Update, i got another one fore my daughter', 5.0),
-(21, 5, 2, 'Update, i got another one fore my daughter w', 4.5);
-
 -- --------------------------------------------------------
 
 --
@@ -137,6 +170,18 @@ INSERT INTO `users` (`user_id`, `username`, `fullname`, `email`, `password`, `ty
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cart_id`);
+
+--
+-- Indexes for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD PRIMARY KEY (`item_id`);
 
 --
 -- Indexes for table `products`
@@ -167,6 +212,18 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
@@ -182,7 +239,7 @@ ALTER TABLE `product_items`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `rev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `rev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`
