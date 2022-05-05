@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2022 at 01:55 PM
+-- Generation Time: May 06, 2022 at 12:15 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -14,6 +14,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `fashion`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `brands`
+--
+
+CREATE TABLE `brands` (
+  `brand_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `link` text NOT NULL,
+  `local` int(11) NOT NULL,
+  `display_navbar` int(11) NOT NULL,
+  `display_footer` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`brand_id`, `name`, `link`, `local`, `display_navbar`, `display_footer`) VALUES
+(2, 'Nike', 'https://www.nike.com/', 0, 1, 1),
+(3, 'Addidas', 'https://www.adidas.com/', 0, 1, 1),
+(4, 'Gucci', 'https://www.gucci.com/', 0, 1, 1),
+(5, 'Grand Outlet', 'https://www.facebook.com/thegrandoutlet/', 1, 1, 0),
+(6, 'Big Sale', 'https://bigsale-lb.com/', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -53,9 +79,9 @@ CREATE TABLE `cart_items` (
 --
 
 INSERT INTO `cart_items` (`item_id`, `cart_id`, `prod_id`, `prod_item_id`, `quantity`, `data`) VALUES
-(1, 1, 2, 6, 11, '33.5'),
-(2, 1, 2, 6, 2, 'Size: 35'),
-(3, 1, 2, 6, 3, 'Size: 33.5');
+(29, 1, 2, 6, 1, 'Size: 33.5'),
+(32, 1, 5, 12, 1, 'Size: 33.5'),
+(33, 1, 1, 3, 1, 'Size: 33.5');
 
 -- --------------------------------------------------------
 
@@ -67,6 +93,13 @@ CREATE TABLE `favorites` (
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `favorites`
+--
+
+INSERT INTO `favorites` (`user_id`, `product_id`) VALUES
+(5, 2);
 
 -- --------------------------------------------------------
 
@@ -95,7 +128,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`prod_id`, `name`, `description`, `price`, `delivery_time`, `discount`, `likes`, `details`, `department`, `category`, `type`, `brand`) VALUES
 (1, 'Nike Air Force 1', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance. ', 299, 3, 0, 0, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel Number<>DC2911-101', 'm', 'shoes', 'slides', 'Nike'),
-(2, 'Women’s High-Rise Woven Pants', 'Lets face it. We cant stay pantless forever. As we prime ourselves for more coffee runs and endless commutes, we need a good pair of pants to go the extra mile with us. These roomy pants can keep up, stay up, and hold their shape (even during video calls). Now the only question is, what shoes will you wear?', 79.99, 2, 19.99, 0, 'Made<>61% cotton/39% polyester\r\nModel<>DD5983-010', 'f', 'clothing', 'pants', 'Nike'),
+(2, 'Women’s High-Rise Woven Pants', 'Lets face it. We cant stay pantless forever. As we prime ourselves for more coffee runs and endless commutes, we need a good pair of pants to go the extra mile with us. These roomy pants can keep up, stay up, and hold their shape (even during video calls). Now the only question is, what shoes will you wear?', 79.99, 2, 19.99, 1, 'Made<>61% cotton/39% polyester\r\nModel<>DD5983-010', 'f', 'clothing', 'pants', 'Nike'),
 (5, 'Nike Zoom Freak 3', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance.', 120, 3, 35.01, 0, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel<>DA0694-001', 'm', 'shoes', 'basketball', 'Nike');
 
 -- --------------------------------------------------------
@@ -143,6 +176,13 @@ CREATE TABLE `reviews` (
   `rate` double(10,1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`rev_id`, `user_id`, `product_id`, `text`, `rate`) VALUES
+(29, 5, 2, 'This is an amazing product, my sister loved it!', 5.0);
+
 -- --------------------------------------------------------
 
 --
@@ -170,6 +210,12 @@ INSERT INTO `users` (`user_id`, `username`, `fullname`, `email`, `password`, `ty
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`brand_id`);
 
 --
 -- Indexes for table `cart`
@@ -212,6 +258,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `brands`
+--
+ALTER TABLE `brands`
+  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
@@ -221,25 +273,25 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product_items`
 --
 ALTER TABLE `product_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `rev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `rev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
