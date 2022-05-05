@@ -64,6 +64,8 @@
             if(file_exists($file)){//Deletes the image if it exists
                 unlink($file);
             }
+            $sql = "DELETE FROM cart_items WHERE prod_item_id='$itemID'";
+            $result = mysqli_query($db, $sql);
         }else {
             
         }

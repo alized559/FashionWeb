@@ -1,3 +1,8 @@
+<?php
+include "includes/config.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,62 +37,57 @@
         <h3 class="landingPopularTitle">Popular Right Now</h3>
         <hr class="titlehr">
         <div class="showMoreDiv">
-            <a href="#">Show More</a>
+            <a href="products.php">Show More</a>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
-                    <a href="#" class="text-reset" style="text-decoration: none;">
-                        <div class="landingPopularContainer">
-                            <div class="landingPopularItemImage">
-                                <img src="imgs/9.png" alt="Popular Image">
-                            </div>
-                            <div class="landingPopularItemTitle">
-                                <h1 class="title">Diamond Jewerley</h1>
-                                <p class="price">500$</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
-                    <a href="#" class="text-reset" style="text-decoration: none;">
-                        <div class="landingPopularContainer">
-                            <div class="landingPopularItemImage">
-                                <img src="imgs/default.png" alt="Popular Image">
-                            </div>
-                            <div class="landingPopularItemTitle">
-                                <p class="title">Black Hat</p>
-                                <p class="price">20$</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
-                    <a href="#" class="text-reset" style="text-decoration: none;">
-                        <div class="landingPopularContainer">
-                            <div class="landingPopularItemImage">
-                                <img src="imgs/download.jpg" alt="Popular Image">
-                            </div>
-                            <div class="landingPopularItemTitle">
-                                <p class="title">Black Hat</p>
-                                <p class="price">20$</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4">
-                    <a href="#" class="text-reset" style="text-decoration: none;">
-                        <div class="landingPopularContainer">
-                            <div class="landingPopularItemImage">
-                                <img src="imgs/landing/popular_image_2.jpg" alt="Popular Image">
-                            </div>
-                            <div class="landingPopularItemTitle">
-                                <p class="title">Black Hat</p>
-                                <p class="price sale"><del>20$</del> <span class="price2">12.99$</span></p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <?php
+                    $sql = "SELECT prod_id,name,price,discount FROM products ORDER BY likes DESC LIMIT 4";//Get The Top 4 Recipes
+                    $result = mysqli_query($db, $sql);
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                            while($row = mysqli_fetch_assoc($result)){
+                                $id = $row["prod_id"];
+                                $name = $row["name"];
+                                $price = $row["price"];
+                                $discount = $row["discount"];
+                    
+                                $file = "images/products/" . $id . "/logo.jpg";
+                    
+                                if(!file_exists($file)){//Deletes the image if it exists
+                                    $file = "images/products/" . $id . "/logo.png";
+                                    if(!file_exists($file)){//Deletes the image if it exists
+                                        $file = "images/products/" . $id . "/logo.gif";
+                                        if(!file_exists($file)){//Deletes the image if it exists
+                                            $file = "images/products/default.png";
+                                        }
+                                    }
+                                }
+
+                                echo "<div class='col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4'>";
+                                echo "<a href='viewProduct.php?id=$id' class='text-reset' style='text-decoration: none;'>";
+                                echo "<div class='landingPopularContainer'>";
+                                echo "<div class='landingPopularItemImage'>";
+                                echo "<img src='$file' alt='Popular Image'>";
+                                echo "</div>";
+                                echo "<div class='landingPopularItemTitle'>";
+                                echo "<h1 class='title'>$name</h1>";
+                                if($discount > 0){
+                                    $newprice = $price - $discount;
+                                    echo "<p class='price sale'><del>$$price</del> <span class='price2'>$$newprice</span></p>";
+                                }else {
+                                    echo "<p class='price'>$$price</p>";
+                                }
+                                echo "</div>";
+                                echo "</div>";
+                                echo "</a>";
+                                echo "</div>";
+                            }
+                        }
+                    }else {
+
+                    }
+                ?>
             </div>
         </div>
         <div class="container">
@@ -95,24 +95,45 @@
             <hr class="titlehr">
             <div id="newDropsCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <a href="#" class="text-reset" style="text-decoration: none;">
-                            <img class="d-block w-100" src="imgs/landing/drops_image_1.jpg" alt="First slide">
-                            <div class="newDropItemTitle">
-                                <hr>
-                                <h1>Nike Aireforce 1<h1>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="carousel-item">
-                        <a href="#" class="text-reset" style="text-decoration: none;">
-                            <img class="d-block w-100" src="imgs/landing/drops_image_2.jpg" alt="First slide">
-                            <div class="newDropItemTitle">
-                                <hr>
-                                <h1>Lavola Hoodies<h1>
-                            </div>
-                        </a>
-                    </div>
+                    <?php
+                        $sql = "SELECT prod_id,name FROM products ORDER BY prod_id DESC LIMIT 4";//Get The Top 4 Recipes
+                        $result = mysqli_query($db, $sql);
+                        if($result){
+                            if(mysqli_num_rows($result) > 0){
+                                $currentIndex = 0;
+                                while($row = mysqli_fetch_assoc($result)){
+                                    $id = $row["prod_id"];
+                                    $name = $row["name"];
+                        
+                                    $file = "images/products/" . $id . "/banner.jpg";
+                        
+                                    if(!file_exists($file)){//Deletes the image if it exists
+                                        $file = "images/products/" . $id . "/banner.png";
+                                        if(!file_exists($file)){//Deletes the image if it exists
+                                            $file = "images/products/" . $id . "/banner.gif";
+                                            if(!file_exists($file)){//Deletes the image if it exists
+                                                $file = "images/products/defaultbanner.jpg";
+                                            }
+                                        }
+                                    }
+
+                                    if($currentIndex == 0){
+                                        echo "<div class='carousel-item active'>";
+                                    }else {
+                                        echo "<div class='carousel-item'>";
+                                    }
+                                    echo "<a href='viewProduct.php?id=$id' class='text-reset' style='text-decoration: none;'>";
+                                    echo "<img class='d-block w-100' src='$file' alt='New Drops Slide'>";
+                                    echo "<div class='newDropItemTitle'><hr><h1>$name<h1>";
+                                    echo "</div></a></div>";
+
+                                    $currentIndex++;
+                                }
+                            }
+                        }else {
+
+                        }
+                    ?>
                 </div>
                 <a class="carousel-control-prev" href="#newDropsCarousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
