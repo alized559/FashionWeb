@@ -61,6 +61,7 @@ tr>td {
     }
     .image-box img {
         height: 400px !important;
+        object-fit: cover;
     }
     th,
     td {
@@ -78,6 +79,7 @@ tr>td {
     }
     .image-box img {
         height: 300px !important;
+        object-fit: cover;
     }
     th,
     td {
@@ -95,6 +97,7 @@ tr>td {
     }
     .image-box img {
         height: 200px !important;
+        object-fit: cover;
     }
     th,
     td {
