@@ -44,6 +44,40 @@ if(isset($sticky) && $sticky){
 </div>
 </footer>
 
+<script>
+
+const ConversionRates = {
+        "LB, LBP": 26000
+    };
+
+const currentCurrency = localStorage.currentCurrency;
+
+$(function() {
+
+    if(currentCurrency == "LB, LBP"){
+        const elements = document.querySelectorAll(
+            '.price, .price2, del, .amount, .total-amount'
+        );
+        for (const element of elements) {
+            var text = element.innerHTML;
+            if(text.includes("$")){
+                var usdPrice = text.replace("$", "");
+                if(!isNaN(usdPrice)){
+                    var price = parseFloat(usdPrice);
+                    var converted = price * ConversionRates[currentCurrency];
+                    element.innerHTML = formatMoney("LBP", converted);
+                }
+            }
+        }
+    }
+});
+
+function formatMoney(currency, amount) {
+    return currency + " " + (Math.round(amount * 100) / 100).toLocaleString();
+}
+
+</script>
+
 <!--<script>
     $(document).ready(function() {
         setInterval(function() {

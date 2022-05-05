@@ -195,11 +195,11 @@
                                             if($discount > 0){
                                                 $newprice = $price - $discount;
                                                 echo "<span class='sale'>";
-                                                    echo "<span><del>$price$</del> $newprice$</span>";
+                                                    echo "<span><del>$price$</del> <span class='price2'>$newprice$</span></span>";
                                                     echo "<button class='btn'>On Sale</button>";
                                                 echo "</span>";
                                             }else {
-                                                echo "$price$";
+                                                echo "<span class='price2'>$price$</span>";
                                             }
                                         echo "</p>";
                                     echo "</div>";
@@ -211,20 +211,6 @@
                         }
                     }
                 ?>
-                <!--<div class="col">
-                    <a href="#" style="text-decoration: none; color: black">
-                        <div class="product">
-                            <div class="image-container">
-                                <img src="imgs/clothes-test.png">
-                            </div>
-                            <p>Women’s High-Rise Woven Pants
-                            <br>
-                            <span class="color">2 Colors</span>
-                            <br>
-                            70$
-                        </div>
-                    </a>
-                </div>-->
             </div>
         </div>
     </div>

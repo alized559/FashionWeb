@@ -228,7 +228,7 @@
                         <?php
                             if($discount > 0){
                                 $newprice = $price - $discount;
-                                echo "<div class='price'><del>$price$</del> $newprice$</div>";
+                                echo "<div class='price'><del>$price$</del> <span class='price2'>$newprice$</span></div>";
                             }else {
                                 echo "<div class='price'>$price$</div>";
                             }

@@ -179,6 +179,7 @@ $(".dropdown-menu li a").click(function () {
     if (typeof(Storage) !== "undefined") {
         localStorage.currentCurrency = selText;
         localStorage.currentCurrencyImage = img;
+        location.reload();
     }
 });
 

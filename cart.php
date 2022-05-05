@@ -138,15 +138,21 @@ if($currentCartID != -1){
             </div>
         </div>
     </div>
-
+    <?php include "footer.php"; ?>
     <script>
         $('.remove').click(function() {
             var $this = $(this);
             var itemID = $(this).data("id");
-            var totalPrice = parseFloat($(this).parent().find(".amount").html().replace("$", ""));
-            var currentTotal = parseFloat($('#total_price').html().replace("$", "")) - totalPrice;
             var currentTotalItems = parseInt($('#total_items').html().replace("Items", "")) - 1;
-            $('#total_price').html("$" + currentTotal.toFixed(2));
+            if(currentCurrency == "LB, LBP"){
+                var totalPrice = parseFloat($(this).parent().find(".amount").html().replace("LBP", "").replaceAll(",", ""));
+                var currentTotal = parseFloat($('#total_price').html().replace("LBP", "").replaceAll(",", "")) - totalPrice;
+                $('#total_price').html(formatMoney("LBP", currentTotal.toFixed(0)));
+            }else {
+                var totalPrice = parseFloat($(this).parent().find(".amount").html().replace("$", ""));
+                var currentTotal = parseFloat($('#total_price').html().replace("$", "")) - totalPrice;
+                $('#total_price').html("$" + currentTotal.toFixed(2));
+            }
             $('#total_items').html(currentTotalItems + " Items");
             $(this).parent().parent().parent().remove();
             if(currentTotalItems == 0){
@@ -157,7 +163,11 @@ if($currentCartID != -1){
             UpdateCartItem(itemID, 0);
         });
         $('#removeAll').click(function() {
-            $('#total_price').html("$0.00");
+            if(currentCurrency == "LB, LBP"){
+                $('#total_price').html("LBP 0");
+            }else {
+                $('#total_price').html("$0.00");
+            }
             $('#total_items').html("0 Items");
             $("table").remove();
             $(this).remove();
@@ -173,12 +183,21 @@ if($currentCartID != -1){
             var currentPriceText = $(this).parent().parent().parent().find(".amount");
             var currentAmount = parseInt(counter.html());
             if(currentAmount > 1){
-                var currentTotal = parseFloat($('#total_price').html().replace("$", "")) - basePrice;
-                $('#total_price').html("$" + currentTotal.toFixed(2));
-                currentAmount--;
-                counter.html(currentAmount);
-                currentPriceText.html("$" + (currentAmount * basePrice).toFixed(2));
-                UpdateCartItem(itemID, currentAmount);
+                if(currentCurrency == "LB, LBP"){
+                    var currentTotal = parseFloat($('#total_price').html().replace("LBP", "").replaceAll(",", "")) - (basePrice * ConversionRates[currentCurrency]);
+                    $('#total_price').html(formatMoney("LBP", currentTotal.toFixed(0)));
+                    currentAmount--;
+                    counter.html(currentAmount);
+                    currentPriceText.html(formatMoney("LBP", (currentAmount * basePrice * ConversionRates[currentCurrency]).toFixed(0)));
+                    UpdateCartItem(itemID, currentAmount);
+                }else {
+                    var currentTotal = parseFloat($('#total_price').html().replace("$", "")) - basePrice;
+                    $('#total_price').html("$" + currentTotal.toFixed(2));
+                    currentAmount--;
+                    counter.html(currentAmount);
+                    currentPriceText.html("$" + (currentAmount * basePrice).toFixed(2));
+                    UpdateCartItem(itemID, currentAmount);
+                }
             }
         });
         $('.btn-plus').click(function() {
@@ -190,12 +209,22 @@ if($currentCartID != -1){
             var currentPriceText = $(this).parent().parent().parent().find(".amount");
             var currentAmount = parseInt(counter.html());
             if(currentAmount < maxAmount){
-                var currentTotal = parseFloat($('#total_price').html().replace("$", "")) + basePrice;
-                $('#total_price').html("$" + currentTotal.toFixed(2));
-                currentAmount++;
-                counter.html(currentAmount);
-                currentPriceText.html("$" + (currentAmount * basePrice).toFixed(2));
-                UpdateCartItem(itemID, currentAmount);
+                if(currentCurrency == "LB, LBP"){
+                    var currentTotal = parseFloat($('#total_price').html().replace("LBP", "").replaceAll(",", "")) + (basePrice * ConversionRates[currentCurrency]);
+                    $('#total_price').html(formatMoney("LBP", currentTotal.toFixed(0)));
+                    currentAmount++;
+                    counter.html(currentAmount);
+                    currentPriceText.html(formatMoney("LBP", (currentAmount * basePrice * ConversionRates[currentCurrency]).toFixed(0)));
+                    UpdateCartItem(itemID, currentAmount);
+                }else {
+                    var currentTotal = parseFloat($('#total_price').html().replace("$", "")) + basePrice;
+                    $('#total_price').html("$" + currentTotal.toFixed(2));
+                    currentAmount++;
+                    counter.html(currentAmount);
+                    currentPriceText.html("$" + (currentAmount * basePrice).toFixed(2));
+                    UpdateCartItem(itemID, currentAmount);
+                }
+                
             }
         });
 
@@ -249,7 +278,5 @@ if($currentCartID != -1){
             alert("Failed To Update Cart, Please Contact The System Administrator.");
         }
     </script>
-
-    <?php include "footer.php"; ?>
 </body>
 </html>

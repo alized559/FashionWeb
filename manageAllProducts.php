@@ -196,11 +196,11 @@
                                 if($discount > 0){
                                     $newprice = $price - $discount;
                                     echo "<span class='sale'>";
-                                    echo "<span><del>$price$</del> $newprice$</span>";
+                                    echo "<span><del>$price$</del> <span class='price2'>$newprice$</span></span>";
                                     echo "<button class='btn'>On Sale</button>";
                                     echo "</span>";
                                 }else {
-                                    echo "$price$";
+                                    echo "<span class='price2'>$price$</span>";
                                 }
                             echo "</p>";
                             echo "</div>";
