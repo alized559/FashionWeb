@@ -92,7 +92,7 @@ if($currentCartID != -1){
                             echo "<img src='$file' style='height: 150px;' alt='Product Cart Image'/>";
                             echo "</div></td>";
                             echo "<td><div class='about'>";
-                            echo "<h1 class='title'>$product_name</h1>";
+                            echo "<a href='viewProduct.php?id=$product_id' style='text-decoration:none;'><h1 class='title'>$product_name</h1></a>";
                             echo "<h3 class='subtitle'>$product_item_name</h3>";
                             echo "<h3 class='subtitle'>$extra_data</h3>";
                             echo "</div></td>";

@@ -121,9 +121,9 @@
             </table>
         </div>
 
-        <button class="btn" data-toggle="modal" data-target="#editProfile" style="margin-top: 10px; background-color: #EBEBEB; border-radius: 10px; width: 200px;">Manage Profile</button>
+        <button class="btn" data-toggle="modal" data-target="#editProfile" style="font-family: Inter-Medium; margin-top: 10px; background-color: #EBEBEB; border-radius: 10px; width: 200px;">Manage Profile</button>
         <a class="logoutButton" href="logout.php">
-            <button class="btn" style="margin-top: 10px; background-color: #dc143c; color: white; border-radius: 10px; width: 100px;">Logout</button>
+            <button class="btn" style="font-family: Inter-Medium; margin-top: 10px; background-color: #dc143c; color: white; border-radius: 10px; width: 100px;">Logout</button>
         </a>
 
         <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -170,6 +170,26 @@
                 </div>
             </div>
         </div>
+        <?php
+            if(isset($_SESSION['type']) && $_SESSION['type'] == "admin"){?>
+                
+                <br>
+                <br>
+                <br>
+                <div style="font-family: Inter-Medium;">
+                    <h3 class="favorites-title">Admin Tools</h3>
+                    <a href="manageAllProducts.php" style="text-decoration:none;">
+                        <button class="btn btn-primary" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Products</button>
+                    </a>
+                    <a href="manageAllUsers.php" style="text-decoration:none;">
+                        <button class="btn btn-info" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Users</button>
+                    </a>
+                    <a href="manageAllBrands.php" style="text-decoration:none;">
+                        <button class="btn btn-warning" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Brands</button>
+                    </a>
+                </div>
+            <?php }
+        ?>
         <br>
         <br>
         <br>
@@ -247,7 +267,7 @@
                                         echo "<div><img src='$file' alt='User Image'></div>";
                                         echo "<div class='vertical-line'></div>";
                                         echo "<div class='column'>";
-                                        echo "<h5>$username ● $prod_name</h5>";
+                                        echo "<h5>$username • $prod_name</h5>";
                                         echo "<p>";
                                         echo $text;
                                         echo "<span class='rating-flex'>";
@@ -287,7 +307,7 @@
                         echo "</div>";
                         echo "</div>";
                     } else {
-                        echo "<p>No Reviews Yet, Browse Through Our Store To Make Some!</p>";
+                        echo "<p style='font-family: Inter-Medium;'>No Reviews Yet, Browse Through Our Store To Make Some!</p>";
 
                     }
                 }

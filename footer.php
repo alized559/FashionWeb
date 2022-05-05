@@ -15,11 +15,31 @@ if(isset($sticky) && $sticky){
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="footer-head">Brands</h6>
             <hr>
-            <a href="#" class="text-reset">Nike Sports</a>
-            <br>
-            <a href="#" class="text-reset">Adidas</a>
-            <br>
-            <a href="#" class="text-reset">Gucci</a>
+            <?php
+                include 'includes/config.php';
+                                        
+                $sql = "SELECT name,link FROM brands WHERE display_footer='1'";
+                $result = mysqli_query($db, $sql);
+
+                if($result){
+                    if(mysqli_num_rows($result) > 0){
+                        $totalSize = mysqli_num_rows($result);
+                        $currentIndex = 0;
+                        while($row = mysqli_fetch_assoc($result)){
+                            $footername = $row["name"];
+                            $footerlink = $row["link"];
+                            echo "<a href='$footerlink' target='_blank' rel='noopener noreferrer' class='text-reset'>$footername</a>";
+                            $currentIndex++;
+                            if($currentIndex != $totalSize){
+                                echo '<br>';
+                            }
+                        }
+                    }else {
+                    //No Brands To Display in Footer
+                    }
+                }
+            ?>
+            
         </div>
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="footer-head">Social Media</h6>

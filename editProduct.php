@@ -96,6 +96,8 @@
             $result = mysqli_query($db, $sql);
             $sql = "DELETE FROM reviews WHERE product_id='$prodID'";
             $result = mysqli_query($db, $sql);
+            $sql = "DELETE FROM cart_items WHERE prod_id='$prodID'";
+            $result = mysqli_query($db, $sql);
         }else {
             
         }

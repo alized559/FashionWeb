@@ -1,3 +1,9 @@
+<?php
+include "includes/utils.php";
+if(is_session_started() === FALSE){
+    session_start();
+}
+?>
 <link href="css/header.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -130,17 +136,45 @@
         <div class="dropdown-menu" style="width:400px" aria-labelledby="navbarDropdown">
 			<div class="container container-sm">
 				<div class="row">
-					<div class="col-sm-6">
-						<a class="dropdown-item headeritem" href="#">Local Brands</a>
-						<a class="dropdown-item" href="#">Hoda Store</a>
-                        <a class="dropdown-item" href="#">Big Sale</a>
-					</div>
-					<div class="col-sm-6">
-						<a class="dropdown-item headeritem" href="#">Public Brands</a>
-						<a class="dropdown-item" href="#">Gucci</a>
-						<a class="dropdown-item" href="#">Adidas</a>
-                        <a class="dropdown-item" href="#">Nike</a>
-					</div>					
+                    <?php
+                        include 'includes/config.php';
+                        
+                        $sql = "SELECT name,link FROM brands WHERE local='0' AND display_navbar='1'";
+                        $result = mysqli_query($db, $sql);
+
+                        if($result){
+                            if(mysqli_num_rows($result) > 0){
+                                echo "<div class='col-sm-6'>";
+                                echo "<a class='dropdown-item headeritem' href='#'>Public Brands</a>";
+                                while($row = mysqli_fetch_assoc($result)){
+                                    $headername = $row["name"];
+                                    $headerlink = $row["link"];
+                                    echo "<a class='dropdown-item' href='$headerlink' target='_blank' rel='noopener noreferrer'>$headername</a>";
+                                }
+                                echo "</div>";
+                            }else {
+                            //No Public Brands To Display
+                            }
+                        }
+
+                        $sql = "SELECT name,link FROM brands WHERE local='1' AND display_navbar='1'";
+                        $result = mysqli_query($db, $sql);
+
+                        if($result){
+                            if(mysqli_num_rows($result) > 0){
+                                echo "<div class='col-sm-6'>";
+                                echo "<a class='dropdown-item headeritem' href='#'>Local Brands</a>";
+                                while($row = mysqli_fetch_assoc($result)){
+                                    $headername = $row["name"];
+                                    $headerlink = $row["link"];
+                                    echo "<a class='dropdown-item' href='$headerlink' target='_blank' rel='noopener noreferrer'>$headername</a>";
+                                }
+                                echo "</div>";
+                            }else {
+                            //No Local Brands To Display
+                            }
+                        }
+                    ?>				
 				</div>
 			</div>
         </li>
@@ -153,7 +187,28 @@
             <i class="far fa-heart"></i>
         </a>
         <a href="cart.php" class="text-reset" style="text-decoration: none;">
+            <?php 
+                if(isset($_SESSION['userID'])){
+                    include 'includes/config.php';
+                    $headeruserid = $_SESSION['userID'];
+                    $sql = "SELECT item_id,`user_id` FROM cart_items,cart WHERE cart_items.cart_id=cart.cart_id AND `user_id`=$headeruserid LIMIT 1";
+                    $result = mysqli_query($db, $sql);
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                            ?>
+                            <span class="fa-stack">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <i class="fa-solid fa-circle fa-stack-1x mt-1" style='color:red; font-size:10px'></i>
+                            </span>
+                        <?php }else {
+                            ?>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        <?php }
+                    }   
+                }else {
+            ?>
             <i class="fa-solid fa-cart-shopping"></i>
+            <?php } ?>
         </a>
     </div>
   </div>
