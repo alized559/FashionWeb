@@ -45,7 +45,7 @@ if($currentCartID != -1){
                 <h3 class="heading">Shopping Cart</h3>
                 <?php 
                     if($totalCartItems != 0){
-                        echo "<h5 class='action'>Remove all</h5>";
+                        echo "<h5 class='action' id='removeAll'>Remove all</h5>";
                     }
                 ?>
             </div>
@@ -54,6 +54,7 @@ if($currentCartID != -1){
                     $sql = "SELECT cart_items.item_id,cart_items.quantity,cart_items.prod_item_id,products.prod_id,products.name AS product_name,products.price,products.discount,product_items.name AS product_item_name, product_items.quantity AS total_quantity,data FROM cart_items,products,product_items WHERE cart_id='$currentCartID' AND products.prod_id=cart_items.prod_id AND prod_item_id=product_items.item_id";
                     $result = mysqli_query($db, $sql);
                     if($result){
+                        echo "<table>";
                         while($row = mysqli_fetch_assoc($result)){
                             $cart_item_id = $row['item_id'];
                             $cart_item_quantity = $row['quantity'];
@@ -86,30 +87,31 @@ if($currentCartID != -1){
 
                             $totalPrice = $basePrice * $cart_item_quantity;
 
-                            echo "<div class='cart-items'>";
-                            echo "<div class='image-box'>";
+                            echo "<tr>";
+                            echo "<td><div class='image-box'>";
                             echo "<img src='$file' style='height: 150px;' alt='Product Cart Image'/>";
-                            echo "</div>";
-                            echo "<div class='about'>";
+                            echo "</div></td>";
+                            echo "<td><div class='about'>";
                             echo "<h1 class='title'>$product_name</h1>";
                             echo "<h3 class='subtitle'>$product_item_name</h3>";
                             echo "<h3 class='subtitle'>$extra_data</h3>";
-                            echo "</div>";
-                            echo "<div class='counter'>";
+                            echo "</div></td>";
+                            echo "<td><div class='counter'>";
                             echo "<div class='btn-minus noselect' data-id='$cart_item_id' data-price='$basePrice'>-</div>";
                             echo "<div class='count noselect'>$cart_item_quantity</div>";
                             echo "<div class='btn-plus noselect' data-id='$cart_item_id' data-max='$product_total_quantity' data-price='$basePrice'>+</div>";
-                            echo "</div>";
-                            echo "<div class='prices'>";
+                            echo "</div></td>";
+                            echo "<td><div class='prices'>";
                             echo "<div class='amount'>$$totalPrice</div>";
                             echo "<div class='remove' data-id='$cart_item_id'><u>Remove</u></div>";
-                            echo "</div>";
-                            echo "</div>";
+                            echo "</div></td>";
+                            echo "</tr>";
                             $totalItemsPrice = $totalItemsPrice + $totalPrice;
                         }
+                        echo "</table>";
                     }
                 }else {
-                    echo "<p>There No Items In Your Cart Yet, Browse Through The Website To Add More!</p>";
+                    //echo "<p>There No Items In Your Cart Yet, Browse Through The Website To Add More!</p>";
                 }
 
             ?>
@@ -124,8 +126,15 @@ if($currentCartID != -1){
 
                     <div class="total-amount" id="total_price">$<?= $totalItemsPrice ?></div>
                 </div>
-
-                <button class="button">Checkout</button>
+                <div id="gotoCheckoutDiv">
+                <?php
+                    if($totalCartItems > 0){
+                        echo "<button class='button' onclick='OnCheckoutClicked()'>Checkout</button>";
+                    }else {
+                        echo "<button class='button noselect' style='pointer-events: none; background-color: #E5E5E5; color: black;'>No Items In Your Cart</button>";
+                    }
+                ?>
+                </div>
             </div>
         </div>
     </div>
@@ -136,23 +145,39 @@ if($currentCartID != -1){
             var itemID = $(this).data("id");
             var totalPrice = parseFloat($(this).parent().find(".amount").html().replace("$", ""));
             var currentTotal = parseFloat($('#total_price').html().replace("$", "")) - totalPrice;
-            $('#total_price').html("$" + currentTotal);
-            $(this).parent().parent().remove();
+            var currentTotalItems = parseInt($('#total_items').html().replace("Items", "")) - 1;
+            $('#total_price').html("$" + currentTotal.toFixed(2));
+            $('#total_items').html(currentTotalItems + " Items");
+            $(this).parent().parent().parent().remove();
+            if(currentTotalItems == 0){
+                $('#removeAll').remove();
+                $("#gotoCheckoutDiv").empty();
+                $("#gotoCheckoutDiv").append("<button class='button noselect' style='pointer-events: none; background-color: #E5E5E5; color: black;'>No Items In Your Cart</button>");
+            }
             UpdateCartItem(itemID, 0);
+        });
+        $('#removeAll').click(function() {
+            $('#total_price').html("$0.00");
+            $('#total_items').html("0 Items");
+            $("table").remove();
+            $(this).remove();
+            $("#gotoCheckoutDiv").empty();
+            $("#gotoCheckoutDiv").append("<button class='button noselect' style='pointer-events: none; background-color: #E5E5E5; color: black;'>No Items In Your Cart</button>");
+            UpdateCartRemoveAll();
         });
         $('.btn-minus').click(function() {
             var $this = $(this);
             var itemID = $(this).data("id");
             var basePrice = $(this).data("price");
             var counter = $(this).parent().find(".count");
-            var currentPriceText = $(this).parent().parent().find(".amount");
+            var currentPriceText = $(this).parent().parent().parent().find(".amount");
             var currentAmount = parseInt(counter.html());
             if(currentAmount > 1){
                 var currentTotal = parseFloat($('#total_price').html().replace("$", "")) - basePrice;
-                $('#total_price').html("$" + currentTotal);
+                $('#total_price').html("$" + currentTotal.toFixed(2));
                 currentAmount--;
                 counter.html(currentAmount);
-                currentPriceText.html("$" + (currentAmount * basePrice));
+                currentPriceText.html("$" + (currentAmount * basePrice).toFixed(2));
                 UpdateCartItem(itemID, currentAmount);
             }
         });
@@ -162,14 +187,14 @@ if($currentCartID != -1){
             var basePrice = $(this).data("price");
             var maxAmount = $(this).data("max");
             var counter = $(this).parent().find(".count");
-            var currentPriceText = $(this).parent().parent().find(".amount");
+            var currentPriceText = $(this).parent().parent().parent().find(".amount");
             var currentAmount = parseInt(counter.html());
             if(currentAmount < maxAmount){
                 var currentTotal = parseFloat($('#total_price').html().replace("$", "")) + basePrice;
-                $('#total_price').html("$" + currentTotal);
+                $('#total_price').html("$" + currentTotal.toFixed(2));
                 currentAmount++;
                 counter.html(currentAmount);
-                currentPriceText.html("$" + (currentAmount * basePrice));
+                currentPriceText.html("$" + (currentAmount * basePrice).toFixed(2));
                 UpdateCartItem(itemID, currentAmount);
             }
         });
@@ -197,7 +222,28 @@ if($currentCartID != -1){
             }
         }
 
+        function UpdateCartRemoveAll(){
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "manageCart.php?id=-1&type=removeall", true);
+            xmlhttp.addEventListener('error', handleCartEvent);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    var data = JSON.parse(xmlhttp.responseText);
+                    if(data.state == "SUCCESS"){
+                        console.log("Updated Cart Items Succesfully");
+                    }else {
+                        console.log("Failed To Update Cart Items");
+                    }
+                }
+            }
+        }
 
+        function OnCheckoutClicked(){
+
+        }
 
         function handleCartEvent(e) {
             alert("Failed To Update Cart, Please Contact The System Administrator.");

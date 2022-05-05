@@ -204,7 +204,7 @@
                                         $firstItemID = $itemID;
                                         $firstItemName = $itemName;
                                         $firstItemQuantity = $itemQuantity;
-                                        echo "<img class='color hasBorder' data-name='$itemName' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                        echo "<img class='color hasBorder' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
                                     }else {
                                         echo "<img class='color' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
                                     }
@@ -365,14 +365,19 @@
                 <p><?=$description?></p>
             </div>
 
+            <div id="addToCartDiv">
             <?php
                 if(isset($_SESSION["userID"])){
-                    echo "<button id='add' class='btn' onclick='AddItemToCart()' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</button>";
+                    if($firstItemQuantity > 0){
+                        echo "<button id='add' class='btn' onclick='AddItemToCart()' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</button>";
+                    }else {
+                        echo "<button id='noadd' class='btn' style='pointer-events: none; height: 40px; margin-top: 30px; background-color: #E5E5E5; border-radius: 10px; font-weight: bold; width: 200px;'>Out Of Stock</button>";
+                    }
                 }else {
                     echo "<a id='add' class='btn' href='login.php' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</a>";
                 }
             ?>
-            
+            </div>
 
             <div class="reviewsContainer">
                 <h3>Customer Reviews</h3>
@@ -496,11 +501,11 @@
 
     <?php include('footer.php') ?>
 </body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script>
 
     var id = "<?php echo $id; ?>";
     var currentSelectedItemID = <?= $firstItemID ?>;
+    var isLoggedIn = "<?= isset($_SESSION["userID"]) ?>";
 
     function AddItemToCart(){
         if(currentSelectedItemID != -1){
@@ -540,6 +545,17 @@
             itemName.innerHTML = $(this).data("name");
             itemQuantity.innerHTML = $(this).data("quantity");
             currentSelectedItemID = $(this).data("id");
+
+            if(isLoggedIn == "1"){
+                var maxAvailable = $(this).data("quantity");
+                if(maxAvailable > 0){
+                    $("#addToCartDiv").empty();
+                    $("#addToCartDiv").append("<button id='add' class='btn' onclick='AddItemToCart()' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</button>");
+                }else {
+                    $("#addToCartDiv").empty();
+                    $("#addToCartDiv").append("<button id='noadd' class='btn' style='pointer-events: none; height: 40px; margin-top: 30px; background-color: #E5E5E5; border-radius: 10px; font-weight: bold; width: 200px;'>Out Of Stock</button>");
+                }
+            }
         }
     });
 

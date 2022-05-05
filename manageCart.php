@@ -85,6 +85,16 @@
                 echo json_encode(array('state' => "FAIL"));
                 die();
             }
+        }else if($type == "removeall"){
+            $sql2 = "DELETE FROM cart_items WHERE cart_id='$currentCartID'";
+            $result2 = mysqli_query($db, $sql2);
+            if($result2){
+                echo json_encode(array('state' => "SUCCESS"));
+                die();
+            }else {
+                echo json_encode(array('state' => "FAIL"));
+                die();
+            }
         }
     }
 ?>
