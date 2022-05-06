@@ -271,7 +271,7 @@ if($currentCartID != -1){
         }
 
         function OnCheckoutClicked(){
-
+            window.location.href = "/checkout.php?currency=" + currentCurrency.split(', ')[1];
         }
 
         function handleCartEvent(e) {

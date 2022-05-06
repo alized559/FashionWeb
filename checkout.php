@@ -1,8 +1,11 @@
 <?php 
 include "includes/validateAuth.php";
 include 'includes/config.php';
+include_once "includes/utils.php";
 
 $userID = $_SESSION['userID'];
+
+$currentCurrency = $_GET['currency'] ?? 0;
 
 $currentCartID = -1;
 $totalCartItems = 0;
@@ -23,6 +26,11 @@ if($currentCartID != -1){
     if($result){
         $totalCartItems = mysqli_num_rows($result);
     }
+}
+
+if($totalCartItems == 0){
+    header("location:cart.php");
+    die();
 }
 
 // use this to get country code (int) filter_var($string, FILTER_SANITIZE_NUMBER_INT);
@@ -207,9 +215,15 @@ if($currentCartID != -1){
                             echo "<div class='summary-info'>";
                             echo "<div class='name-size'>";
                             echo "$product_name<br>";
-                            echo "<span>$extra_data, ($product_item_name)</span>";
+                            echo "<span>Qty: $cart_item_quantity, $extra_data, ($product_item_name)</span>";
                             echo "</div>";
-                            echo "<span class='price'>$totalPrice$</span>";
+                            if($currentCurrency != "LBP"){
+                                echo "<span class='price'>$totalPrice$</span>";
+                            }else {
+                                $totalPrice2 = "LBP " . number_format($totalPrice * GetConversionRate('LBP'));
+                                echo "<span class='price'>$totalPrice2</span>";
+                            }
+                            
                             echo "</div>";
 
                             $totalItemsPrice = $totalItemsPrice + $totalPrice;
@@ -222,17 +236,24 @@ if($currentCartID != -1){
             ?>
 
             <div class='vertical-line1'></div>
-
             <div class='price-info'>
                 Subtotal
-                <span><?php echo $totalItemsPrice ?>$</span>
+                <span><?php 
+                    if($currentCurrency != "LBP"){
+                        echo "$totalItemsPrice$";
+                    }else {
+                        $totalPrice2 = "LBP " . number_format($totalItemsPrice * GetConversionRate('LBP'));
+                        echo "$totalPrice2";
+                    }
+                ?></span>
             </div>
+            <a href='cart.php'>Back To Cart</a>
         </div>
 
     </div>
 
-    <div class="p-2 copyrighttext text-white" style="background-color: #8567FF; margin-top: 20px">
-        <div style="margin-left: 50px;">
+    <div class="p-2 copyrighttext text-white" style="background-color: #8567FF; margin-top: 20px; overflow: hidden;">
+        <div style="text-align:center; height:600px;">
             Copyright © 2022
             <a class="text-reset fw-bold" style="color: white;" href="#">fashion.com</a>
         </div>

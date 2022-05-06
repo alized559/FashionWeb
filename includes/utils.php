@@ -26,5 +26,14 @@
         return FALSE;
     }
 
+    function GetConversionRate($currency){
+        $ConversionRates = array("LBP"=>26000);
+
+        if($currency != "USD"){
+            return $ConversionRates[$currency];
+        }else {
+            return 1;
+        }
+    }
 
 ?>

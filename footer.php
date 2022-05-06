@@ -63,12 +63,13 @@ if(isset($sticky) && $sticky){
     <a class="text-reset fw-bold" style="color: white;" href="#">fashion.com</a>
 </div>
 </footer>
-
+<?php include_once "includes/utils.php"; 
+?>
 <script>
 
 const ConversionRates = {
-        "LB, LBP": 26000
-    };
+    "LB, LBP": parseFloat("<?php echo GetConversionRate('LBP') ?>")
+};
 
 const currentCurrency = localStorage.currentCurrency;
 
