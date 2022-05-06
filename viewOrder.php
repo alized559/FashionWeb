@@ -79,7 +79,7 @@ if($currentCartID != -1){
     <div class="cart">
         <div class="cart-container">
             <div class="header">
-                <h3 class="heading">Order Summary</h3>
+                <h3 class="heading">Order № <?= $currentOrderID ?> Summary</h3>
             </div>
             <div class="header2">
                 <p>User ID: <?= $user_id ?></p>
