@@ -141,6 +141,48 @@
                 </form>
             </div>
         </div>
+
+        <div class="summary">
+            <h3>Summary</h3>
+
+            <div class="vertical-line"></div>
+
+            <div class="summary-info">
+                <div class="name-size">
+                    Black Colonial Shirt<br>
+                    <span>Size: 42, (Aqua)</span>
+                </div>
+                <span>20$</span>
+            </div>
+
+            <div class="summary-info">
+                <div class="name-size">
+                    Black Colonial Shirt<br>
+                    <span>Size: 42, (Aqua)</span>
+                </div>
+                <span>20$</span>
+            </div>
+
+            <div class="summary-info">
+                <div class="name-size">
+                    Black Colonial Shirt<br>
+                    <span>Size: 42, (Aqua)</span>
+                </div>
+                <span>20$</span>
+            </div>
+
+            <div class="vertical-line1"></div>
+
+            <div class="price-info">
+                Subtotal
+                <span>222$</span>
+            </div>
+
+            <div class="vertical-line1"></div>
+
+            <p class="final-price">200$</p>
+        </div>
+
     </div>
 </body>
 
