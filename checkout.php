@@ -5,17 +5,19 @@ include_once "includes/utils.php";
 
 $userID = $_SESSION['userID'];
 
-$currentCurrency = $_GET['currency'] ?? 0;
+$currentCurrency = $_GET['currency'] ?? 'US, USD';
 
 $currentCartID = -1;
 $totalCartItems = 0;
 $totalItemsPrice = 0;
-$sql = "SELECT cart_id FROM cart WHERE `user_id`='$userID'";
+$currentEmail = "";
+$sql = "SELECT cart_id,email FROM cart,users WHERE cart.user_id='$userID' AND users.user_id='$userID'";
 $result = mysqli_query($db, $sql);
 if($result){
     if(mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)){
             $currentCartID = $row["cart_id"];
+            $currentEmail = $row["email"];
         }
     }
 }
@@ -25,6 +27,25 @@ if($currentCartID != -1){
     $result = mysqli_query($db, $sql);
     if($result){
         $totalCartItems = mysqli_num_rows($result);
+    }
+}
+
+$fullname = "";
+$address = "";
+$country ="Lebanon";
+$countryCode = "961";
+$phoneNumber = "";
+$sql = "SELECT * FROM address WHERE `user_id`='$userID'";
+$result = mysqli_query($db, $sql);
+if($result){
+    if(mysqli_num_rows($result) == 1){
+        while($row = mysqli_fetch_assoc($result)){
+            $fullname = $row['fullname'];
+            $address = $row['address'];
+            $country = $row['country'];
+            $countryCode = $row['code'];
+            $phoneNumber = $row['phone'];
+        }
     }
 }
 
@@ -80,7 +101,7 @@ if($totalCartItems == 0){
             </div>
 
             <div class="rightside">
-                <form action="checkout.php" method="POST">
+                <form action="createOrder.php" method="POST">
                     <div class="slideshow-container">
                         <div class="mySlides">
                             <h3>Your Information</h3>
@@ -88,18 +109,18 @@ if($totalCartItems == 0){
                             <div class="form-group">
                                 <label for="fullname">Full Name</label>
                                 <!-- value from php -->
-                                <input type="text" value="" name="fullname" class="form-control" id="fullname" aria-describedby="fullnameHelp" placeholder="Enter your fullname">
+                                <input type="text" value="<?= $fullname ?>" name="fullname" class="form-control" id="fullname" aria-describedby="fullnameHelp" placeholder="Enter your fullname">
                             </div>
 
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" name="address" class="form-control" id="address" aria-describedby="addressHelp" placeholder="City, House, Floor, Street Address">
+                                <input type="text" value="<?= $address ?>" name="address" class="form-control" id="address" aria-describedby="addressHelp" placeholder="City, House, Floor, Street Address">
                             </div>
 
                             <div class="form-group" id="country">
-                                <select class="form-control" id="country" name="country">
-                                    <option>United States</option>
-                                    <option>Lebanon</option>
+                                <select class="form-control" id="countryname" name="country">
+                                    <option value="United States" <?=$country == 'United States' ? ' selected="selected"' : '';?>>United States</option>
+                                    <option value="Lebanon" <?=$country == 'Lebanon' ? ' selected="selected"' : '';?>>Lebanon</option>
                                 </select>
                             </div>
 
@@ -107,20 +128,20 @@ if($totalCartItems == 0){
                                 <div class="form-group" style="width: 100%; margin-right: 20px">
                                     <label for="countryCode">Country Code</label>
                                     <select class="form-control" id="countryCode" name="countryCode">
-                                        <option>(+961) Lebanon</option>
-                                        <option>(+1) United States</option>
+                                        <option value="961" <?=$countryCode == '961' ? ' selected="selected"' : '';?>>(+961) Lebanon</option>
+                                        <option value="1" <?=$countryCode == '1' ? ' selected="selected"' : '';?>>(+1) United States</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group" style="width: 100%;">
                                     <label for="number">Mobile Number</label>
-                                    <input type="text" class="form-control" name="phoneNumber" id="number" aria-describedby="numberHelp" placeholder="3 908070">
+                                    <input type="text" value="<?= $phoneNumber ?>" class="form-control" name="phoneNumber" id="number" aria-describedby="numberHelp" placeholder="3 908070">
                                 </div>
                             </div>
 
                             <br>
 
-                            <input type="button" value="Next" name="slide" class="btn next" id="dot" onclick="currentSlide(2)" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px"/>
+                            <input type="button" value="Next" name="slide" class="btn next" id="dot" onclick="SendInfo()" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px"/>
                         </div>
 
                         <div class="mySlides">
@@ -151,7 +172,7 @@ if($totalCartItems == 0){
                                 <!-- info from inputs in first and second slides -->
 
                                 <h5>Shipping Contact Info</h5>
-                                <p>
+                                <p id="shippingInfo">
                                     Ali Zein Al Dine<br>
                                     alized559@gmail.com<br>
                                     (+961) 70156042
@@ -160,7 +181,7 @@ if($totalCartItems == 0){
 
                             <div class="column">
                                 <h5>Delivery Address</h5>
-                                <p>
+                                <p id="deliveryAddress">
                                     Beirut...<br>
                                     Lebanon
                                 </p>
@@ -174,7 +195,9 @@ if($totalCartItems == 0){
                             </div>
 
                             <div class="slide-btns">
-                                <button class="btn next" id="dot" name="pay" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px">Pay On Delivery</button>
+                                <?php echo "<input type='hidden' name='cart_id' value='$currentCartID'>"; ?>
+                                <?php echo "<input type='hidden' name='currency' value='$currentCurrency'>"; ?>
+                                <button class="btn" id="dot" name="pay" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px">Pay On Delivery</button>
                                 <input type="button" value="Back" class="btn back" id="dot" onclick="currentSlide(2)" style="width: 100%; background-color: white; color: black; height: 45px; border-radius: 10px; margin-top: 10px; border: 1px solid black"/>
                             </div>
                         </div>
@@ -238,11 +261,14 @@ if($totalCartItems == 0){
             <div class='vertical-line1'></div>
             <div class='price-info'>
                 Subtotal
-                <span><?php 
+                <span><?php
+                    $paymentInfo = "";
                     if($currentCurrency != "LBP"){
+                        $paymentInfo = "$totalItemsPrice$";
                         echo "$totalItemsPrice$";
                     }else {
                         $totalPrice2 = "LBP " . number_format($totalItemsPrice * GetConversionRate('LBP'));
+                        $paymentInfo = $totalPrice2;
                         echo "$totalPrice2";
                     }
                 ?></span>
@@ -252,15 +278,20 @@ if($totalCartItems == 0){
 
     </div>
 
-    <div class="p-2 copyrighttext text-white" style="background-color: #8567FF; margin-top: 20px; overflow: hidden;">
-        <div style="text-align:center; height:600px;">
+    <!--<div class="p-2 copyrighttext text-white" style="background-color: #8567FF; margin-top: 20px;">
+        <div style="text-align:center;">
             Copyright © 2022
             <a class="text-reset fw-bold" style="color: white;" href="#">fashion.com</a>
         </div>
-    </div>
+    </div>-->
 </body>
 
 <script>
+
+    var currentEmail = "<?php echo $currentEmail; ?>";
+    var currentCartID = "<?php echo $currentCartID; ?>";
+    var paymentInfo = "<?php echo $paymentInfo; ?>";
+
     let slideIndex = 1;
     showSlides(slideIndex);
 
@@ -268,7 +299,31 @@ if($totalCartItems == 0){
         showSlides(slideIndex += n);
     }
 
+    function SendInfo(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "manageAddress.php?fullname=" + $('#fullname').val() + "&address=" + $('#address').val() + "&country=" + $('#countryname').val() + "&code=" + $('#countryCode').val() + "&number=" + $('#number').val(), true);
+        xmlhttp.addEventListener('error', handleAddressEvent);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var data = JSON.parse(xmlhttp.responseText);
+                if(data.state == "SUCCESS"){
+                    showSlides(slideIndex = 2);
+                    console.log("Updated Address Details Succesfully");
+                }else {
+                    console.log("Failed To Update Address Details");
+                }
+            }
+        }
+    }
+
     function currentSlide(n) {
+        if(n == 3){
+            $('#shippingInfo').html($('#fullname').val() + "<br>" + currentEmail + "<br>(+" + $('#countryCode').val() + ") " + $('#number').val());
+            $('#deliveryAddress').html($('#address').val() + "<br>" + $('#countryname').val());
+        }
         showSlides(slideIndex = n);
     }
 
@@ -276,7 +331,7 @@ if($totalCartItems == 0){
         let i;
         let slides = document.getElementsByClassName("mySlides");
         let dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {slideIndex = 1}
+        if (n > slides.length) {return;}
         if (n < 1) {slideIndex = slides.length}
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
@@ -287,5 +342,30 @@ if($totalCartItems == 0){
         slides[slideIndex-1].style.display = "block";
         dots[slideIndex-1].className += " active";
     }
+
+    function handleAddressEvent(e) {
+        alert("Failed To Update Cart, Please Contact The System Administrator.");
+    }
+
+    /*function CheckoutCompleted(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "createOrder.php?cart_id=" + currentCartID + "&fullname=" + $('#fullname').val() + "&address=" + $('#address').val() + "&country=" + $('#countryname').val() + "&code=" + $('#countryCode').val() + "&number=" + $('#number').val() + "&payment=" + paymentInfo, true);
+        xmlhttp.addEventListener('error', handleAddressEvent);
+        xmlhttp.send();
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                var data = JSON.parse(xmlhttp.responseText);
+                if(data.state == "SUCCESS"){
+                    console.log("Created Order Succesfully");
+                    window.location.href = "/orderDetails.php?id=" + data.id;
+                }else {
+                    console.log("Failed To Create Order Details");
+                }
+            }
+        }
+    }*/
+
 </script>
 </html>

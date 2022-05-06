@@ -156,9 +156,13 @@ body {
     justify-content: space-between;
 }
 
-.mySlides h3,
-h5 {
+.mySlides h5 {
     font-family: Inter-Bold;
+}
+
+.mySlides h3 {
+    font-family: Inter-Bold;
+    margin-left: -15px;
 }
 
 .mySlides label {
