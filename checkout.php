@@ -230,6 +230,13 @@ if($currentCartID != -1){
         </div>
 
     </div>
+
+    <div class="p-2 copyrighttext text-white" style="background-color: #8567FF; margin-top: 20px">
+        <div style="margin-left: 50px;">
+            Copyright © 2022
+            <a class="text-reset fw-bold" style="color: white;" href="#">fashion.com</a>
+        </div>
+    </div>
 </body>
 
 <script>
