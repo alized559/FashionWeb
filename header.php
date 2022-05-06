@@ -13,7 +13,7 @@ if(is_session_started() === FALSE){
 
 <div class="navbar-head">
     <div class="imgcontainer">
-        <img src="imgs/logo.png">
+        <a href="index.php"><img src="imgs/logo.png"></a>
     </div>
     <div class="rightcontainer">
         <div class="btn-group" id="currencyDropdownMenu">
