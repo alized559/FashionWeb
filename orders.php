@@ -42,6 +42,8 @@
                         Ali Zein Al Dine<br>
                         <i class="fa fa-globe"></i>
                         United States<br>
+                        <i class="fa fa-city"></i>
+                        Beirut, 1<br>
                         <i class="fa fa-mobile"></i>
                         +961 70156042<br>
                         <i class="fa fa-envelope"></i>
@@ -53,7 +55,7 @@
                         Cash On Delivery
                     </td>
                     <td>
-                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange) - <span class="status">Pending</span><br>
+                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange, Size: 34) x 1 - <span class="status">Pending</span><br>
                     </td>
                     <td>
                     <div class="menu-nav">
@@ -74,20 +76,22 @@
                         Ali Zein Al Dine<br>
                         <i class="fa fa-globe"></i>
                         United States<br>
+                        <i class="fa fa-city"></i>
+                        Beirut, 1<br>
                         <i class="fa fa-mobile"></i>
                         +961 70156042<br>
                         <i class="fa fa-envelope"></i>
                         alized559@gmail.com
                     </td>
                     <td>
-                        <span class="price">LBP 2,209,740</span><br>
+                        <span class="price">180$</span><br>
                         <i class="fa fa-money"></i>
                         Cash On Delivery
                     </td>
                     <td>
-                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange) - <span class="status">Pending</span><br>
-                        <a href="#">Nike Zoom Freak 3 </a>(Aqua) - <span class="status">Pending</span><br>
-                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange) - <span class="status">Pending</span><br>
+                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange, Size: 35) x 2 - <span class="status">Pending</span><br>
+                        <a href="#">Nike Zoom Freak 3 </a>(Aqua, Size: 30) x 4 - <span class="status">Pending</span><br>
+                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange, Size: 32) x 1 - <span class="status">Pending</span><br>
                     </td>
                     <td>
                     <div class="menu-nav">
@@ -108,6 +112,8 @@
                         Ali Zein Al Dine<br>
                         <i class="fa fa-globe"></i>
                         United States<br>
+                        <i class="fa fa-city"></i>
+                        Beirut, 1<br>
                         <i class="fa fa-mobile"></i>
                         +961 70156042<br>
                         <i class="fa fa-envelope"></i>
@@ -119,8 +125,8 @@
                         Cash On Delivery
                     </td>
                     <td>
-                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange) - <span class="status">Pending</span><br>
-                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange) - <span class="status">Pending</span><br>
+                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange, Size: 42) x 1 - <span class="status">Pending</span><br>
+                        <a href="#">Women’s High-Rise Woven Pants </a>(Pink Orange, Size: 44) x 1 - <span class="status">Pending</span><br>
                     </td>
                     <td>
                     <div class="menu-nav">
