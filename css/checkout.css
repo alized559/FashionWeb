@@ -75,6 +75,19 @@ body {
     .title {
         margin-top: 30px;
     }
+
+    .leftside img {
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    .rightside {
+        border-bottom-left-radius: 15px;
+    }
+
+    .box, .summary {
+        margin-left: 10px !important;
+    }
 }
 
 .checkout {
@@ -258,4 +271,8 @@ form select {
         width: 95%;
         margin-bottom: 40px;
     }
+}
+
+.summary-info .price span {
+    color: gray;
 }

@@ -1,3 +1,35 @@
+<?php 
+include "includes/validateAuth.php";
+include 'includes/config.php';
+
+$userID = $_SESSION['userID'];
+
+$currentCartID = -1;
+$totalCartItems = 0;
+$totalItemsPrice = 0;
+$sql = "SELECT cart_id FROM cart WHERE `user_id`='$userID'";
+$result = mysqli_query($db, $sql);
+if($result){
+    if(mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)){
+            $currentCartID = $row["cart_id"];
+        }
+    }
+}
+
+if($currentCartID != -1){
+    $sql = "SELECT item_id FROM cart_items WHERE cart_id='$currentCartID'";
+    $result = mysqli_query($db, $sql);
+    if($result){
+        $totalCartItems = mysqli_num_rows($result);
+    }
+}
+
+// use this to get country code (int) filter_var($string, FILTER_SANITIZE_NUMBER_INT);
+// (+961) Lebanon -> 961
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,23 +72,24 @@
             </div>
 
             <div class="rightside">
-                <form action="checkout.php">
+                <form action="checkout.php" method="POST">
                     <div class="slideshow-container">
                         <div class="mySlides">
                             <h3>Your Information</h3>
 
                             <div class="form-group">
                                 <label for="fullname">Full Name</label>
-                                <input type="text" class="form-control" id="fullname" aria-describedby="fullnameHelp" placeholder="Enter your fullname">
+                                <!-- value from php -->
+                                <input type="text" value="" name="fullname" class="form-control" id="fullname" aria-describedby="fullnameHelp" placeholder="Enter your fullname">
                             </div>
 
                             <div class="form-group">
                                 <label for="address">Address</label>
-                                <input type="text" class="form-control" id="address" aria-describedby="addressHelp" placeholder="City, House, Floor, Street Address">
+                                <input type="text" name="address" class="form-control" id="address" aria-describedby="addressHelp" placeholder="City, House, Floor, Street Address">
                             </div>
 
                             <div class="form-group" id="country">
-                                <select class="form-control" id="country">
+                                <select class="form-control" id="country" name="country">
                                     <option>United States</option>
                                     <option>Lebanon</option>
                                 </select>
@@ -65,7 +98,7 @@
                             <div class="mobile-number">
                                 <div class="form-group" style="width: 100%; margin-right: 20px">
                                     <label for="countryCode">Country Code</label>
-                                    <select class="form-control" id="countryCode">
+                                    <select class="form-control" id="countryCode" name="countryCode">
                                         <option>(+961) Lebanon</option>
                                         <option>(+1) United States</option>
                                     </select>
@@ -73,13 +106,13 @@
 
                                 <div class="form-group" style="width: 100%;">
                                     <label for="number">Mobile Number</label>
-                                    <input type="text" class="form-control" id="number" aria-describedby="numberHelp" placeholder="3 908070">
+                                    <input type="text" class="form-control" name="phoneNumber" id="number" aria-describedby="numberHelp" placeholder="3 908070">
                                 </div>
                             </div>
 
                             <br>
 
-                            <input type="button" value="Next" class="btn next" id="dot" onclick="currentSlide(2)" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px"/>
+                            <input type="button" value="Next" name="slide" class="btn next" id="dot" onclick="currentSlide(2)" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px"/>
                         </div>
 
                         <div class="mySlides">
@@ -133,7 +166,7 @@
                             </div>
 
                             <div class="slide-btns">
-                                <button class="btn next" id="dot" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px">Pay On Delivery</button>
+                                <button class="btn next" id="dot" name="pay" style="width: 100%; background-color: black; color: white; height: 45px; border-radius: 10px">Pay On Delivery</button>
                                 <input type="button" value="Back" class="btn back" id="dot" onclick="currentSlide(2)" style="width: 100%; background-color: white; color: black; height: 45px; border-radius: 10px; margin-top: 10px; border: 1px solid black"/>
                             </div>
                         </div>
@@ -147,40 +180,53 @@
 
             <div class="vertical-line"></div>
 
-            <div class="summary-info">
-                <div class="name-size">
-                    Black Colonial Shirt<br>
-                    <span>Size: 42, (Aqua)</span>
-                </div>
-                <span>20$</span>
-            </div>
+            <?php 
+            
+                if ($currentCartID != -1 && $totalCartItems > 0){
+                    $sql = "SELECT cart_items.quantity,cart_items.prod_item_id,products.name AS product_name,products.price,products.discount,product_items.name AS product_item_name, product_items.quantity AS total_quantity,data FROM cart_items,products,product_items WHERE cart_id='$currentCartID' AND products.prod_id=cart_items.prod_id AND prod_item_id=product_items.item_id";
+                    $result = mysqli_query($db, $sql);
+                    if ($result) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $cart_item_quantity = $row['quantity'];
+                            $product_name = $row['product_name'];
+                            $product_price = $row['price'];
+                            $product_discount = $row['discount'];
+                            $product_item_name = $row['product_item_name'];
+                            $product_total_quantity = $row['total_quantity'];
+                            $extra_data = $row['data'];
+                            if($cart_item_quantity > $product_total_quantity){
+                                $cart_item_quantity = $product_total_quantity;
+                                $sql2 = "UPDATE cart_items SET quantity='$product_total_quantity' WHERE item_id='$cart_item_id'";
+                                $result2 = mysqli_query($db, $sql2);
+                            }
 
-            <div class="summary-info">
-                <div class="name-size">
-                    Black Colonial Shirt<br>
-                    <span>Size: 42, (Aqua)</span>
-                </div>
-                <span>20$</span>
-            </div>
+                            $basePrice = $product_price - $product_discount;
 
-            <div class="summary-info">
-                <div class="name-size">
-                    Black Colonial Shirt<br>
-                    <span>Size: 42, (Aqua)</span>
-                </div>
-                <span>20$</span>
-            </div>
+                            $totalPrice = $basePrice * $cart_item_quantity;
 
-            <div class="vertical-line1"></div>
+                            echo "<div class='summary-info'>";
+                            echo "<div class='name-size'>";
+                            echo "$product_name<br>";
+                            echo "<span>$extra_data, ($product_item_name)</span>";
+                            echo "</div>";
+                            echo "<span class='price'>$totalPrice$</span>";
+                            echo "</div>";
 
-            <div class="price-info">
+                            $totalItemsPrice = $totalItemsPrice + $totalPrice;
+                        }
+                    }
+                } else {
+                    // go shop;
+                }
+
+            ?>
+
+            <div class='vertical-line1'></div>
+
+            <div class='price-info'>
                 Subtotal
-                <span>222$</span>
+                <span><?php echo $totalItemsPrice ?>$</span>
             </div>
-
-            <div class="vertical-line1"></div>
-
-            <p class="final-price">200$</p>
         </div>
 
     </div>

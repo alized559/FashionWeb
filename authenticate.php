@@ -41,6 +41,8 @@
                     $sql = "INSERT INTO users(username,fullname,email,password) VALUE ('$username','$fullname','$email','$password')";
                     mysqli_query($db, $sql) or die(mysqli_error($db));
                     $_SESSION['username'] = $username;
+                    $_SESSION['fullname'] = $fullname;
+                    $_SESSION['email'] = $email;
                     $_SESSION['type'] = 'user';
                     $_SESSION['userID'] = mysqli_insert_id($db);
                     header("location:panel.php");
