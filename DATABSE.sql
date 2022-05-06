@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2022 at 12:15 AM
+-- Generation Time: May 06, 2022 at 10:29 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -14,6 +14,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `fashion`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `address`
+--
+
+CREATE TABLE `address` (
+  `user_id` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL DEFAULT '',
+  `address` mediumtext NOT NULL DEFAULT '',
+  `country` varchar(100) NOT NULL DEFAULT 'Lebanon',
+  `code` int(11) NOT NULL DEFAULT 961,
+  `phone` text NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`user_id`, `fullname`, `address`, `country`, `code`, `phone`) VALUES
+(5, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764');
 
 -- --------------------------------------------------------
 
@@ -57,7 +79,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `user_id`) VALUES
-(1, 5);
+(1, -1),
+(2, -1);
 
 -- --------------------------------------------------------
 
@@ -81,7 +104,9 @@ CREATE TABLE `cart_items` (
 INSERT INTO `cart_items` (`item_id`, `cart_id`, `prod_id`, `prod_item_id`, `quantity`, `data`) VALUES
 (29, 1, 2, 6, 1, 'Size: 33.5'),
 (32, 1, 5, 12, 1, 'Size: 33.5'),
-(33, 1, 1, 3, 1, 'Size: 33.5');
+(33, 1, 1, 3, 2, 'Size: 33.5'),
+(36, 2, 2, 8, 1, 'Size: 33.5'),
+(37, 2, 1, 4, 1, 'Size: 33.5');
 
 -- --------------------------------------------------------
 
@@ -100,6 +125,35 @@ CREATE TABLE `favorites` (
 
 INSERT INTO `favorites` (`user_id`, `product_id`) VALUES
 (5, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `address` mediumtext NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `countryCode` int(11) NOT NULL,
+  `number` text NOT NULL,
+  `payment` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL DEFAULT 'Pending',
+  `driver` int(11) NOT NULL DEFAULT -1,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `cart_id`, `fullname`, `address`, `country`, `countryCode`, `number`, `payment`, `state`, `driver`, `date`) VALUES
+(1, 5, 1, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', '742.99$', 'Pending', -1, '2022-05-06 20:05:14'),
+(2, 5, 2, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', 'LBP 9,334,000', 'Pending', -1, '2022-05-06 20:25:39');
 
 -- --------------------------------------------------------
 
@@ -230,6 +284,12 @@ ALTER TABLE `cart_items`
   ADD PRIMARY KEY (`item_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -267,13 +327,19 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
