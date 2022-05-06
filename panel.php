@@ -188,8 +188,17 @@
                         <button class="btn btn-warning" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Brands</button>
                     </a>
                 </div>
-            <?php }
-        ?>
+            <?php } else if (isset($_SESSION['type']) && $_SESSION['type'] == "driver") { ?>
+                        <br>
+                        <br>
+                        <br>
+                        <div style="font-family: Inter-Medium;">
+                            <h3 class="favorites-title">Driver Tools</h3>
+                            <a href="manageAllProducts.php" style="text-decoration:none;">
+                                <button class="btn btn-primary" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Orders</button>
+                            </a>
+                        </div>
+            <?php } ?>
         <br>
         <br>
         <br>
