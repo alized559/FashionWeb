@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="container-fluid">
+        <h1>Users</h1>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -58,7 +59,7 @@
                                 echo "<i class='fa fa-envelope'>$email</i><br>";
                                 echo "<i class='fa fa-user-alt'>$fullname</i><br></td>";
                                 echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#photo$user_id'>View Photo</button></td>";
-                                echo "<td><a href='editUser.php?id=$user_id'><button class='btn btn-primary'>Edit</button></a></td></tr>";
+                                echo "<td><a href='editUser.php?id=$user_id'><button class='btn btn-warning'>Edit</button></a></td></tr>";
 
                                 echo "<div class='modal fade' id='photo$user_id' tabindex='-1' role='dialog' aria-labelledby='photoLabel' aria-hidden='true'>
                                     <div class='modal-dialog' role='document'>
