@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(isset($_GET['id'])){
     include "includes/validateAdminAuth.php";
 }else {
@@ -24,6 +24,11 @@ if ($result) {
             $email = $row['email'];
         }
     }
+}
+
+$fileDirectory = "images/users/$id";
+if (!file_exists($fileDirectory)) {
+    mkdir($fileDirectory, 0777, true);
 }
 
 $photo = "images/users/$id/logo.jpg";
@@ -71,31 +76,47 @@ if(!file_exists($banner)){//Deletes the image if it exists
     </div>
 
     <div class="container-fluid">
-        <h3 class="user-title">@<?= $username ?> (<?= $fullname ?>) • Favorites</h3>
-        <div class="favorite-products">
+        <h3 class="user-title">@<?= $username ?> (<?= $fullname ?>) • Previous Orders</h3>
+        <div class="previous-orders">
             <?php
-                $sql = "SELECT product_id FROM favorites WHERE `user_id`='$id'";
+                $sql = "SELECT * FROM orders WHERE `user_id`='$id' LIMIT 7";
+
                 $result = mysqli_query($db, $sql);
+
+                $order_id = 0;
+                $address = "";
+                $country = "";
+                $countryCode = "";
+                $phoneNumber = "";
+                $state = "";
+                $payment = "";
+                $date = "";
                 if($result){
                     if(mysqli_num_rows($result) > 0) {
                         while($row = mysqli_fetch_assoc($result)){
                             
-                            $id = $row["product_id"];
-                            $file = "images/products/" . $id . "/logo.jpg";
+                            $order_id = $row["order_id"];
+                            $address = $row["address"];
+                            $country = $row["country"];
+                            $countryCode = $row["countryCode"];
+                            $phoneNumber = $row["number"];
+                            $payment = $row["payment"];
+                            $state = $row["state"];
+                            $date = $row["date"];
 
-                            if(!file_exists($file)){//Deletes the image if it exists
-                                $file = "images/products/" . $id . "/logo.png";
-                                if(!file_exists($file)){//Deletes the image if it exists
-                                    $file = "images/products/" . $id . "/logo.gif";
-                                    if(!file_exists($file)){//Deletes the image if it exists
-                                        $file = "images/products/default.png";
-                                    }
-                                }
-                            }
-                            echo "<a href='viewProduct.php?id=$id'><img src='$file' alt='Product Image'></a>";
+                            $stateClass = $state == 'Pending' ? 'status-pending' : 'status';
+
+                            echo "<a class='text-reset' href='viewOrder.php?id=$order_id' style='text-decoration: none;'>";
+                            echo "<h3>Order № $order_id</h3>";
+                            echo "<p>$country, $address";
+                            echo "<br>(+$countryCode) $phoneNumber";
+                            echo "<br><span class='$stateClass'>$state</span>";
+                            echo "<br>$date";
+                            echo "<br>$payment</p>";
+                            echo "</a>";
                         }
                     } else {
-                        echo "<p>No Favorite Products Yet, Browse Through Our Store To Add More!</p>";
+                        echo "<p>No Orders Yet, Browse Through Our Store To Add More!</p>";
                     }
                 }
             ?>

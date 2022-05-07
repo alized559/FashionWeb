@@ -187,6 +187,9 @@
                     <a href="manageAllBrands.php" style="text-decoration:none;">
                         <button class="btn btn-warning" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Brands</button>
                     </a>
+                    <a href="orders.php" style="text-decoration:none;">
+                        <button class="btn btn-primary" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Orders</button>
+                    </a>
                 </div>
             <?php } else if (isset($_SESSION['type']) && $_SESSION['type'] == "driver") { ?>
                         <br>
@@ -194,7 +197,7 @@
                         <br>
                         <div style="font-family: Inter-Medium;">
                             <h3 class="favorites-title">Driver Tools</h3>
-                            <a href="manageAllProducts.php" style="text-decoration:none;">
+                            <a href="orders.php" style="text-decoration:none;">
                                 <button class="btn btn-primary" style="margin-top: 10px; border-radius: 10px; width: 200px;">Manage Orders</button>
                             </a>
                         </div>
@@ -239,12 +242,49 @@
         <br>
         <div class="showMoreDiv">
             <h3 class="favorites-title">Previous Orders</h3>
-            <a href="showAllOrders.php">Show More</a>
-            <div class="previous-orders">
-                <img src='imgs/9.png' alt='Product Image'>
-                <img src='imgs/9.png' alt='Product Image'>
-                <img src='imgs/9.png' alt='Product Image'>
-            </div>
+                <?php
+                    $sql = "SELECT * FROM orders WHERE `user_id`='$user_id' LIMIT 7";
+
+                    $result = mysqli_query($db, $sql);
+
+                    $order_id = 0;
+                    $address = "";
+                    $country = "";
+                    $countryCode = "";
+                    $phoneNumber = "";
+                    $state = "";
+                    $payment = "";
+                    $date = "";
+
+                    if($result){
+                        if(mysqli_num_rows($result) > 0) {
+                            echo "<a href='showAllOrders.php'>Show More</a>";
+                            echo "<div class='previous-orders'>";
+                            while($row = mysqli_fetch_assoc($result)){
+                                $order_id = $row["order_id"];
+                                $address = $row["address"];
+                                $country = $row["country"];
+                                $countryCode = $row["countryCode"];
+                                $phoneNumber = $row["number"];
+                                $payment = $row["payment"];
+                                $state = $row["state"];
+                                $date = $row["date"];
+
+                                $stateClass = $state == 'Pending' ? 'status-pending' : ($state == 'Returned' ? 'status-returned' : ($state == 'On The Way' ? 'status-ontheway' : 'status'));
+
+                                echo "<a class='text-reset' href='viewOrder.php?id=$order_id' style='text-decoration: none;'>";
+                                echo "<h3>Order № $order_id</h3>";
+                                echo "<p>$country, $address";
+                                echo "<br>(+$countryCode) $phoneNumber";
+                                echo "<br><span class='$stateClass'>$state</span>";
+                                echo "<br>$date";
+                                echo "<br>$payment</p>";
+                                echo "</a>";
+                            }
+                            echo "</div>";
+                        }
+                    }
+                ?>
         </div>
         
                 

@@ -46,16 +46,17 @@ table {
     border-radius: 5px;
     background-color: rgb(232, 232, 232);
 }
-  
+
 a {
     text-decoration: none;
     color: inherit;
+    font-family: Inter-Medium;
 }
-  
+
 a div {
     padding: 2px;
 }
-  
+
 .drop {
     right: 10px;
     background-color: white;
@@ -67,7 +68,7 @@ a div {
     padding: 10px;
     border: 1px solid rgb(218, 218, 218);
 }
-  
+
 .drop-container:focus .drop {
     opacity: 1;
     max-height: 100vh;

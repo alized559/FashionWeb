@@ -24,7 +24,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">User</th>
-                    <th scope="col">Profile Photo</th>
+                    <th scope="col">User Data</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -55,10 +55,15 @@
                                 }
 
                                 echo "<tr><th scope='row'>#$user_id</th>";
-                                echo "<td><i class='fa fa-user-alt'>$username</i><br>";
-                                echo "<i class='fa fa-envelope'>$email</i><br>";
-                                echo "<i class='fa fa-user-alt'>$fullname</i><br></td>";
-                                echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#photo$user_id'>View Photo</button></td>";
+                                echo "<td><i class='fa fa-user-alt'></i> $username<br>";
+                                echo "<i class='fa fa-envelope'></i> $email<br>";
+                                echo "<i class='fa fa-user-alt'></i> $fullname<br></td>";
+                                echo "<td>";
+                                echo "<button class='btn btn-primary' data-toggle='modal' data-target='#photo$user_id'>View Photo</button>";
+                                echo "<a href='showAllOrders.php?id=$user_id' class='btn btn-success ml-1'>View Orders</a>";
+                                echo "<a href='showAllReviews.php?id=$user_id' class='btn btn-info ml-1'>View Reviews</a>";
+                                echo "<a href='showAllFavorites.php?id=$user_id' class='btn btn-warning ml-1'>View Favorites</a>";
+                                echo "</td>";
                                 echo "<td><a href='editUser.php?id=$user_id'><button class='btn btn-warning'>Edit</button></a></td></tr>";
 
                                 echo "<div class='modal fade' id='photo$user_id' tabindex='-1' role='dialog' aria-labelledby='photoLabel' aria-hidden='true'>

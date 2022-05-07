@@ -39,6 +39,13 @@
     font-family: Inter-Medium;
 }
 
+.header3 {
+    margin: auto;
+    width: 88%;
+    height: 15%;
+    font-family: Inter-Medium;
+}
+
 .header2 p {
     line-height: 5px;
 }
@@ -205,6 +212,34 @@ tr>td {
     margin-right: 5%;
     border-top: 2.5px solid rgb(190, 190, 190);
     margin-bottom: 10px;
+}
+
+.vertical-line2 {
+    width: 90%;
+    float: right;
+    margin-right: 5%;
+    border-top: 2.5px solid rgb(190, 190, 190);
+    margin-bottom: 10px;
+}
+
+.status {
+    color: #26b40d;
+    font-family: Inter-Bold;
+}
+
+.status-pending {
+    color: #FFD814;
+    font-family: Inter-Bold;
+}
+
+.status-ontheway {
+    color: #093ce4;
+    font-family: Inter-Bold;
+}
+
+.status-returned {
+    color: #ff1414;
+    font-family: Inter-Bold;
 }
 
 .checkout {

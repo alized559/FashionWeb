@@ -1,8 +1,12 @@
 <?php 
-    include "includes/validateAuth.php";
+    if(isset($_GET['id'])){
+        include "includes/validateAdminAuth.php";
+    }else {
+        include "includes/validateAuth.php";
+    }
     include 'includes/config.php';
-
-    $id = $_SESSION['userID'];
+    
+    $id = $_GET['id'] ?? $_SESSION['userID'];
 
     $username = "";
     $fullname = "";
@@ -22,23 +26,29 @@
         }
     }
 
-    $fileDirectory = "images/users/$id";
-    if (!file_exists($fileDirectory)) {
-        mkdir($fileDirectory, 0777, true);
-    }
+    $photo = "images/users/$id/logo.jpg";
 
-    $file = "images/users/$id/logo.jpg";
-
-    if(!file_exists($file)){//Deletes the image if it exists
-        $file = "images/users/$id/logo.png";
-        if(!file_exists($file)){//Deletes the image if it exists
-            $file = "images/users/$id/logo.gif";
-            if(!file_exists($file)){//Deletes the image if it exists
-                $file = "images/users/default.png";
+    if(!file_exists($photo)){//Deletes the image if it exists
+        $photo = "images/users/$id/logo.png";
+        if(!file_exists($photo)){//Deletes the image if it exists
+            $photo = "images/users/$id/logo.gif";
+            if(!file_exists($photo)){//Deletes the image if it exists
+                $photo = "images/users/default.png";
             }
         }
     }
-    $photo = $file;
+
+    $banner = "images/users/$id/banner.jpg";
+
+    if(!file_exists($banner)){//Deletes the image if it exists
+        $banner = "images/users/$id/banner.png";
+        if(!file_exists($banner)){//Deletes the image if it exists
+            $banner = "images/users/$id/banner.gif";
+            if(!file_exists($banner)){//Deletes the image if it exists
+                $banner = "imgs/profile-back.png";
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +69,7 @@
         <img class='productImg' src='<?php echo $photo ?>' alt='Product Image'>
     </div>
     <div class="container-fluid">
-        <h3 class="user-title">Posted Reviews</h3>
+        <h3 class="user-title">@<?= $username ?> (<?= $fullname ?>) • Posted Reviews</h3>
             <?php
                 $sql = "SELECT * FROM reviews WHERE `user_id`='$id' LIMIT 7";
                 $result = mysqli_query($db, $sql);
@@ -81,7 +91,7 @@
                                         echo "<div><img src='$file' alt='User Image'></div>";
                                         echo "<div class='vertical-line'></div>";
                                         echo "<div class='column'>";
-                                        echo "<h5>$username ● $prod_name</h5>";
+                                        echo "<h5>$username • $prod_name</h5>";
                                         echo "<p>";
                                         echo $text;
                                         echo "<span class='rating-flex'>";

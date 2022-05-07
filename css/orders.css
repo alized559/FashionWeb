@@ -1,6 +1,6 @@
 @font-face {
-    font-family: Inter;
-    src: url("../fonts/Inter.ttf");
+    font-family: Inter-Medium;
+    src: url("../fonts/Inter-Medium.ttf");
 }
 
 @font-face {
@@ -15,15 +15,31 @@
 
 table {
     margin: 20px 0 20px 0;
+    font-family: Inter-Medium;
 }
 
-.price {
+.pricetag {
     font-size: 20px;
     font-family: Inter-Bold;
 }
 
 .status {
+    color: #26b40d;
+    font-family: Inter-Bold;
+}
+
+.status-pending {
     color: #FFD814;
+    font-family: Inter-Bold;
+}
+
+.status-ontheway {
+    color: #093ce4;
+    font-family: Inter-Bold;
+}
+
+.status-returned {
+    color: #ff1414;
     font-family: Inter-Bold;
 }
 
@@ -46,16 +62,16 @@ table {
     border-radius: 5px;
     background-color: rgb(232, 232, 232);
 }
-  
+
 a {
     text-decoration: none;
     color: inherit;
 }
-  
+
 a div {
     padding: 2px;
 }
-  
+
 .drop {
     right: 10px;
     background-color: white;
@@ -67,7 +83,7 @@ a div {
     padding: 10px;
     border: 1px solid rgb(218, 218, 218);
 }
-  
+
 .drop-container:focus .drop {
     opacity: 1;
     max-height: 100vh;

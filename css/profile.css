@@ -191,12 +191,35 @@ tbody>tr>:nth-child(2) {
 }
 
 .favorite-products img,
-.previous-orders img {
+.previous-orders a {
     width: 250px;
-    height: 250px;
-    object-fit: cover;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.previous-orders p {
+    line-height: normal;
+}
+
+.status {
+    color: #26b40d;
+    font-family: Inter-Bold;
+}
+
+.status-pending {
+    color: #FFD814;
+    font-family: Inter-Bold;
+}
+
+.status-ontheway {
+    color: #093ce4;
+    font-family: Inter-Bold;
+}
+
+.status-returned {
+    color: #ff1414;
+    font-family: Inter-Bold;
 }
 
 .favorite-products p {
