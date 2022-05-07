@@ -265,7 +265,7 @@ if(is_session_started() === FALSE){
             </div>
 
             <p class="coun-curr">Delivery Country & Currency</p>
-            <div class="btn-group" id="currencyDropdownMenu">
+            <div class="btn-group" id="currencyDropdownMenu2">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="imgs/flags/us.png">
                     US, USD
@@ -388,7 +388,9 @@ if(is_session_started() === FALSE){
 if (typeof(Storage) !== "undefined") {
     if (localStorage.currentCurrency && localStorage.currentCurrencyImage) {
         var element = document.getElementById("currencyDropdownMenu");
+        var element2 = document.getElementById("currencyDropdownMenu2");
         $(element).find('.dropdown-toggle').html(localStorage.currentCurrencyImage + localStorage.currentCurrency);
+        $(element2).find('.dropdown-toggle').html(localStorage.currentCurrencyImage + localStorage.currentCurrency);
     }else {
         localStorage.currentCurrency = "US, USD";
         localStorage.currentCurrencyImage = "<img src='imgs/flags/us.png'>";
