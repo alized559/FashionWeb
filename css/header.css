@@ -131,6 +131,10 @@
     .nav-mobile {
         display: block !important;
     }
+
+    .btn-group {
+        font-family: Inter;
+    }
 }
 
 .nav-mobile {
