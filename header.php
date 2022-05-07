@@ -11,6 +11,7 @@ if(is_session_started() === FALSE){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/c530224477.js" crossorigin="anonymous"></script>
 
+<div class="nav-desktop">
 <div class="navbar-head">
     <div class="imgcontainer">
         <a href="index.php"><img src="imgs/logo.png"></a>
@@ -39,7 +40,7 @@ if(is_session_started() === FALSE){
         </a>
     </div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<nav class="navbar navbar-expand-sm navbar-light bg-white">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -213,7 +214,175 @@ if(is_session_started() === FALSE){
     </div>
   </div>
 </nav>
+</div>
 
+<div class="nav-mobile">
+    <div class="mobile-navbar">
+        <div id="mySidenav" class="sidenav">
+            <a class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.php" onclick="closeNav()">Home</a>
+            <a onclick="openWomenChildNav()">
+                <div class="nav-item">
+                    <span>Women</span>
+                    <span class="left-arrow">&rsaquo;</span>
+                </div>
+            </a>
+            <a onclick="openMenChildNav()">
+                <div class="nav-item">
+                    <span>Men</span>
+                    <span class="left-arrow">&rsaquo;</span>
+                </div>
+            </a>
+            <a onclick="closeNav()">Brands</a>
+            <a href="#" class="sale" onclick="closeNav()">Sale</a>
+            
+            <div class="account">
+                <?php 
+                
+                    if (isset($_SESSION['username'])) {
+                        $user_id = $_SESSION['userID'];
+
+                        $file = "images/users/" . $user_id . "/logo.jpg";
+                
+                        if(!file_exists($file)){//Deletes the image if it exists
+                            $file = "images/users/" . $user_id . "/logo.png";
+                            if(!file_exists($file)){//Deletes the image if it exists
+                                $file = "images/users/" . $user_id . "/logo.gif";
+                                if(!file_exists($file)){//Deletes the image if it exists
+                                    $file = "images/users/default.png";
+                                }
+                            }
+                        }
+                        echo "<p style='margin-left: 20px; text-align: start'>My Account</p>";
+                        echo "<a href='panel.php' style='border-bottom: 0'><img src='$file' width='50px' height='50px'></a>";
+                    } else {
+                        echo "<p>My Account</p>";
+                        echo "<a href='login.php' style='border-bottom: 0'><button class='btn black'>Login</button></a>";
+                        echo "<a href='signup.php' style='border-bottom: 0; padding-top: 0'><button class='btn trans'>Signup</button></a>";
+                    }
+                
+                ?>
+            </div>
+
+            <p class="coun-curr">Delivery Country & Currency</p>
+            <div class="btn-group" id="currencyDropdownMenu">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="imgs/flags/us.png">
+                    US, USD
+                </button>
+
+                <ul class="dropdown-menu" data-toggle="modal" data-target="#exampleModalLong">
+                    <li>
+                        <a href="#" title="Select USD Currency"><img src="imgs/flags/us.png">US, USD</a>
+                    </li>
+                    <li>
+                        <a href="#" title="Select LBP Currency"><img src="imgs/flags/lb.png">LB, LBP</a>
+                    </li>
+                </ul>
+            </div>
+
+            
+        </div>
+
+        <div id="mySidenav-women-child" class="sidenav">
+            <a href="#" class="closebtn" onclick="closeWomenChildNav()">&lsaquo;</a>
+            <p class="title">Shoes</p>
+            <a href="products.php?gender=w&category=shoes&type=basketball" onclick="closeNav(); closeWomenChildNav()">Basketball</a>
+            <a href="products.php?gender=w&category=shoes&type=training" class="category-item" onclick="closeNav(); closeWomenChildNav()">Training</a>
+            <a href="products.php?gender=w&category=shoes&type=football" class="category-item" onclick="closeNav(); closeWomenChildNav()">Football</a>
+            <a href="products.php?gender=w&category=shoes&type=walking" class="category-item" onclick="closeNav(); closeWomenChildNav()">Walking</a>
+            <a href="products.php?gender=w&category=shoes&type=slides" class="category-item" onclick="closeNav(); closeWomenChildNav()">Slides</a>
+            <a href="products.php?gender=w&category=shoes&type=all" class="category-item" onclick="closeNav(); closeWomenChildNav()">All Shoes</a>
+
+            <p class="title1">Clothing</p>
+            <a href="products.php?gender=w&category=clothing&type=pants" (click)="closeNav(); closeWomenChildNav()">Pants</a>
+            <a href="products.php?gender=w&category=clothing&type=hoodies" class="category-item" onclick="closeNav(); closeWomenChildNav()">Hoodies</a>
+            <a href="products.php?gender=w&category=clothing&type=jackets" class="category-item" onclick="closeNav(); closeWomenChildNav()">Jackets</a>
+            <a href="products.php?gender=w&category=clothing&type=socks" class="category-item" onclick="closeNav(); closeWomenChildNav()">Socks</a>
+            <a href="products.php?gender=w&category=clothing&type=polos" class="category-item" onclick="closeNav(); closeWomenChildNav()">Polos</a>
+            <a href="products.php?gender=w&category=clothing&type=shorts" class="category-item" onclick="closeNav(); closeWomenChildNav()">Shorts</a>
+            <a href="products.php?gender=w&category=clothing&type=suits" class="category-item" onclick="closeNav(); closeWomenChildNav()">Suits</a>
+            <a href="products.php?gender=w&category=clothing&type=t-shirts" class="category-item" onclick="closeNav(); closeWomenChildNav()">T-Shirts</a>
+            <a href="products.php?gender=w&category=clothing&type=all" class="category-item" onclick="closeNav(); closeWomenChildNav()">All Clothing</a>
+
+            <p class="title1">Accessories</p>
+            <a href="products.php?gender=w&category=accessories&type=bags" onclick="closeNav(); closeWomenChildNav()">Bags</a>
+            <a href="products.php?gender=w&category=accessories&type=hats" class="category-item" onclick="closeNav(); closeWomenChildNav()">Hats</a>
+            <a href="products.php?gender=w&category=accessories&type=gloves" class="category-item" onclick="closeNav(); closeWomenChildNav()">Gloves</a>
+            <a href="products.php?gender=w&category=accessories&type=sunglasses" class="category-item" onclick="closeNav(); closeWomenChildNav()">Sunglasses</a>
+            <a href="products.php?gender=w&category=accessories&type=necklaces" class="category-item" onclick="closeNav(); closeWomenChildNav()">Necklaces</a>
+            <a href="products.php?gender=w&category=accessories&type=all" class="category-item" onclick="closeNav(); closeWomenChildNav()">All Accessories</a>
+        </div>
+
+        <div id="mySidenav-men-child" class="sidenav">
+            <a href="#" class="closebtn" onclick="closeMenChildNav()">&lsaquo;</a>
+            <p class="title">Shoes</p>
+            <a href="products.php?gender=m&category=shoes&type=basketball" onclick="closeNav(); closeMenChildNav()">Basketball</a>
+            <a href="products.php?gender=m&category=shoes&type=training" class="category-item" onclick="closeNav(); closeMenChildNav()">Training</a>
+            <a href="products.php?gender=m&category=shoes&type=football" class="category-item" onclick="closeNav(); closeMenChildNav()">Football</a>
+            <a href="products.php?gender=m&category=shoes&type=walking" class="category-item" onclick="closeNav(); closeMenChildNav()">Walking</a>
+            <a href="products.php?gender=m&category=shoes&type=slides" class="category-item" onclick)="closeNav(); closeMenChildNav()">Slides</a>
+            <a href="products.php?gender=m&category=shoes&type=all" class="category-item" onclick="closeNav(); closeMenChildNav()">All Shoes</a>
+
+            <p class="title1">Clothing</p>
+            <a href="products.php?gender=m&category=clothing&type=pants" onclick="closeNav(); closeMenChildNav()">Pants</a>
+            <a href="products.php?gender=m&category=clothing&type=hoodies" class="category-item" onclick="closeNav(); closeMenChildNav()">Hoodies</a>
+            <a href="products.php?gender=m&category=clothing&type=jackets" class="category-item" onclick="closeNav(); closeMenChildNav()">Jackets</a>
+            <a href="products.php?gender=m&category=clothing&type=socks" class="category-item" onclick="closeNav(); closeMenChildNav()">Socks</a>
+            <a href="products.php?gender=m&category=clothing&type=polos" class="category-item" onclick="closeNav(); closeMenChildNav()">Polos</a>
+            <a href="products.php?gender=m&category=clothing&type=shorts" class="category-item" onclick="closeNav(); closeMenChildNav()">Shorts</a>
+            <a href="products.php?gender=m&category=clothing&type=suits" class="category-item" onclick="closeNav(); closeMenChildNav()">Suits</a>
+            <a href="products.php?gender=m&category=clothing&type=t-shirts" class="category-item" onclick="closeNav(); closeMenChildNav()">T-Shirts</a>
+            <a href="products.php?gender=m&category=clothing&type=all" class="category-item" onclick="closeNav(); closeMenChildNav()">All Clothing</a>
+
+            <p class="title1">Accessories</p>
+            <a href="products.php?gender=m&category=accessories&type=bags" onclick="closeNav(); closeMenChildNav()">Bags</a>
+            <a href="products.php?gender=m&category=accessories&type=hats" class="category-item" onclick="closeNav(); closeMenChildNav()">Hats</a>
+            <a href="products.php?gender=m&category=accessories&type=gloves" class="category-item" onclick="closeNav(); closeMenChildNav()">Gloves</a>
+            <a href="products.php?gender=m&category=accessories&type=sunglasses" class="category-item" onclick="closeNav(); closeMenChildNav()">Sunglasses</a>
+            <a href="products.php?gender=m&category=accessories&type=all" class="category-item" onclick="closeNav(); closeMenChildNav()">All Accessories</a>
+        </div>
+        
+        <div class="top-navbar">
+            <span class="open-btn" onclick="openNav()">&#9776;</span>
+
+            <div class="logo-container">
+            <a href="index.php"><img class="logo" src="imgs/logo.png" alt="logo"></a>
+            </div>
+
+            <div class="cart-fav">
+            <!-- <a href="#"><i class="fa fa-shopping-bag"></i></a> -->
+            <a href="cart.php" class="text-reset" style="text-decoration: none;">
+            <?php 
+                if(isset($_SESSION['userID'])){
+                    include 'includes/config.php';
+                    $headeruserid = $_SESSION['userID'];
+                    $sql = "SELECT item_id,`user_id` FROM cart_items,cart WHERE cart_items.cart_id=cart.cart_id AND `user_id`=$headeruserid LIMIT 1";
+                    $result = mysqli_query($db, $sql);
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                            ?>
+                            <span class="fa-stack">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <i class="fa-solid fa-circle fa-stack-1x mt-1" style='color:red; font-size:10px'></i>
+                            </span>
+                        <?php }else {
+                            ?>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        <?php }
+                    }   
+                }else {
+            ?>
+            <i class="fa-solid fa-cart-shopping"></i>
+            <?php } ?>
+        </a>
+        <a class="px-2 text-reset" href="showAllFavorites.php" style="text-decoration: none;">
+            <i class="far fa-heart"></i>
+        </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 if (typeof(Storage) !== "undefined") {
@@ -261,5 +430,29 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 }); 
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "";
+}
+
+function openWomenChildNav() {
+    document.getElementById("mySidenav-women-child").style.width = "250px";
+}
+
+function closeWomenChildNav() {
+    document.getElementById("mySidenav-women-child").style.width = "";
+}
+
+function openMenChildNav() {
+    document.getElementById("mySidenav-men-child").style.width = "250px";
+}
+
+function closeMenChildNav() {
+    document.getElementById("mySidenav-men-child").style.width = "";
+}
 
 </script>

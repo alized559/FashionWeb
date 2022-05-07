@@ -13,6 +13,11 @@
     src: url("../fonts/Inter-Medium.ttf");
 }
 
+.nav-mobile a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
 .navbar-head {
     width: 100%;
     display: inline-block;
@@ -118,6 +123,22 @@
     }
 }
 
+@media only screen and (max-width: 700px) {
+    .nav-desktop {
+        display: none;
+    }
+
+    .nav-mobile {
+        display: block !important;
+    }
+}
+
+.nav-mobile {
+    display: none;
+    font-family: Inter;
+    margin-bottom: 10px;
+}
+
 .headeritem {
     font-family: Inter-Bold;
     font-weight: 700;
@@ -150,4 +171,168 @@ footer {
 .copyrighttext {
     font-family: Inter-Medium;
     color: white;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    background-color: white;
+    transition: 0.2s;
+    padding-top: 60px;
+    box-shadow: 0 1px 5px rgb(93, 93, 93);
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    cursor: pointer;
+}
+
+.sidenav .sale {
+    color: #FFD814 !important;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    border: none;
+}
+
+.open-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.top-navbar {
+    display: grid;
+    grid-template-columns: 1fr repeat(1, auto) 1fr;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 1px 5px rgb(93, 93, 93);
+}
+
+.top-navbar span {
+    margin-right: auto;
+}
+
+.logo-container .logo {
+    width: 170px;
+    height: 40px;
+}
+
+.cart-fav {
+    margin-left: auto;
+}
+
+.cart-fav .fa-heart {
+    font-size: 20px;
+    color: black;
+}
+
+.cart-fav .fa-heart:hover {
+    color: red;
+}
+
+.cart-fav .fa-cart-plus {
+    font-size: 20px;
+    color: black;
+    margin-right: 15px;
+}
+
+.account p {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.account .trans {
+    width: 150px;
+    border: 1px solid black;
+    display: block;
+    margin: 0 auto;
+    color: black;
+}
+
+.account .trans:hover {
+    background-color: rgb(205, 205, 205);
+    border-color: rgb(119, 119, 119);
+}
+
+.account .black {
+    width: 150px;
+    background-color: black;
+    color: white !important;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+.account .black:hover {
+    background-color: rgb(69, 69, 69);
+}
+
+.coun-curr-drop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.coun-curr-drop img {
+    width: 15px;
+    height: 15px;
+}
+
+.coun-curr-drop span {
+    margin-left: 10px;
+}
+
+.coun-curr {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+}
+
+.nav-item .left-arrow, .left-curr-arrow {
+    font-size: 24px;
+    padding-right: 10px;
+}
+
+.title, .title1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.title1 {
+    margin-top: 20px;
+}
+
+#currencyDropdownMenu {
+    margin-left: 20px;
 }
