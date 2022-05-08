@@ -180,7 +180,7 @@ if(is_session_started() === FALSE){
 			</div>
         </li>
         <li class="nav-item active">
-            <a class="nav-link px-4 saleitem" href="#">Sale</a>
+            <a class="nav-link px-4 saleitem" href="products.php?sale=DESC">Sale</a>
         </li>
     </ul>
     <div class="my-2 my-lg-0 rightitems">

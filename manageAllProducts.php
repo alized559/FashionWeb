@@ -1,8 +1,78 @@
 <?php
-    include "includes/validateAdminAuth.php";
 
+    include "includes/validateAdminAuth.php";  
     include "includes/config.php";
+    
+    $isFirstItem = true;
 
+    $prodsql = "";
+
+    function AddToSQL($sql){
+        global $isFirstItem;
+        global $prodsql;
+        if($isFirstItem){
+            $isFirstItem = false;
+            $prodsql = $prodsql . "WHERE " . $sql . " ";
+        }else {
+            $prodsql = $prodsql . "AND $sql ";
+        }
+    }
+
+    $orderBy = "";
+    $isFirstOrderItem = true;
+
+    function AddToSQLOrder($sql){
+        global $isFirstOrderItem;
+        global $orderBy;
+        if($isFirstOrderItem){
+            $isFirstOrderItem = false;
+            $orderBy = "ORDER BY " . $sql . " ";
+        }else {
+            $orderBy = $orderBy . ", $sql ";
+        }
+    }
+
+    $gender = $_GET['gender'] ?? "none";
+    $gender = str_replace("w", "f", $gender);
+    $category = $_GET['category'] ?? "none";
+    $type = $_GET['type'] ?? "none";
+    $brand = $_GET['brand'] ?? "none";
+    $price = $_GET['price'] ?? "none";
+    $sale = $_GET['sale'] ?? "none";
+    $name = $_GET['name'] ?? "none";
+
+    if($sale == "none" && $gender == "none" && $category == "none" && $type == "none" && $brand  == "none" && $price  == "none" && $name == "none"){
+        $prodsql = "SELECT prod_id,name,price,discount,brand FROM products";
+    }else {
+        $prodsql = "SELECT prod_id,name,price,discount,brand FROM products ";
+        $isFirstItem = true;
+        if($gender != "none"){
+            AddToSQL("department='$gender'");
+        }
+        if($category != "none"){
+            AddToSQL("category='$category'");
+        }
+        if($type != "none"){
+            if($type != "all"){
+                AddToSQL("type='$type'");
+            }
+        }
+        if($brand != "none"){
+            AddToSQL("brand='$brand'");
+        }
+        if($price != "none"){
+            AddToSQLOrder("price $price");
+        }
+        if($sale != "none"){
+            AddToSQL("discount > 0");
+            AddToSQLOrder("discount $sale");
+        }
+        if($name != "none"){
+            AddToSQL("name LIKE '%$name%'");
+        }
+    }
+
+    $prodsql = $prodsql . $orderBy;
 ?>
 
 <!DOCTYPE html>
@@ -12,67 +82,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion | Manage Products</title>
     <link href="css/products.css" rel="stylesheet" media="screen">
-
+    <link rel="icon" href="imgs/favicon.ico" type="image/x-icon">
+    
     <?php include('header.php') ?>
 </head>
 <body>
     <div class="flexbox">
         <div class="filter" id="desktop">
-            <form>
-                <div class="filter-header1">
-                    <a onclick="controlFilter('collapseFilter1')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter1">
-                        <i id="collapseFilter1Icon" class="fa fa-chevron-down"></i>
-                        By Brand
-                    </a>
-                </div>
-                <div class="filter-child collapse" id="collapseFilter1">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="check">
-                        <label class="form-check-label" for="check">Nike</label>
+            <div class="filter-header1">
+                <a onclick="controlFilter('collapseFilter1')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter1">
+                    <i id="collapseFilter1Icon" class="fa fa-chevron-down"></i>
+                    By Brand
+                </a>
+            </div>
+            <div class="filter-child collapse" id="collapseFilter1">
+                <?php
+                    $sql = "SELECT name FROM brands";
+                    $result = mysqli_query($db, $sql);
+
+                    if($result){
+                        if(mysqli_num_rows($result) > 0){
+                            while($row = mysqli_fetch_assoc($result)){
+                                $bname = $row["name"];
+
+                                echo "<div>";
+                                echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$bname&price=$price&sale=$sale&name=$name'>";
+                                echo "$bname";
+                                echo "</a></div>";
+                            }
+                        }else {
+                        //No Brands
+                        }
+                        echo "<div>";
+                        echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=none&price=$price&sale=$sale&name=$name'>";
+                        echo "No Filter";
+                        echo "</a></div>";
+                    }
+                ?>
+            </div>
+
+            <div class="filter-header">
+                <a onclick="controlFilter('collapseFilter2')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter2">
+                    <i id="collapseFilter2Icon" class="fa fa-chevron-down"></i>
+                    By Sale
+                </a>
+            </div>
+            <div class="filter-child collapse" id="collapseFilter2">
+                <?php
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=ASC&name=$name'>";
+                    echo "Ascending";
+                    echo "</a></div>";
+
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=DESC&name=$name'>";
+                    echo "Descending";
+                    echo "</a></div>";
+
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=none&name=$name'>";
+                    echo "No Filter";
+                    echo "</a></div>";
+                ?>
+            </div>
+
+            <div class="filter-header">
+                <a onclick="controlFilter('collapseFilter3')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter3">
+                    <i id="collapseFilter3Icon" class="fa fa-chevron-down"></i>
+                    By Price
+                </a>
+            </div>
+            <div class="filter-child collapse" id="collapseFilter3">
+                <?php
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=ASC&sale=$sale&name=$name'>";
+                    echo "Ascending";
+                    echo "</a></div>";
+
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=DESC&sale=$sale&name=$name'>";
+                    echo "Descending";
+                    echo "</a></div>";
+
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=none&sale=$sale&name=$name'>";
+                    echo "No Filter";
+                    echo "</a></div>";
+                ?>
+            </div>
+            <div class="filter-header">
+                <a onclick="controlFilter('collapseFilter4')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter4">
+                    <i id="collapseFilter4Icon" class="fa fa-chevron-down"></i>
+                    By Name
+                </a>
+            </div>
+            <div class="filter-child collapse" id="collapseFilter4">
+                <form method="GET" action="manageAllProducts.php">
+
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" name="name" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-1">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
 
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="check">
-                        <label class="form-check-label" for="check">Adidas</label>
-                    </div>
-                </div>
+                    <?php 
+                        echo "<input type='hidden' name='gender' value='$gender'>"; 
+                        echo "<input type='hidden' name='category' value='$category'>"; 
+                        echo "<input type='hidden' name='type' value='$type'>"; 
+                        echo "<input type='hidden' name='brand' value='$brand'>"; 
+                        echo "<input type='hidden' name='price' value='$price'>"; 
+                        echo "<input type='hidden' name='sale' value='$sale'>"; 
+                    ?>
+                </form>
+                <?php
 
-                <div class="filter-header">
-                    <a onclick="controlFilter('collapseFilter2')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter2">
-                        <i id="collapseFilter2Icon" class="fa fa-chevron-down"></i>
-                        By Name
-                    </a>
-                </div>
-                <div class="filter-child collapse" id="collapseFilter2">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="check">
-                        <label class="form-check-label" for="check">Nike</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="check">
-                        <label class="form-check-label" for="check">Adidas</label>
-                    </div>
-                </div>
-
-                <div class="filter-header">
-                    <a onclick="controlFilter('collapseFilter3')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter3">
-                        <i id="collapseFilter3Icon" class="fa fa-chevron-down"></i>
-                        By Price
-                    </a>
-                </div>
-                <div class="filter-child collapse" id="collapseFilter3">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="check">
-                        <label class="form-check-label" for="check">Ascending</label>
-                    </div>
-
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="check">
-                        <label class="form-check-label" for="check">Descending</label>
-                    </div>
-                </div>
-            </form>
+                    echo "<div>";
+                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=$sale&name=none'>";
+                    echo "No Filter";
+                    echo "</a></div>";
+                ?>
+            </div>
+            <div class="extra-link mt-2">
+                <a href="manageAllProducts.php">
+                    Remove All Filters
+                </a>
+            </div>
         </div>
 
         <div class="filter-mobile" id="mobile">
@@ -89,7 +226,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="filter-on-mobile">
-                            <form>
                                 <div class="filter-header1">
                                     <a onclick="controlMobileFilter('collapseFilter1')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter1">
                                         <i id="collapseFilter1MobileIcon" class="fa fa-chevron-down"></i>
@@ -97,33 +233,54 @@
                                     </a>
                                 </div>
                                 <div class="filter-child collapse" id="collapseFilter1">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="check">
-                                        <label class="form-check-label" for="check">Nike</label>
-                                    </div>
+                                <?php
+                                    $sql = "SELECT name FROM brands";
+                                    $result = mysqli_query($db, $sql);
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="check">
-                                        <label class="form-check-label" for="check">Adidas</label>
-                                    </div>
+                                    if($result){
+                                        if(mysqli_num_rows($result) > 0){
+                                            while($row = mysqli_fetch_assoc($result)){
+                                                $bname = $row["name"];
+
+                                                echo "<div>";
+                                                echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$bname&price=$price&sale=$sale&name=$name'>";
+                                                echo "$bname";
+                                                echo "</a></div>";
+                                            }
+                                        }else {
+                                        //No Brands
+                                        }
+                                        echo "<div>";
+                                        echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=none&price=$price&sale=$sale&name=$name'>";
+                                        echo "No Filter";
+                                        echo "</a></div>";
+                                    }
+                                ?>
                                 </div>
 
                                 <div class="filter-header">
                                     <a onclick="controlMobileFilter('collapseFilter2')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter2">
                                         <i id="collapseFilter2MobileIcon" class="fa fa-chevron-down"></i>
-                                        By Name
+                                        By Sale
                                     </a>
                                 </div>
                                 <div class="filter-child collapse" id="collapseFilter2">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="check">
-                                        <label class="form-check-label" for="check">Nike</label>
-                                    </div>
+                                <?php
+                                    echo "<div>";
+                                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=ASC&name=$name'>";
+                                    echo "Ascending";
+                                    echo "</a></div>";
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="check">
-                                        <label class="form-check-label" for="check">Adidas</label>
-                                    </div>
+                                    echo "<div>";
+                                    echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=DESC&name=$name'>";
+                                    echo "Descending";
+                                    echo "</a></div>";
+
+                                    echo "<div>";
+                                    echo "<a href='manageAllProducts.phpp?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=none&name=$name'>";
+                                    echo "No Filter";
+                                    echo "</a></div>";
+                                ?>
                                 </div>
 
                                 <div class="filter-header">
@@ -133,22 +290,66 @@
                                     </a>
                                 </div>
                                 <div class="filter-child collapse" id="collapseFilter3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="check">
-                                        <label class="form-check-label" for="check">Ascending</label>
-                                    </div>
+                                    <?php
+                                        echo "<div>";
+                                        echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=ASC&sale=$sale&name=$name'>";
+                                        echo "Ascending";
+                                        echo "</a></div>";
 
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="check">
-                                        <label class="form-check-label" for="check">Descending</label>
-                                    </div>
+                                        echo "<div>";
+                                        echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=DESC&sale=$sale&name=$name'>";
+                                        echo "Descending";
+                                        echo "</a></div>";
+
+                                        echo "<div>";
+                                        echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=none&sale=$sale&name=$name'>";
+                                        echo "No Filter";
+                                        echo "</a></div>";
+                                    ?>
                                 </div>
-                            </form>
+
+                                <div class="filter-header">
+                                    <a onclick="controlMobileFilter('collapseFilter4')" style="text-decoration: none;" data-toggle="collapse" href="#collapseFilter4">
+                                        <i id="collapseFilter4MobileIcon" class="fa fa-chevron-down"></i>
+                                        By Name
+                                    </a>
+                                </div>
+                                <div class="filter-child collapse" id="collapseFilter4">
+                                    <form method="GET" action="manageAllProducts.php">
+
+                                        <div class="input-group">
+                                            <div class="form-outline">
+                                                <input type="search" name="name" class="form-control" />
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-1">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+
+                                        <?php 
+                                            echo "<input type='hidden' name='gender' value='$gender'>"; 
+                                            echo "<input type='hidden' name='category' value='$category'>"; 
+                                            echo "<input type='hidden' name='type' value='$type'>"; 
+                                            echo "<input type='hidden' name='brand' value='$brand'>"; 
+                                            echo "<input type='hidden' name='price' value='$price'>"; 
+                                            echo "<input type='hidden' name='sale' value='$sale'>"; 
+                                        ?>
+                                    </form>
+                                    <?php
+
+                                        echo "<div>";
+                                        echo "<a href='manageAllProducts.php?gender=$gender&category=$category&type=$type&brand=$brand&price=$price&sale=$sale&name=none'>";
+                                        echo "No Filter";
+                                        echo "</a></div>";
+                                    ?>
+                                </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="container-fluid">
             <h5>Admin Tools</h5>
             <div class="admin-tools">
@@ -157,8 +358,8 @@
             <br>
             <div class="row">
                 <?php
-                    $sql = "SELECT prod_id,name,price,discount,brand FROM products";
-                    $result = mysqli_query($db, $sql);
+                    
+                    $result = mysqli_query($db, $prodsql);
 
                     if($result){
                         if(mysqli_num_rows($result) > 0){
@@ -210,8 +411,7 @@
                         }else {
                           //No Products
                         }
-                      }
-
+                    }
                 ?>
             </div>
         </div>
@@ -243,7 +443,6 @@
             }
         }
     });
-
 </script>
 
 </html>

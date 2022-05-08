@@ -24,17 +24,18 @@
 }
 
 .filter-child {
-    margin-left: 40px;
+    margin-left: 25px;
+}
+
+.filter-child div a {
+    text-decoration: none;
+    color: rgb(121, 121, 121);
 }
 
 .filter-child .form-check-input {
     width: 18px;
     height: 18px;
     cursor: pointer;
-}
-
-.filter-child label {
-    margin-left: 5px;
 }
 
 .filter a,
@@ -157,4 +158,9 @@
 
 .admin-tools {
     display: inline-block;
+}
+
+.extra-link a {
+    text-decoration: none;
+    color: rgb(121, 121, 121);
 }
