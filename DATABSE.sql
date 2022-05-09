@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2022 at 10:29 PM
+-- Generation Time: May 09, 2022 at 09:26 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -35,7 +35,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`user_id`, `fullname`, `address`, `country`, `code`, `phone`) VALUES
-(5, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764');
+(5, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764'),
+(6, 'Mhmd Serhan', 'NWayre, 2 street, bwej ldiwan', 'Lebanon', 961, '036784678');
 
 -- --------------------------------------------------------
 
@@ -80,7 +81,15 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cart_id`, `user_id`) VALUES
 (1, -1),
-(2, -1);
+(2, -1),
+(3, -1),
+(4, -1),
+(5, -1),
+(6, -1),
+(7, -1),
+(8, -1),
+(9, -1),
+(10, 5);
 
 -- --------------------------------------------------------
 
@@ -106,7 +115,25 @@ INSERT INTO `cart_items` (`item_id`, `cart_id`, `prod_id`, `prod_item_id`, `quan
 (32, 1, 5, 12, 1, 'Size: 33.5'),
 (33, 1, 1, 3, 2, 'Size: 33.5'),
 (36, 2, 2, 8, 1, 'Size: 33.5'),
-(37, 2, 1, 4, 1, 'Size: 33.5');
+(37, 2, 1, 4, 1, 'Size: 33.5'),
+(38, 3, 5, 9, 1, 'Size: 33.5'),
+(39, 3, 2, 8, 1, 'Size: 35'),
+(40, 4, 2, 8, 1, 'Size: 33.5'),
+(41, 4, 2, 7, 1, 'Size: 34'),
+(42, 4, 2, 7, 1, 'Size: 33.5'),
+(43, 4, 5, 9, 1, 'Size: 33.5'),
+(44, 4, 5, 13, 1, 'Size: 33.5'),
+(45, 5, 1, 3, 1, 'Size: 33.5'),
+(46, 6, 2, 6, 1, 'Size: 33.5'),
+(47, 6, 2, 7, 1, 'Size: 33.5'),
+(48, 6, 2, 8, 1, 'Size: 33.5'),
+(49, 6, 2, 8, 1, 'Size: 34'),
+(50, 7, 5, 9, 2, 'Size: 33.5'),
+(51, 7, 2, 8, 10, 'Size: 33.5'),
+(52, 8, 1, 4, 1, 'Size: 33.5'),
+(54, 9, 1, 4, 1, 'Extra: none'),
+(55, 10, 1, 4, 1, 'Size: 43.5'),
+(57, 10, 2, 7, 1, 'Extra: none');
 
 -- --------------------------------------------------------
 
@@ -124,6 +151,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`user_id`, `product_id`) VALUES
+(5, 5),
 (5, 2);
 
 -- --------------------------------------------------------
@@ -142,6 +170,7 @@ CREATE TABLE `orders` (
   `countryCode` int(11) NOT NULL,
   `number` text NOT NULL,
   `payment` varchar(255) NOT NULL,
+  `cart_items` longtext NOT NULL,
   `state` varchar(255) NOT NULL DEFAULT 'Pending',
   `driver` int(11) NOT NULL DEFAULT -1,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
@@ -151,9 +180,13 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `cart_id`, `fullname`, `address`, `country`, `countryCode`, `number`, `payment`, `state`, `driver`, `date`) VALUES
-(1, 5, 1, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', '742.99$', 'Pending', -1, '2022-05-06 20:05:14'),
-(2, 5, 2, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', 'LBP 9,334,000', 'Pending', -1, '2022-05-06 20:25:39');
+INSERT INTO `orders` (`order_id`, `user_id`, `cart_id`, `fullname`, `address`, `country`, `countryCode`, `number`, `payment`, `cart_items`, `state`, `driver`, `date`) VALUES
+(5, 5, 4, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD 2, right door', 'Lebanon', 961, '70890764', 'LBP 9,099,480', '<a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (Black, Size: 33.5) x 1 LBP 1,560,000 <ilb><a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (White, Size: 34) x 1 LBP 1,560,000 <ilb><a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (White, Size: 33.5) x 1 LBP 1,560,000 <ilb><a href=<qm>viewProduct.php?id=5<qm>>Nike Zoom Freak 3</a> (Aqua, Size: 33.5) x 1 LBP 2,209,740 <ilb><a href=<qm>viewProduct.php?id=5<qm>>Nike Zoom Freak 3</a> (Black And White, Size: 33.5) x 1 LBP 2,209,740 <ilb>', 'Returned', 5, '2022-05-07 11:59:51'),
+(6, 6, 5, 'Mhmd Serhan', 'NWayre, 2 street, bwej ldiwan', 'Lebanon', 961, '036784678', 'LBP 7,774,000', '<a href=<qm>viewProduct.php?id=1<qm>>Nike Air Force 1</a> (Cactus Jack, Size: 33.5) x 1 LBP 7,774,000 <ilb>', 'Delivered', 6, '2022-05-07 13:11:42'),
+(7, 6, 6, 'Mhmd Serhan', 'NWayre, 2 street, bwej ldiwan', 'Lebanon', 961, '036784678', '240$', '<a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (Pink Orange, Size: 33.5) x 1 60$ <ilb><a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (White, Size: 33.5) x 1 60$ <ilb><a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (Black, Size: 33.5) x 1 60$ <ilb><a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (Black, Size: 34) x 1 60$ <ilb>', 'Pending', -1, '2022-05-07 13:53:16'),
+(8, 5, 7, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', 'LBP 20,019,480', '<a href=<qm>viewProduct.php?id=2<qm>>Women’s High-Rise Woven Pants</a> (Black, Size: 33.5) x 10 LBP 15,600,000 <ilb><a href=<qm>viewProduct.php?id=5<qm>>Nike Zoom Freak 3</a> (Aqua, Size: 33.5) x 2 LBP 4,419,480 <ilb>', 'Delivered', 5, '2022-05-07 21:18:35'),
+(9, 5, 8, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', '299$', '<a href=<qm>viewProduct.php?id=1<qm>>Nike Air Force 1</a> (Travis Scott Edition, Size: 33.5) x 1 299$ <ilb>', 'Pending', -1, '2022-05-09 18:27:27'),
+(10, 5, 9, 'Mohammad Serhan', 'Beirut, Dahie, 24 BLD', 'Lebanon', 961, '70890764', '598$', '<a href=<qm>viewProduct.php?id=1<qm>>Nike Air Force 1</a> (test item, Test2: option 2) x 1 299$ <ilb><a href=<qm>viewProduct.php?id=1<qm>>Nike Air Force 1</a> (Travis Scott Edition, Extra: none) x 1 299$ <ilb>', 'Pending', -1, '2022-05-09 18:53:12');
 
 -- --------------------------------------------------------
 
@@ -183,7 +216,7 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`prod_id`, `name`, `description`, `price`, `delivery_time`, `discount`, `likes`, `details`, `department`, `category`, `type`, `brand`) VALUES
 (1, 'Nike Air Force 1', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance. ', 299, 3, 0, 0, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel Number<>DC2911-101', 'm', 'shoes', 'slides', 'Nike'),
 (2, 'Women’s High-Rise Woven Pants', 'Lets face it. We cant stay pantless forever. As we prime ourselves for more coffee runs and endless commutes, we need a good pair of pants to go the extra mile with us. These roomy pants can keep up, stay up, and hold their shape (even during video calls). Now the only question is, what shoes will you wear?', 79.99, 2, 19.99, 1, 'Made<>61% cotton/39% polyester\r\nModel<>DD5983-010', 'f', 'clothing', 'pants', 'Nike'),
-(5, 'Nike Zoom Freak 3', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance.', 120, 3, 35.01, 0, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel<>DA0694-001', 'm', 'shoes', 'basketball', 'Nike');
+(5, 'Nike Zoom Freak 3', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance.', 120, 3, 35.01, 1, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel<>DA0694-001', 'm', 'shoes', 'basketball', 'Nike');
 
 -- --------------------------------------------------------
 
@@ -195,26 +228,28 @@ CREATE TABLE `product_items` (
   `item_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `extra_name` varchar(100) NOT NULL DEFAULT '',
+  `extra_options` text NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product_items`
 --
 
-INSERT INTO `product_items` (`item_id`, `product_id`, `name`, `quantity`) VALUES
-(3, 1, 'Cactus Jack', 5),
-(4, 1, 'Travis Scott Edition', 1),
-(6, 2, 'Pink Orange', 5),
-(7, 2, 'White', 2),
-(8, 2, 'Black', 10),
-(9, 5, 'Aqua', 2),
-(10, 5, 'Beige', 5),
-(11, 5, 'Black, Yellow Stripe', 4),
-(12, 5, 'Black, Red Srtipe', 2),
-(13, 5, 'Black And White', 1),
-(14, 5, 'Pink', 6),
-(15, 5, 'White', 3);
+INSERT INTO `product_items` (`item_id`, `product_id`, `name`, `quantity`, `extra_name`, `extra_options`) VALUES
+(3, 1, 'Cactus Jack', 5, 'Size', '38\r\n38.5\r\n40\r\n41\r\n42.5\r\n43\r\n45'),
+(4, 1, 'Travis Scott Edition', 1, 'Size', '40\r\n41\r\n42.5\r\n43\r\n45'),
+(6, 2, 'Pink Orange', 5, '', ''),
+(7, 2, 'White', 2, '', ''),
+(8, 2, 'Black', 10, '', ''),
+(9, 5, 'Aqua', 2, '', ''),
+(10, 5, 'Beige', 5, '', ''),
+(11, 5, 'Black, Yellow Stripe', 4, '', ''),
+(12, 5, 'Black, Red Srtipe', 2, '', ''),
+(13, 5, 'Black And White', 1, '', ''),
+(14, 5, 'Pink', 6, '', ''),
+(15, 5, 'White', 3, '', '');
 
 -- --------------------------------------------------------
 
@@ -235,7 +270,7 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`rev_id`, `user_id`, `product_id`, `text`, `rate`) VALUES
-(29, 5, 2, 'This is an amazing product, my sister loved it!', 5.0);
+(30, 5, 5, 'i like this product', 5.0);
 
 -- --------------------------------------------------------
 
@@ -259,7 +294,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `fullname`, `email`, `password`, `type`, `photo`) VALUES
 (3, 'ali', 'Ali Zein Al Dine', 'alized559@gmail.com', '202cb962ac59075b964b07152d234b70', 'user', ''),
-(5, 'msserhan', 'Mohammad Serhan', 'msserhan2002@gmail.com', 'cc03e747a6afbbcbf8be7668acfebee5', 'admin', '');
+(5, 'msserhan', 'Mohammad Serhan', 'msserhan2002@gmail.com', 'cc03e747a6afbbcbf8be7668acfebee5', 'admin', ''),
+(6, 'msserhan2', 'Mhmd Serhan', 'toxicscripts1@gmail.com', 'cc03e747a6afbbcbf8be7668acfebee5', 'driver', '');
 
 --
 -- Indexes for dumped tables
@@ -327,19 +363,19 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -351,17 +387,17 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `product_items`
 --
 ALTER TABLE `product_items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `rev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `rev_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;

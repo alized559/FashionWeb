@@ -14,7 +14,7 @@
     <div class="help">
         <div class="box">
             <div class="left-side">
-                <h1>Support <br>and Help</h1>
+                <h1>Support And Help</h1>
                 <p>We’re always ready to answer questions about your orders and general questions about
                     our products and services.</p>
                 <a href="mailto:info@fashion.com"><button class="btn btn-primary">Learn More</button></a>

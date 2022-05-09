@@ -181,6 +181,8 @@
                     $firstItemName = "";
                     $firstItemQuantity = 0;
                     $firstItemID = -1;
+                    $firstItemExtraName = "";
+                    $firstItemExtraOptions = "";
 
                     if($result){
                         if(mysqli_num_rows($result) > 0){
@@ -188,6 +190,9 @@
                                 $itemID = $row["item_id"];
                                 $itemName = $row["name"];
                                 $itemQuantity = $row["quantity"];
+                                $itemExtraName = $row["extra_name"];
+                                $itemExtraOptions = str_replace("\n", '<ib>', $row["extra_options"]);
+
                                 if($currentIndex < 4){
                                     $file = "images/products/" . $id . "/items/$itemID.jpg";
 
@@ -203,10 +208,11 @@
                                     if($currentDivIndex == 0 && $currentIndex == 0){
                                         $firstItemID = $itemID;
                                         $firstItemName = $itemName;
-                                        $firstItemQuantity = $itemQuantity;
-                                        echo "<img class='color hasBorder' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                        $firstItemExtraName = $itemExtraName;
+                                        $firstItemExtraOptions = $itemExtraOptions;
+                                        echo "<img class='color hasBorder' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' data-extraname='$itemExtraName' data-extraoptions='$itemExtraOptions' src='$file' alt='Product Image'>";
                                     }else {
-                                        echo "<img class='color' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' src='$file' alt='Product Image'>";
+                                        echo "<img class='color' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' data-extraname='$itemExtraName' data-extraoptions='$itemExtraOptions' src='$file' alt='Product Image'>";
                                     }
                                     $currentIndex = $currentIndex + 1;
                                     if($currentIndex == 4){
@@ -237,14 +243,22 @@
                     </div>
 
                     <div class="size">
-                        <h4 id="extraDataName">Size</h4>
-                        <select name="select" id="extraDataSelect">
-                            <option>33.5</option>
-                            <option>34</option>
-                            <option>35</option>
-                            <option>36</option>
-                            <option>40</option>
-                        </select>
+                        <?php
+                            if($firstItemExtraName == ""){
+                                echo "<h4 id='extraDataName' style='visibility:hidden;'>Extra</h4>";
+                                echo "<select name='select' id='extraDataSelect' style='visibility:hidden;'>";
+                                echo "<option>none</option>";
+                                echo "</select>";
+                            }else {
+                                echo "<h4 id='extraDataName'>$firstItemExtraName</h4>";
+                                echo "<select name='select' id='extraDataSelect'>";
+                                $options = explode('<ib>', $firstItemExtraOptions);
+                                foreach($options as $option){
+                                    echo "<option>$option</option>";
+                                }
+                                echo "</select>";
+                            }
+                        ?>
                     </div>
                 </div>
 
@@ -545,6 +559,28 @@
             itemName.innerHTML = $(this).data("name");
             itemQuantity.innerHTML = $(this).data("quantity");
             currentSelectedItemID = $(this).data("id");
+
+            var currentExtraName = $(this).data("extraname");
+            var currentExtraOptions = ($(this).data("extraoptions") + " ").split('<ib>');
+
+            var dataName = document.getElementById("extraDataName");
+            var dataSelect = document.getElementById("extraDataSelect");
+
+            if(currentExtraName == ""){
+                dataName.innerHTML = "Extra";
+                $("#extraDataName").css("visibility", "hidden");
+                $("#extraDataSelect").empty();
+                $("#extraDataSelect").css("visibility", "hidden");
+                $("#extraDataSelect").append("<option>none</option>");
+            }else {
+                dataName.innerHTML = currentExtraName;
+                $("#extraDataName").css("visibility", "visible");
+                $("#extraDataSelect").empty();
+                $("#extraDataSelect").css("visibility", "visible");
+                currentExtraOptions.forEach(option => {
+                    $("#extraDataSelect").append("<option>" + option + "</option>");
+                });
+            }
 
             if(isLoggedIn == "1"){
                 var maxAvailable = $(this).data("quantity");

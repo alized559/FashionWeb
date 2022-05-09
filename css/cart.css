@@ -140,7 +140,6 @@ tr>td {
 
 .about {
     height: 100%;
-    margin-left: 20px;
 }
 
 .title {
@@ -148,6 +147,7 @@ tr>td {
     font-size: 28px;
     font-family: Inter-Bold;
     color: #202020;
+    text-align: left;
 }
 
 .subtitle {
@@ -207,7 +207,7 @@ tr>td {
 }
 
 .vertical-line {
-    width: 71%;
+    width: 90%;
     float: right;
     margin-right: 5%;
     border-top: 2.5px solid rgb(190, 190, 190);

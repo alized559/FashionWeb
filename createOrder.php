@@ -37,6 +37,9 @@
                     $result2 = mysqli_query($db, $sql2);
                 }
 
+                $sql2 = "UPDATE product_items SET quantity=quantity - $cart_item_quantity WHERE item_id='$product_item_id'";
+                $result2 = mysqli_query($db, $sql2);
+
                 $basePrice = $product_price - $product_discount;
                 $currentPayment = "";
                 $currentPrice = $basePrice * $cart_item_quantity;

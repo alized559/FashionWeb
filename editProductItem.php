@@ -7,6 +7,8 @@
         $itemID = $_POST["id"];
         $name = str_replace('\'', '', $_POST["name"]);
         $quantity = $_POST["quantity"];
+        $extraname = $_POST["extraname"];
+        $extraoptions = $_POST["extraoptions"];
 
         $file_ext = ".null";
         $file_tmp = "null";
@@ -16,7 +18,7 @@
             $file_ext = strtolower(end($str));
         }
 
-        $sql = "UPDATE product_items SET name='$name', quantity='$quantity' WHERE item_id='$itemID'";
+        $sql = "UPDATE product_items SET name='$name', quantity='$quantity', extra_name='$extraname', extra_options='$extraoptions' WHERE item_id='$itemID'";
         $result = mysqli_query($db, $sql);
         if($result){
             $fileDirectory = "images/products/$prodID/items/";
@@ -76,6 +78,8 @@
         $prodID = 0;
         $name = "";
         $quantity = "";
+        $extraname = "";
+        $extraoptions = "";
 
         $sql = "SELECT * FROM product_items WHERE item_id='$id'";
         $result = mysqli_query($db, $sql);
@@ -85,6 +89,8 @@
                     $name = $row["name"];
                     $quantity = $row["quantity"];
                     $prodID = $row["product_id"];
+                    $extraname = $row["extra_name"];
+                    $extraoptions = $row["extra_options"];
                 }
             }
         }
@@ -116,6 +122,14 @@
         <h5>Is It Rare Or Available?</h5>
         <div class="form-group">
             <input type="number" class="form-control" name="quantity" aria-describedby="quantity" placeholder="Enter the product items's available quantity" required value="<?= $quantity ?>">
+        </div>
+        <h5>Any Extra Variables?</h5>
+        <div class="form-group">
+            <input type="text" class="form-control" name="extraname" aria-describedby="extraname" placeholder="Enter the extra variable name" value="<?= $extraname ?>">
+        </div>
+        <h5>Extra Variable Options?</h5>
+        <div class="form-group">
+            <textarea class="form-control" name="extraoptions" aria-describedby="extraoptions" placeholder="Enter the extra options split by a new line" rows="4"><?= $extraoptions ?></textarea>
         </div>
         <h5>Last But Not Least The Image :)</h5>
         <div class="form-group">

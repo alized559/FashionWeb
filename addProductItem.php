@@ -9,6 +9,8 @@
         $id = $_POST["id"];
         $name = str_replace('\'', '', $_POST["name"]);
         $quantity = $_POST["quantity"];
+        $extraname = $_POST["extraname"];
+        $extraoptions = $_POST["extraoptions"];
 
         $file_ext = ".null";
         $file_tmp = "null";
@@ -17,7 +19,7 @@
             $str = explode('.',$_FILES['image']['name']);                        
             $file_ext = strtolower(end($str));
         }
-        $sql = "INSERT INTO product_items(product_id,name,quantity) VALUE ('$id', '$name','$quantity')";
+        $sql = "INSERT INTO product_items(product_id,name,quantity,extra_name,extra_options) VALUE ('$id', '$name','$quantity','$extraname','$extraoptions')";
         $result = mysqli_query($db, $sql);
         if($result){
             $itemID = mysqli_insert_id($db);
@@ -74,6 +76,14 @@
         <h5>Is It Rare Or Available?</h5>
         <div class="form-group">
             <input type="number" class="form-control" name="quantity" aria-describedby="quantity" placeholder="Enter the product item's available quantity" required>
+        </div>
+        <h5>Any Extra Variables?</h5>
+        <div class="form-group">
+            <input type="text" class="form-control" name="extraname" aria-describedby="extraname" placeholder="Enter the extra variable name">
+        </div>
+        <h5>Extra Variable Options?</h5>
+        <div class="form-group">
+            <textarea class="form-control" name="extraoptions" aria-describedby="extraoptions" placeholder="Enter the extra options split by a new line" rows="4"></textarea>
         </div>
         <h5>Last But Not Least The Image :)</h5>
         <div class="form-group">
