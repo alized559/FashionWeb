@@ -1,0 +1,75 @@
+@font-face {
+    font-family: Inter-Bold;
+    src: url("../fonts/Inter-Bold.ttf");
+}
+
+@font-face {
+    font-family: Inter;
+    src: url("../fonts/Inter.ttf");
+}
+
+@font-face {
+    font-family: Inter-Medium;
+    src: url("../fonts/Inter-Medium.ttf");
+}
+
+.help {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.box {
+    width: 60%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 4px 3px 20px #3535358c;
+    display: flex;
+    flex-direction: row;
+    padding: 50px 0 50px 30px;
+    align-items: center;
+}
+
+.left-side h1 {
+    font-family: Inter-Bold;
+}
+
+.left-side p {
+    font-family: Inter;
+}
+
+button {
+    border-radius: 100px !important;
+    width: 150px !important;
+}
+
+@media only screen and (max-width: 1350px) {
+    .right-side img {
+        width: 400px;
+        height: 350px;
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 1015px) {
+    .box {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .right-side img {
+        width: 300px;
+        height: 250px;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .right-side img {
+        width: 250px;
+        height: 200px;
+    }
+}
