@@ -176,7 +176,6 @@
                     $sql = "SELECT * FROM product_items WHERE product_id='$id'";
                     $result = mysqli_query($db, $sql);
                     $currentIndex = 0;
-                    $currentDivIndex = 0;
 
                     $firstItemName = "";
                     $firstItemQuantity = 0;
@@ -193,33 +192,28 @@
                                 $itemExtraName = $row["extra_name"];
                                 $itemExtraOptions = str_replace("\n", '<ib>', $row["extra_options"]);
 
-                                if($currentIndex < 4){
-                                    $file = "images/products/" . $id . "/items/$itemID.jpg";
+                                $file = "images/products/" . $id . "/items/$itemID.jpg";
 
+                                if(!file_exists($file)){//Deletes the image if it exists
+                                    $file = "images/products/" . $id . "/items/$itemID.png";
                                     if(!file_exists($file)){//Deletes the image if it exists
-                                        $file = "images/products/" . $id . "/items/$itemID.png";
+                                        $file = "images/products/" . $id . "/items/$itemID.gif";
                                         if(!file_exists($file)){//Deletes the image if it exists
-                                            $file = "images/products/" . $id . "/items/$itemID.gif";
-                                            if(!file_exists($file)){//Deletes the image if it exists
-                                                $file = "images/products/default.png";
-                                            }
+                                            $file = "images/products/default.png";
                                         }
                                     }
-                                    if($currentDivIndex == 0 && $currentIndex == 0){
-                                        $firstItemID = $itemID;
-                                        $firstItemName = $itemName;
-                                        $firstItemExtraName = $itemExtraName;
-                                        $firstItemExtraOptions = $itemExtraOptions;
-                                        echo "<img class='color hasBorder' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' data-extraname='$itemExtraName' data-extraoptions='$itemExtraOptions' src='$file' alt='Product Image'>";
-                                    }else {
-                                        echo "<img class='color' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' data-extraname='$itemExtraName' data-extraoptions='$itemExtraOptions' src='$file' alt='Product Image'>";
-                                    }
-                                    $currentIndex = $currentIndex + 1;
-                                    if($currentIndex == 4){
-                                        $currentIndex = 0;
-                                        $currentDivIndex = $currentDivIndex + 1;
-                                    }
                                 }
+                                if($currentIndex == 0){
+                                    $firstItemID = $itemID;
+                                    $firstItemName = $itemName;
+                                    $firstItemQuantity = $itemQuantity;
+                                    $firstItemExtraName = $itemExtraName;
+                                    $firstItemExtraOptions = $itemExtraOptions;
+                                    echo "<img class='color hasBorder' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' data-extraname='$itemExtraName' data-extraoptions='$itemExtraOptions' src='$file' alt='Product Image'>";
+                                }else {
+                                    echo "<img class='color' data-name='$itemName' data-id='$itemID' data-quantity='$itemQuantity' data-extraname='$itemExtraName' data-extraoptions='$itemExtraOptions' src='$file' alt='Product Image'>";
+                                }
+                                $currentIndex = $currentIndex + 1;
                             }
                         }
                     }

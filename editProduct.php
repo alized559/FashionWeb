@@ -52,26 +52,23 @@
                     unlink($file);
                 }
                 move_uploaded_file($file_tmp, $file);
-                //echo "Moving Imae File: " . $file_tmp . " To: " . $file;
+            }
+            if(isset($_FILES['banner']) && $_FILES['banner']['name']){
+                $bannerfile = $fileDirectory . "/banner." . $bannerfile_ext;
 
-                if(isset($_FILES['banner']) && $_FILES['banner']['name']){
-                    $bannerfile = $fileDirectory . "/banner." . $bannerfile_ext;
-
-                    $testFile = $fileDirectory . "/banner." . "png";
-                    if(file_exists($testFile)){//Deletes the image if it exists
-                        unlink($testFile);
-                    }
-                    $testFile = $fileDirectory . "/banner." . "jpg";
-                    if(file_exists($testFile)){//Deletes the image if it exists
-                        unlink($testFile);
-                    }
-
-                    if(file_exists($bannerfile)){//Deletes the image if it exists
-                        unlink($bannerfile);
-                    }
-                    move_uploaded_file($bannerfile_tmp, $bannerfile);
-                   // echo "Moving Banner File: " . $bannerfile_tmp . " To: " . $bannerfile;
+                $testFile = $fileDirectory . "/banner." . "png";
+                if(file_exists($testFile)){//Deletes the image if it exists
+                    unlink($testFile);
                 }
+                $testFile = $fileDirectory . "/banner." . "jpg";
+                if(file_exists($testFile)){//Deletes the image if it exists
+                    unlink($testFile);
+                }
+
+                if(file_exists($bannerfile)){//Deletes the image if it exists
+                    unlink($bannerfile);
+                }
+                move_uploaded_file($bannerfile_tmp, $bannerfile);
             }
             header("location:manageAllProducts.php");
             die();
