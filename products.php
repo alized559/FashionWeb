@@ -80,7 +80,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion | Products</title>
     <link href="css/products.css" rel="stylesheet" media="screen">
-    <link rel="icon" href="imgs/favicon.ico" type="image/x-icon">
     
     <?php include('header.php') ?>
 </head>
