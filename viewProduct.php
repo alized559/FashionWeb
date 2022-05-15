@@ -271,7 +271,7 @@
                             if($department == "m"){
                                 array_push($values, "Men");
                             }else if($department == "f"){
-                                array_push($values, "Female");
+                                array_push($values, "Women");
                             }else if($department == "u"){
                                 array_push($values, "Uni Sex");
                             }else {
