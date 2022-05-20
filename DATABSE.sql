@@ -216,8 +216,13 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`prod_id`, `name`, `description`, `price`, `delivery_time`, `discount`, `likes`, `details`, `department`, `category`, `type`, `brand`) VALUES
 (1, 'Nike Air Force 1', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance. ', 299, 3, 0, 0, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel Number<>DC2911-101', 'm', 'shoes', 'slides', 'Nike'),
 (2, 'Women’s High-Rise Woven Pants', 'Lets face it. We cant stay pantless forever. As we prime ourselves for more coffee runs and endless commutes, we need a good pair of pants to go the extra mile with us. These roomy pants can keep up, stay up, and hold their shape (even during video calls). Now the only question is, what shoes will you wear?', 79.99, 2, 19.99, 1, 'Made<>61% cotton/39% polyester\r\nModel<>DD5983-010', 'f', 'clothing', 'pants', 'Nike'),
-(5, 'Nike Zoom Freak 3', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance.', 120, 3, 35.01, 1, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel<>DA0694-001', 'm', 'shoes', 'basketball', 'Nike');
-
+(5, 'Nike Zoom Freak 3', 'Nike shoes are the foundation of the sneaker collecting hobby as we know it today. The legacy of the most famous brand in sneakers began in the 1970s when the legendary Oregon track coach Bill Bowerman began cobbling together his own custom-made track spikes and racing flats, eventually pairing with former runner Phil Knight to found the Nike brand in 1972. Nike gained popularity outside of performance athletics during the early 1980s with models such as the Nike Air Force 1, Nike Dunk, and Air Jordan 1, which all became hit lifestyle sneakers on the streets. Nike’s popularity continued to snowball in the 1990s with even more now-iconic models including the Nike Air Max 90, Nike Air Max 95, and Air Jordan 11. Today, Nike is regarded by many as the most stylish and innovative athletic footwear brand in the industry, constantly pushing boundaries in fashion and performance.', 120, 3, 35.01, 1, 'Package Dimensions<>13.78 x 9.13 x 4.65 inches; 2.5 Pounds\r\nModel<>DA0694-001', 'm', 'shoes', 'basketball', 'Nike'),
+(8,'LeBron 19 Low','LeBron plays less in the paint and more at the point, so it makes sense that he wants to feel a little quicker. His 19th signature gives you the feeling of containment but with a lower, lighter design thats ideal for fast, strong players like LeBron who stretch the court.',160,14,0,0,'Made<>','m','shoes','basketball','Nike'),
+(9,'LeBron 19','LeBron thrives when stakes are high and the pressure’s on. The LeBron 19 harnesses that energy with a locked-in fit and an updated cushioning system. The snug inner sleeve is pulled together by a sculpted overlay that the laces feed through to help prevent the foot from moving inside the shoe. Cushioned pods around the collar and tongue add comfort while reducing weight, giving players the secure feel and confidence to go all out when the game is on the line.',200,10,0,0,'Made<>','m','shoes','basketball','Nike'),
+(10,'LeBron Witness 6','For this iteration of the LeBron Witness, we swapped out Zoom Air for visible Max Air cushioning—LeBrons favorite—to help dissipate impact forces and provide a responsive sensation. The lightweight, reinforced mesh upper keeps you contained all around, from the webbing that harnesses your forefoot to the external molded pieces that lock in your heel.',100,9,0,0,'Made<>','m','shoes','basketball','Nike'),
+(11,'Kyrie Low 5','Kyrie twists defenders into knots using his footwork and ball handling, creating the space he needs to make the play. Designed for his quick, crafty game, the Kyrie Low 5 enables players who utilize their speed and multidirectional ability to stay in control while taking advantage of the separation they create.',110,12,0,0,'Made<>','m','shoes','basketball','Nike'),
+(12,'Nike Metcon 7 AMP','The Nike Metcon 7 AMP is the gold standard for weight training—even tougher and more stable than previous versions. Weve also added React foam that ups the comfort to keep you ready for high-intensity cardio. Plus, a tab locks down your laces so you can forget about them coming untied when youre focused on your next PR.',140,14,0,0,'Made<>','m','shoes','training','Nike'),
+(13,'Nike Vapor Edge Elite 360 Flyknit','Engineered for speed, the Nike Vapor Edge Elite 360 Flyknit offers a new degree of agility. Its internal full-foot plate creates flexible support, while wide stud placements let you cut like never before. Its stretchy Flyknit construction combines with a NikeSkin overlay to create a sock-like fit with a fast feel.',200,10,0,0,'Made<>','m','shoes','football','Nike');
 -- --------------------------------------------------------
 
 --
@@ -237,19 +242,35 @@ CREATE TABLE `product_items` (
 -- Dumping data for table `product_items`
 --
 
-INSERT INTO `product_items` (`item_id`, `product_id`, `name`, `quantity`, `extra_name`, `extra_options`) VALUES
-(3, 1, 'Cactus Jack', 5, 'Size', '38\r\n38.5\r\n40\r\n41\r\n42.5\r\n43\r\n45'),
-(4, 1, 'Travis Scott Edition', 1, 'Size', '40\r\n41\r\n42.5\r\n43\r\n45'),
-(6, 2, 'Pink Orange', 5, '', ''),
-(7, 2, 'White', 2, '', ''),
-(8, 2, 'Black', 10, '', ''),
-(9, 5, 'Aqua', 2, '', ''),
-(10, 5, 'Beige', 5, '', ''),
-(11, 5, 'Black, Yellow Stripe', 4, '', ''),
-(12, 5, 'Black, Red Srtipe', 2, '', ''),
-(13, 5, 'Black And White', 1, '', ''),
-(14, 5, 'Pink', 6, '', ''),
-(15, 5, 'White', 3, '', '');
+INSERT INTO `product_items` VALUES
+(6,2,'Pink Orange',5,'',''),
+(7,2,'White',2,'',''),
+(8,2,'Black',10,'',''),
+(9,5,'Aqua',0,'',''),
+(10,5,'Beige',3,'',''),
+(11,5,'Black, Yellow Stripe',4,'',''),
+(12,5,'Black, Red Srtipe',2,'',''),
+(13,5,'Black And White',0,'',''),
+(14,5,'Pink',5,'',''),
+(15,5,'White',2,'',''),
+(20,8,'Black Red White',6,'Size','42\r\n42.5\r\n43\r\n44'),
+(21,9,'Siren Red',20,'Size','42\r\n43\r\n44\r\n44.5\r\n45'),
+(22,9,'Blue Lime',5,'Size','39\r\n40\r\n42\r\n44'),
+(23,9,'White Black Gold',3,'Size','43\r\n44\r\n44.5\r\n45'),
+(24,9,'Black Violet White',4,'Size','44\r\n45'),
+(25,9,'Black Red',15,'Size','42\r\n43\r\n44'),
+(26,9,'Orange Red Blue',2,'Size','42\r\n43\r\n44\r\n44.5'),
+(27,10,'Black Sequoia',20,'Size','39\r\n40\r\n41\r\n42'),
+(28,10,'Platinum White',7,'Size','40\r\n42\r\n45'),
+(29,10,'White Violet',5,'Size','42\r\n43\r\n44\r\n45'),
+(30,10,'Black Obsidian',3,'Size','44\r\n44.5\r\n45\r\n46'),
+(31,10,'Black Royal',5,'Size','39\r\n40\r\n41\r\n44'),
+(32,11,'Black White',8,'Size','40\r\n41\r\n42\r\n44'),
+(33,11,'White Ash',4,'Size','40\r\n44\r\n45\r\n46'),
+(34,12,'Marine Blue',7,'Size','40\r\n41\r\n43'),
+(35,12,'Spruce White',4,'Size','42\r\n43\r\n44'),
+(36,13,'Black White',6,'Size','38\r\n39\r\n40\r\n41'),
+(37,13,'Black Grey',10,'Size','40\r\n41\r\n42\r\n43\r\n44\r\n45\r\n46');
 
 -- --------------------------------------------------------
 
