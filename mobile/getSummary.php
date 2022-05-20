@@ -4,7 +4,9 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 include '../includes/config.php';
+include_once "../includes/utils.php";
 
+$currency = $_GET["currency"] ?? "US, USD";
 $userID = $_GET['userID'] ?? 0;
 
 $currentCartID = -1;
@@ -23,7 +25,12 @@ $sql = "SELECT cart_items.quantity,cart_items.prod_item_id,products.name AS prod
 if($result = mysqli_query($db, $sql)){
   $emparray = array();
   while($row = mysqli_fetch_assoc($result)){
-      $emparray[] = $row;
+    if($currency != "LB, LBP"){
+    } else {
+        $row['price'] = $row['price'] * GetConversionRate('LBP');
+        $row['discount'] = $row['discount'] * GetConversionRate('LBP');
+    }
+    $emparray[] = $row;
   }
   echo(json_encode($emparray));
   mysqli_free_result($result);
