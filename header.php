@@ -266,21 +266,24 @@ if(is_session_started() === FALSE){
             </div>
 
             <p class="coun-curr">Delivery Country & Currency</p>
-            <div class="btn-group" id="currencyDropdownMenu2">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="imgs/flags/us.png">
-                    US, USD
-                </button>
+            <div class="currencyDropdownMobileDiv">
+                <div class="btn-group" id="currencyDropdownMenu2">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="imgs/flags/us.png">
+                        US, USD
+                    </button>
 
-                <ul class="dropdown-menu" data-toggle="modal" data-target="#exampleModalLong">
-                    <li>
-                        <a href="#" title="Select USD Currency"><img src="imgs/flags/us.png">US, USD</a>
-                    </li>
-                    <li>
-                        <a href="#" title="Select LBP Currency"><img src="imgs/flags/lb.png">LB, LBP</a>
-                    </li>
-                </ul>
+                    <ul class="dropdown-menu" data-toggle="modal" data-target="#exampleModalLong">
+                        <li>
+                            <a href="#" title="Select USD Currency"><img src="imgs/flags/us.png">US, USD</a>
+                        </li>
+                        <li>
+                            <a href="#" title="Select LBP Currency"><img src="imgs/flags/lb.png">LB, LBP</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+            
 
             
         </div>

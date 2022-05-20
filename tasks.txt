@@ -1,21 +1,15 @@
 Website Tasks:
 
-- when click on shop now in home page go to women products instead of all products, same for show more btn
-- popular products images not the same height 
-- make new drops slideshow slide even on hover
+- popular products images not the same height (not big problem if easy fix it)
 - slideshow images not the same height
-- make links for social media in footer
 - brand and sale in navbar mobile do nothing
-- make country and currency dropdown center in mobile navbar
-- remove by sale in products filter because we have a sale page
+
 - we will test by name filter when we have a lot of products
-- when you are in men basketball, remove all filters btn will take you to all products page. I don't know if this is right.
-- change addidas to adidas in brands
-- when adding product to cart, make popup instead of alert(optional)
-- don't let him to go to another steps in checkout when the information are not filled.
+- change addidas to adidas in brands(will do on main site)
+
 - add return policy in checkout
-- when managing password and enter wrong password, make popup instead of alert(optional)
-- in order summary page, currency always in LBP
+
+- in order summary page, currency always in LBP(it is the currency the order was made in so it correct)
 
 Mobile Tasks:
 

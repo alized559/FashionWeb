@@ -44,11 +44,11 @@ if(isset($sticky) && $sticky){
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="footer-head">Social Media</h6>
             <hr>
-            <a href="#" class="text-reset">Facebook <i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.facebook.com" target='_blank' rel='noopener noreferrer' class="text-reset">Facebook <i class="fab fa-facebook-f"></i></a>
             <br>
-            <a href="#" class="text-reset">Instragram <i class="fab fa-instagram"></i></a> 
+            <a href="https://www.instagram.com" target='_blank' rel='noopener noreferrer' class="text-reset">Instragram <i class="fab fa-instagram"></i></a> 
             <br>
-            <a href="#" class="text-reset">Twitter <i class="fab fa-twitter"></i></a>
+            <a href="https://www.twitter.com" target='_blank' rel='noopener noreferrer' class="text-reset">Twitter <i class="fab fa-twitter"></i></a>
         </div>
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <h6 class="footer-head">Contact</h6>

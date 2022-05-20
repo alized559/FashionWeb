@@ -192,7 +192,6 @@ body {
 .animated-info {
     display: inline-block;
     vertical-align: top;
-    margin-top: 5px;
     min-width: 260px;
     position: relative;
 }

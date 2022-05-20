@@ -27,7 +27,7 @@ include "includes/config.php";
                     <div class="centeredAlone">
                         <span class="mr-2">All In One Place</span>
                         <div class="custom-btn-group mt-4">
-                            <a href="products.php" class="btn mr-lg-2 custom-btn"><i class='uil uil-file-alt'></i>Shop Now</a>
+                            <a href="products.php?gender=f" class="btn mr-lg-2 custom-btn"><i class='uil uil-file-alt'></i>Shop Now</a>
                         </div>
                     </div>
                 </h1>
@@ -36,7 +36,7 @@ include "includes/config.php";
         <h3 class="landingPopularTitle">Popular Right Now</h3>
         <hr class="titlehr">
         <div class="showMoreDiv">
-            <a href="products.php">Show More</a>
+            <a href="products.php?gender=f">Show More</a>
         </div>
         <div class="container">
             <div class="row">

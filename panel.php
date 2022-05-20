@@ -92,11 +92,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion | User Panel</title>
 
+    <link href="css/popup.css" rel="stylesheet" media="screen">
     <link href="css/profile.css" rel="stylesheet" media="screen">
 
     <?php include('header.php') ?>
 </head>
 <body>
+
+    <div id="snackbar">Your password was incorrect!</div>
+
     <div class="image-container">
         <img class='backImg' src='imgs/profile-back.png' alt='Background Image'>
         <img class='productImg' src='<?php echo $photo ?>' alt='Product Image'>
@@ -369,7 +373,10 @@
 
     var currentDataError = "<?php echo $error ?>";
     if(currentDataError != "none"){
-        alert(currentDataError);
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        x.innerHTML = "Your password was incorrect!";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     }
 
     $(document).ready(function() {    

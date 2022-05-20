@@ -66,6 +66,7 @@ if($totalCartItems == 0){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion | Checkout</title>
     <link rel="icon" href="imgs/favicon.ico" type="image/x-icon">
+    <link href="css/popup.css" rel="stylesheet" media="screen">
     <link href="css/checkout.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -75,6 +76,7 @@ if($totalCartItems == 0){
 
 </head>
 <body>
+    <div id="snackbar">Please fill all the info!</div>
     <div class="navbar">
         <div class="help">
             <p>Need Help? <a href="help.php"><u>Chat with us now</u></a></p>
@@ -300,22 +302,33 @@ if($totalCartItems == 0){
     }
 
     function SendInfo(){
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "manageAddress.php?fullname=" + $('#fullname').val() + "&address=" + $('#address').val() + "&country=" + $('#countryname').val() + "&code=" + $('#countryCode').val() + "&number=" + $('#number').val(), true);
-        xmlhttp.addEventListener('error', handleAddressEvent);
-        xmlhttp.send();
-        xmlhttp.onreadystatechange=function()
-        {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+
+        var fullname = $('#fullname').val();
+        var address = $('#address').val();
+        var number = $('#number').val();
+
+        if (fullname != "" && address != "" && number != "") {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "manageAddress.php?fullname=" + $('#fullname').val() + "&address=" + $('#address').val() + "&country=" + $('#countryname').val() + "&code=" + $('#countryCode').val() + "&number=" + $('#number').val(), true);
+            xmlhttp.addEventListener('error', handleAddressEvent);
+            xmlhttp.send();
+            xmlhttp.onreadystatechange=function()
             {
-                var data = JSON.parse(xmlhttp.responseText);
-                if(data.state == "SUCCESS"){
-                    showSlides(slideIndex = 2);
-                    console.log("Updated Address Details Succesfully");
-                }else {
-                    console.log("Failed To Update Address Details");
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    var data = JSON.parse(xmlhttp.responseText);
+                    if(data.state == "SUCCESS"){
+                        showSlides(slideIndex = 2);
+                        console.log("Updated Address Details Succesfully");
+                    }else {
+                        console.log("Failed To Update Address Details");
+                    }
                 }
             }
+        }else {
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
         }
     }
 

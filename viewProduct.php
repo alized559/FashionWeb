@@ -107,10 +107,14 @@
     <title>Fashion | <?= $name?></title>
 
     <?php include('header.php') ?>
+    <link href="css/popup.css" rel="stylesheet" media="screen">
     <link href="css/viewProduct.css" rel="stylesheet" media="screen">
     <link href="css/heartAnimation.css" rel="stylesheet" media="screen">
 </head>
 <body>
+
+    <div id="snackbar">Item added to cart successfuly!</div>
+
     <div class="image-container">
         <?php 
         echo "<img class='backImg' src='$bannerfile' alt='Background Image'>";
@@ -377,7 +381,7 @@
             <?php
                 if(isset($_SESSION["userID"])){
                     if($firstItemQuantity > 0){
-                        echo "<button id='add' class='btn' onclick='AddItemToCart()' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</button>";
+                        echo "<a id='add' href='#popup1' class='btn' onclick='AddItemToCart()' style='height: 40px; margin-top: 30px; background-color: #ffd814; border-radius: 10px; font-weight: bold; width: 200px;'>Add To Cart</a>";
                     }else {
                         echo "<button id='noadd' class='btn' style='pointer-events: none; height: 40px; margin-top: 30px; background-color: #E5E5E5; border-radius: 10px; font-weight: bold; width: 200px;'>Out Of Stock</button>";
                     }
@@ -531,9 +535,15 @@
                 {
                     var data = JSON.parse(xmlhttp.responseText);
                     if(data.state == "SUCCESS"){
-                        alert("Added Item To Cart");
+                        var x = document.getElementById("snackbar");
+                        x.className = "show";
+                        x.innerHTML = "Item added to cart successfully!";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
                     }else {
-                        alert("Failed Adding To Cart, Please Contact A System Administrator");
+                        var x = document.getElementById("snackbar");
+                        x.className = "show";
+                        x.innerHTML = "Failed adding item to cart!";
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
                     }
                 }
             }
