@@ -119,7 +119,7 @@ include "includes/config.php";
                                         echo "<div class='carousel-item'>";
                                     }
                                     echo "<a href='viewProduct.php?id=$id' class='text-reset' style='text-decoration: none;'>";
-                                    echo "<img class='d-block w-100' src='$file' alt='New Drops Slide'>";
+                                    echo "<img class='d-block w-100' id='carouselImg' src='$file' alt='New Drops Slide' width='100%' height='600px' style='object-fit: cover;'>";
                                     echo "<div class='newDropItemTitle'><hr><h1>$name<h1>";
                                     echo "</div></a></div>";
 
