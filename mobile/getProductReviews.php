@@ -11,9 +11,9 @@ $limit = $_GET["limit"] ?? -1;
 $sql = "";
 
 if($limit == -1){
-    $sql = "SELECT * FROM reviews WHERE `product_id`='$id'";
+    $sql = "SELECT rev_id,reviews.user_id,product_id,text,rate,username FROM reviews,users WHERE `product_id`='$id' AND reviews.user_id=users.user_id";
 }else {
-    $sql = "SELECT * FROM reviews WHERE `product_id`='$id' LIMIT $limit";
+    $sql = "SELECT rev_id,reviews.user_id,product_id,text,rate,username FROM reviews,users WHERE `product_id`='$id' AND reviews.user_id=users.user_id LIMIT $limit";
 }
 $emparray = array();
 if ($result = mysqli_query($db, $sql)) {

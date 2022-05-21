@@ -13,7 +13,7 @@ if(!file_exists($file)){//Deletes the image if it exists
     if(!file_exists($file)){//Deletes the image if it exists
         $file = "../images/products/$id/banner.gif";
         if(!file_exists($file)){//Deletes the image if it exists
-            $file = "../images/products/defaultbanner.png";
+            $file = "../images/products/defaultbanner.jpg";
         }
     }
 }

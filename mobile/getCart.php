@@ -24,6 +24,17 @@ $sql = "SELECT cart_items.item_id,cart_items.quantity,cart_items.prod_item_id,pr
 if($result = mysqli_query($db, $sql)){
     $emparray = array();
     while($row = mysqli_fetch_assoc($result)){
+        $cart_item_id = $row['item_id'];
+        $cart_item_quantity = $row['quantity'];
+        $product_total_quantity = $row['total_quantity'];
+
+        if($cart_item_quantity > $product_total_quantity){
+            $cart_item_quantity = $product_total_quantity;
+            $sql2 = "UPDATE cart_items SET quantity='$product_total_quantity' WHERE item_id='$cart_item_id'";
+            $result2 = mysqli_query($db, $sql2);
+        }
+        $row['quantity'] = $cart_item_quantity;
+        
         if($currency != "LB, LBP"){
             if($row['discount'] > 0){
                 $row['price'] = $row['price'] - $row['discount'];
