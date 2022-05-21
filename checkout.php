@@ -160,6 +160,10 @@ if($totalCartItems == 0){
                                 Production & Shipping may take up to 10 − 14 days. Designers do their best to craft your items earlier.
                                 Every item is handmade and customized to fit your every need. 100% refund and exchange guaranteed
                                 within 14 days of receiving item. For more information, please read our policy.
+                                <br><br>
+                                We are confident that you will love your designer-made apparel. Just in case, you have 14 days for return.
+                                Just send us an email with your order number (#) to info@fashion.com”. Include the reason why
+                                your outfit did not work and we will take care of the rest.
                             </p>
 
                             <div class="slide-btns">
