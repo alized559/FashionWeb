@@ -1,4 +1,4 @@
-Note: updated DATABASE.sql so re add that
+Note: updated DATABASE.sql so re add that, also updated on public website
 
 Website Tasks:
 
@@ -10,11 +10,4 @@ Website Tasks:
 Mobile Tasks:
 
 - add logo
-- in products page, when press back app exit. It must back to home page
 - put loading in single product page. First because it take time to load product items, and second because if some items still loading and you press on an item the app crashs
-- Fix rating width on view products
-- Fix Review add with no login
-- Add back to panel
-- New Drops not getting default image
-- Add margin for product main image
-- Check padding of view product on mobile
