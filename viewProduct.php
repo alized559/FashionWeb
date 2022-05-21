@@ -613,6 +613,9 @@
         $('#leaveAReview *').prop('disabled', true);
         var xmlhttp = new XMLHttpRequest();
         var text = currentReview;
+        if(currentReview == ""){
+            currentReview = text = "Posted a review.";
+        }
         currentReview = currentReview.replaceAll("\n","<lb>");
         xmlhttp.open("GET", "updateReview.php?id=" + id + "&type=add&text=" + currentReview + "&rate=" + rate, true);
         xmlhttp.addEventListener('error', handleReviewEvent);

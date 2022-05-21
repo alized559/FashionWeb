@@ -9,6 +9,9 @@
         if($type == "add"){
             $text = $_GET["text"];
             $rate = $_GET["rate"];
+            if($text == ""){
+                $text = "Posted a review.";
+            }
             $sql = "INSERT INTO reviews(`user_id`,product_id,text,rate) VALUE ('$userID','$prod_id','$text','$rate')";
             $result = mysqli_query($db, $sql);
             if($result){

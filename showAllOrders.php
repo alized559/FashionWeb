@@ -106,7 +106,7 @@ if(!file_exists($banner)){//Deletes the image if it exists
 
                             $stateClass = $state == 'Pending' ? 'status-pending' : 'status';
 
-                            echo "<a class='text-reset' href='viewOrder.php?id=$order_id' style='text-decoration: none;'>";
+                            echo "<a class='text-reset' href='viewOrder.php?id=$order_id' style='font-family: Inter-Medium; text-decoration: none;'>";
                             echo "<h3>Order № $order_id</h3>";
                             echo "<p>$country, $address";
                             echo "<br>(+$countryCode) $phoneNumber";

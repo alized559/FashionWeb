@@ -3,13 +3,14 @@
     include './includes/config.php';
 
     $user_id = $_GET['id'];
-
     $sql = "SELECT * FROM users WHERE user_id = '$user_id'";
     $result = mysqli_query($db, $sql);
 
-    $username;
-    $email;
-    $type;
+    $new_user_id = $user_id;
+
+    $username = "";
+    $email = "";
+    $type = "";
 
     if ($result) {
         if (mysqli_num_rows($result) == 1) {
@@ -64,7 +65,7 @@
     <br>
     <br>
     <br>
-    <form method="POST" action="editUser.php?id=<?php echo $user_id?>" enctype="multipart/form-data">
+    <form method="POST" action="editUser.php?id=<?php echo $new_user_id?>" enctype="multipart/form-data">
         <?php if (isset($_GET['error'])) {
             echo "<div class='alert alert-danger' role='alert'>";
             echo "<i class='fa fa-exclamation-circle'></i>";

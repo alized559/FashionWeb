@@ -340,6 +340,11 @@
                                         echo "</a></div>";
                                     ?>
                                 </div>
+                                <div class="extra-link mt-2">
+                                    <a href="products.php">
+                                        Remove All Filters
+                                    </a>
+                                </div>
 
                         </div>
                     </div>

@@ -38,57 +38,54 @@ include "includes/config.php";
         <div class="showMoreDiv">
             <a href="products.php?gender=f">Show More</a>
         </div>
-        <div class="container">
-            <div class="row">
-                <?php
-                    $sql = "SELECT prod_id,name,price,discount FROM products ORDER BY likes DESC LIMIT 4";//Get The Top 4 Recipes
-                    $result = mysqli_query($db, $sql);
-                    if($result){
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                $id = $row["prod_id"];
-                                $name = $row["name"];
-                                $price = $row["price"];
-                                $discount = $row["discount"];
-                    
-                                $file = "images/products/" . $id . "/logo.jpg";
-                    
+        <div class="products-flex">
+            <?php
+                $sql = "SELECT prod_id,name,price,discount FROM products ORDER BY likes DESC LIMIT 4";//Get The Top 4 Recipes
+                $result = mysqli_query($db, $sql);
+                if($result){
+                    if(mysqli_num_rows($result) > 0){
+                        while($row = mysqli_fetch_assoc($result)){
+                            $id = $row["prod_id"];
+                            $name = $row["name"];
+                            $price = $row["price"];
+                            $discount = $row["discount"];
+                
+                            $file = "images/products/" . $id . "/logo.jpg";
+                
+                            if(!file_exists($file)){//Deletes the image if it exists
+                                $file = "images/products/" . $id . "/logo.png";
                                 if(!file_exists($file)){//Deletes the image if it exists
-                                    $file = "images/products/" . $id . "/logo.png";
+                                    $file = "images/products/" . $id . "/logo.gif";
                                     if(!file_exists($file)){//Deletes the image if it exists
-                                        $file = "images/products/" . $id . "/logo.gif";
-                                        if(!file_exists($file)){//Deletes the image if it exists
-                                            $file = "images/products/default.png";
-                                        }
+                                        $file = "images/products/default.png";
                                     }
                                 }
-
-                                echo "<div class='col-6 col-lg-3 col-xl-3 col-md-4 item-entry mb-4'>";
-                                echo "<a href='viewProduct.php?id=$id' class='text-reset' style='text-decoration: none;'>";
-                                echo "<div class='landingPopularContainer'>";
-                                echo "<div class='landingPopularItemImage'>";
-                                echo "<img src='$file' alt='Popular Image'>";
-                                echo "</div>";
-                                echo "<div class='landingPopularItemTitle'>";
-                                echo "<h1 class='title'>$name</h1>";
-                                if($discount > 0){
-                                    $newprice = $price - $discount;
-                                    echo "<p class='price sale'><del>$$price</del> <span class='price2'>$$newprice</span></p>";
-                                }else {
-                                    echo "<p class='price'>$$price</p>";
-                                }
-                                echo "</div>";
-                                echo "</div>";
-                                echo "</a>";
-                                echo "</div>";
                             }
-                        }
-                    }else {
 
+                            echo "<div class='product-item'>";
+                            echo "<a href='viewProduct.php?id=$id' class='text-reset' style='text-decoration: none;'>";
+                            echo "<div class='product-img'>";
+                            echo "<img src='$file' alt='Popular Image'>";
+                            echo "</div>";
+                            echo "<div class='product-title'>";
+                            echo "<h1 class='title'>$name</h1>";
+                            if($discount > 0){
+                                $newprice = $price - $discount;
+                                echo "<p class='price sale'><del>$$price</del> <span class='price2'>$$newprice</span></p>";
+                            }else {
+                                echo "<p class='price'>$$price</p>";
+                            }
+                            echo "</div>";
+                            echo "</a>";
+                            echo "</div>";
+                        }
                     }
-                ?>
-            </div>
+                }else {
+
+                }
+            ?>
         </div>
+        
         <div class="container">
             <h3 class="landingPopularSubTitle">New Drops</h3>
             <hr class="titlehr">

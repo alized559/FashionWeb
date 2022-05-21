@@ -276,6 +276,20 @@ footer {
     margin-top: 20px;
 }
 
+.account .logout {
+    width: 150px;
+    background-color: red;
+    display: block;
+    margin: 0 auto;
+    color: white;
+}
+
+.account .logout:hover {
+    background-color: rgb(248, 38, 38);
+    border-color: rgb(119, 119, 119);
+    color: white;
+}
+
 .account .trans {
     width: 150px;
     border: 1px solid black;

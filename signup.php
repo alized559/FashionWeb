@@ -37,19 +37,19 @@ if(isset($_SESSION['username'])) {
             <br>
             <form method="POST" action="authenticate.php">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="fullname" aria-describedby="fullnameHelp" placeholder="Enter fullname" required>
+                    <input type="text" class="form-control" minlength="6" name="fullname" aria-describedby="fullnameHelp" placeholder="Enter fullname" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="username" aria-describedby="usernameHelp" placeholder="Enter Username" required>
+                    <input type="text" class="form-control" minlength="6" name="username" aria-describedby="usernameHelp" placeholder="Enter Username" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                    <input type="email" class="form-control" minlength="6" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" class="form-control" name="password"  aria-describedby="passwordHelp" placeholder="Enter password" required>
+                    <input type="password" id="password" minlength="6" class="form-control" name="password"  aria-describedby="passwordHelp" placeholder="Enter password" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="confirm_password" class="form-control" name="confirm_password"  aria-describedby="confirmPassHelp" placeholder="Confirm password" required>
+                    <input type="password" id="confirm_password" minlength="6" class="form-control" name="confirm_password"  aria-describedby="confirmPassHelp" placeholder="Confirm password" required>
                 </div>
                 <p id="message">&nbsp;</p>
                 <p>Already a member? <a href="login.php" style="text-decoration: none;">Login</a></p>

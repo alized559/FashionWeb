@@ -86,7 +86,7 @@
                                 if(mysqli_num_rows($result2) == 1) {
                                     while($row2 = mysqli_fetch_assoc($result2)){
                                         $prod_name = $row2['name'];
-                                        echo "<a href='viewProduct.php?id=$prod_id' class='text-reset' style='text-decoration:none;'>";
+                                        echo "<a href='viewProduct.php?id=$prod_id' class='text-reset' style='font-family: Inter-Medium; text-decoration:none;'>";
                                         echo "<div class='review-box'>";
                                         echo "<div><img src='$file' alt='User Image'></div>";
                                         echo "<div class='vertical-line'></div>";

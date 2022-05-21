@@ -234,8 +234,13 @@ if(is_session_started() === FALSE){
                     <span class="left-arrow">&rsaquo;</span>
                 </div>
             </a>
-            <a onclick="closeNav()">Brands</a>
-            <a href="#" class="sale" onclick="closeNav()">Sale</a>
+            <a onclick="openBrandsChildNav()">
+                <div class="nav-item">
+                    <span>Brands</span>
+                    <span class="left-arrow">&rsaquo;</span>
+                </div>
+            </a>
+            <a href="products.php?gender=f" class="sale" onclick="closeNav()">Sale</a>
             
             <div class="account">
                 <?php 
@@ -254,8 +259,10 @@ if(is_session_started() === FALSE){
                                 }
                             }
                         }
-                        echo "<p style='margin-left: 20px; text-align: start'>My Account</p>";
-                        echo "<a href='panel.php' style='border-bottom: 0'><img src='$file' width='50px' height='50px'></a>";
+                        echo "<p style='margin-left: 20px; text-align: center'>My Account</p>";
+                        //echo "<a href='panel.php' style='border-bottom: 0; text-align:center;'><img src='$file' width='50px' height='50px' style='object-fit:cover'></a>";
+                        echo "<a href='panel.php' style='border-bottom: 0'><button class='btn black'>Panel</button></a>";
+                        echo "<a href='logout.php' style='border-bottom: 0; padding-top: 0'><button class='btn logout'>Logout</button></a>";
                     } else {
                         echo "<p>My Account</p>";
                         echo "<a href='login.php' style='border-bottom: 0'><button class='btn black'>Login</button></a>";
@@ -347,6 +354,45 @@ if(is_session_started() === FALSE){
             <a href="products.php?gender=m&category=accessories&type=all" class="category-item" onclick="closeNav(); closeMenChildNav()">All Accessories</a>
         </div>
         
+        <div id="mySidenav-brands-child" class="sidenav">
+            <a href="#" class="closebtn" onclick="closeBrandsChildNav()">&lsaquo;</a>
+            <?php
+            include 'includes/config.php';
+            
+            $sql = "SELECT name,link FROM brands WHERE local='0' AND display_navbar='1'";
+            $result = mysqli_query($db, $sql);
+
+            if($result){
+                if(mysqli_num_rows($result) > 0){
+                    echo "<p class='title1'>Public Brands</p>";
+                    while($row = mysqli_fetch_assoc($result)){
+                        $headername = $row["name"];
+                        $headerlink = $row["link"];
+                        echo "<a class='category-item' href='$headerlink' target='_blank' rel='noopener noreferrer'>$headername</a>";
+                    }
+                }else {
+                //No Public Brands To Display
+                }
+            }
+
+            $sql = "SELECT name,link FROM brands WHERE local='1' AND display_navbar='1'";
+            $result = mysqli_query($db, $sql);
+
+            if($result){
+                if(mysqli_num_rows($result) > 0){
+                    echo "<p class='title1'>Local Brands</p>";
+                    while($row = mysqli_fetch_assoc($result)){
+                        $headername = $row["name"];
+                        $headerlink = $row["link"];
+                        echo "<a class='category-item' href='$headerlink' target='_blank' rel='noopener noreferrer'>$headername</a>";
+                    }
+                }else {
+                //No Local Brands To Display
+                }
+            }
+        ?>	
+        </div>
+
         <div class="top-navbar">
             <span class="open-btn" onclick="openNav()">&#9776;</span>
 
@@ -355,7 +401,6 @@ if(is_session_started() === FALSE){
             </div>
 
             <div class="cart-fav">
-            <!-- <a href="#"><i class="fa fa-shopping-bag"></i></a> -->
             <a href="cart.php" class="text-reset" style="text-decoration: none;">
             <?php 
                 if(isset($_SESSION['userID'])){
@@ -459,6 +504,14 @@ function openMenChildNav() {
 
 function closeMenChildNav() {
     document.getElementById("mySidenav-men-child").style.width = "";
+}
+
+function openBrandsChildNav() {
+    document.getElementById("mySidenav-brands-child").style.width = "250px";
+}
+
+function closeBrandsChildNav() {
+    document.getElementById("mySidenav-brands-child").style.width = "";
 }
 
 </script>

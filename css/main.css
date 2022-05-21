@@ -74,44 +74,6 @@ body {
     width: 50%;
 }
 
-.landingPopularContainer {
-    width: fit-content;
-}
-
-.landingPopularItemImage {
-    min-height: 200px;
-    min-width: 200px;
-}
-
-.landingPopularItemImage img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 10px;
-}
-
-.landingPopularItemTitle {
-    width: 100%;
-}
-
-.landingPopularItemTitle .title {
-    font-size: 20px;
-    color: gray;
-    margin: 0;
-}
-
-.landingPopularItemTitle .sale {
-    color: #ffd814;
-}
-
-.landingPopularItemTitle .sale del {
-    color: black;
-}
-
-.landingPopularItemTitle .price {
-    font-weight: bold;
-    margin: 0;
-}
-
 .showMoreDiv {
     text-align: end;
 }
@@ -182,13 +144,6 @@ body {
     position: relative;
 }
 
-@media only screen and (max-width: 850px) {
-    .animated {
-        position: relative;
-        text-align: center;
-    }
-}
-
 .animated-info {
     display: inline-block;
     vertical-align: top;
@@ -201,7 +156,6 @@ body {
 }
 
 .animated-item {
-    font-size: 38px;
     line-height: inherit;
     display: block;
     opacity: 0;
@@ -219,6 +173,38 @@ body {
 
 .animated-item:nth-child(3n+3) {
     animation-delay: 4s;
+}
+
+@media only screen and (max-width: 850px) {
+    .animated {
+        position: relative;
+        text-align: center;
+        font-size: 1.5em;
+    }
+    .animated-item {
+        font-size: 1.2em;
+    }
+    .newDropItemTitle h1 {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 590px) {
+    .animated-item {
+        font-size: 1.1em;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .animated {
+        position: relative;
+        text-align: center;
+        font-size: 1em;
+    }
+    .animated-item {
+        font-size: 1em;
+    }
 }
 
 @keyframes BottomTotop {
@@ -247,4 +233,59 @@ body {
     100% {
         opacity: 0;
     }
+}
+
+.products-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.products-flex .product-item {
+    width: fit-content;
+}
+
+.products-flex .product-item .product-img {
+    max-height: 250px;
+    max-width: 250px;
+    min-height: 250px;
+    min-width: 250px;
+}
+
+.products-flex .product-item .product-img img {
+    max-width: 100%;
+    min-height: 250px;
+    max-height: 250px;
+    background-color: #F3F3F3;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-title {
+    max-width: 250px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.product-title .title {
+    font-size: 18px;
+    color: gray;
+    margin: 0;
+}
+
+.product-title .sale {
+    color: #ffd814;
+}
+
+.product-title .sale del {
+    color: black;
+}
+
+.product-title .price {
+    font-weight: bold;
+    margin: 0;
 }

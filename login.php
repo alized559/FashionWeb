@@ -38,10 +38,10 @@ if(isset($_SESSION['username'])) {
             <br>
             <form method="POST" action="authenticate.php">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email or username" required>
+                    <input type="text" class="form-control" name="username" minlength="6" aria-describedby="emailHelp" placeholder="Enter email or username" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" aria-describedby="passwordHelp" placeholder="Enter password" required>
+                    <input type="password" class="form-control" name="password" minlength="6" aria-describedby="passwordHelp" placeholder="Enter password" required>
                 </div>
                 <p>Not a member yet? <a href="signup.php" style="text-decoration: none;">Signup</a></p>
                 <button type="submit" class="btn btn-primary" name="login">Login</button>

@@ -1,19 +1,20 @@
+Note: updated DATABASE.sql so re add that
+
 Website Tasks:
 
-- popular products images not the same height (not big problem if easy fix it)
 - slideshow images not the same height
-- brand and sale in navbar mobile do nothing
-
-- we will test by name filter when we have a lot of products
-- change addidas to adidas in brands(will do on main site)
-
 - add return policy in checkout
 
-- in order summary page, currency always in LBP(it is the currency the order was made in so it correct)
+
 
 Mobile Tasks:
 
 - add logo
 - in products page, when press back app exit. It must back to home page
 - put loading in single product page. First because it take time to load product items, and second because if some items still loading and you press on an item the app crashs
-- back to panel btn in order summary not working
+- Fix rating width on view products
+- Fix Review add with no login
+- Add back to panel
+- New Drops not getting default image
+- Add margin for product main image
+- Check padding of view product on mobile

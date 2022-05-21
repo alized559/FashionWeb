@@ -109,7 +109,7 @@ tbody>tr>:nth-child(2) {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 580px;
+    max-width: 580px;
     background-color: #F4F4F4;
     padding: 0 15px 0 15px;
     border-radius: 8px;
@@ -182,17 +182,24 @@ tbody>tr>:nth-child(2) {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: start;
     gap: 10px;
     margin-top: 20px;
 }
 
 .favorite-products img {
     cursor: pointer;
+    object-fit: cover;
+    background-color: #F3F3F3;
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.favorite-products img,
 .previous-orders a {
     width: 250px;
+    height: 250px;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -273,4 +280,13 @@ form {
 
 .rating-enabled {
     color: #ffd814;
+}
+
+@media only screen and (max-width: 965px) {
+    .previous-orders {
+        justify-content: center;
+    }
+    .favorite-products {
+        justify-content: center;
+    }
 }
