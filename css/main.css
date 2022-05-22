@@ -257,6 +257,7 @@ body {
 
 .products-flex .product-item .product-img img {
     max-width: 100%;
+    min-width: 100%;
     min-height: 250px;
     max-height: 250px;
     background-color: #F3F3F3;
