@@ -45,7 +45,7 @@
         $prodsql = "SELECT prod_id,name,price,discount,brand FROM products ";
         $isFirstItem = true;
         if($gender != "none"){
-            AddToSQL("department='$gender'");
+            AddToSQL("(department='$gender' OR department='u')");
         }
         if($category != "none"){
             AddToSQL("category='$category'");
