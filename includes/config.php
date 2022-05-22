@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect("localhost", "ftpuser", "ftpuser123", "fashion");
+$db = mysqli_connect("localhost", "root", "", "fashion");
 
 // Check connection
 if (mysqli_connect_errno()) {
